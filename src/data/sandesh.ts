@@ -1,59 +1,77 @@
 export interface SandeshEntry {
   id: string;
   title: string;
+  hindiTitle?: string;
   date: string;
   author: string;
-  category: 'Newsletter' | 'Announcement' | 'Report' | 'Special Edition';
+  category: 'Annual Report' | 'Community' | 'Health' | 'Education' | 'Special Edition' | 'Welfare';
   excerpt: string;
+  readTime: string;
 }
 
 export const sandeshEntries: SandeshEntry[] = [
   {
     id: '1',
-    title: 'Annual Report 2025-26',
-    date: 'January 15, 2026',
-    author: 'Shri Prakash Chand Suri',
-    category: 'Report',
-    excerpt: 'A comprehensive overview of the Samaj\'s activities, financial summary, and achievements throughout the year 2025-26. This edition covers all major events, welfare initiatives, and plans for the coming year.',
+    title: 'Annual Report 2025–26',
+    hindiTitle: 'वार्षिक रिपोर्ट',
+    date: 'February 1, 2026',
+    author: 'Secretariat, VBSS',
+    category: 'Annual Report',
+    excerpt:
+      'A comprehensive review of all activities, welfare programmes, events, and financial statements of the Vaishya Bhartiya Suri Samaj for the year 2025–26.',
+    readTime: '8 min read',
   },
   {
     id: '2',
     title: 'Mahavir Jayanti Special Edition',
-    date: 'April 10, 2026',
-    author: 'Editorial Team',
+    hindiTitle: 'महावीर जयंती विशेषांक',
+    date: 'April 2025',
+    author: 'Editorial Committee',
     category: 'Special Edition',
-    excerpt: 'A special edition dedicated to the teachings and legacy of Lord Mahavir. Features articles on non-violence, community service, and how our Samaj members are carrying forward these timeless values.',
+    excerpt:
+      'Special commemorative issue celebrating the birth anniversary of Bhagwan Mahavir with reflections on non-violence, truth, and the Vaishya community’s spiritual heritage.',
+    readTime: '5 min read',
   },
   {
     id: '3',
-    title: 'Community Health Camp Drive Results',
-    date: 'October 5, 2025',
-    author: 'Dr. Meena Shah',
-    category: 'Report',
-    excerpt: 'Over 350 community members participated in the annual health camp. This report covers key health statistics, common findings, and recommended follow-up actions for the community\'s wellbeing.',
+    title: 'Community Health Camp — Impact Report',
+    date: 'March 2026',
+    author: 'Health & Welfare Committee',
+    category: 'Health',
+    excerpt:
+      'Detailed report on the free health camp held in February 2026, covering 340+ beneficiaries, partnering doctors, and future healthcare initiatives planned by the samaj.',
+    readTime: '4 min read',
   },
   {
     id: '4',
-    title: 'Youth Wing Newsletter — Q4 2025',
-    date: 'December 20, 2025',
-    author: 'Shri Anil Kumar Suri',
-    category: 'Newsletter',
-    excerpt: 'Updates from the Youth Wing including the success of the mentorship program, upcoming coding workshops, career guidance sessions, and the inter-community sports tournament results.',
+    title: 'Scholarship Scheme 2025–26 — Applications Open',
+    hindiTitle: 'छात्रवृत्ति योजना',
+    date: 'January 2026',
+    author: 'Education Committee',
+    category: 'Education',
+    excerpt:
+      'The VBSS annual scholarship scheme is now open for applications. This year we are awarding 25 scholarships to meritorious students from economically weaker sections of the community.',
+    readTime: '3 min read',
   },
   {
     id: '5',
-    title: 'Scholarship Recipients 2025',
-    date: 'August 15, 2025',
-    author: 'Education Committee',
-    category: 'Announcement',
-    excerpt: 'Congratulations to the 15 meritorious students who have been awarded the Vaishya Suri Samaj Scholarship for the academic year 2025-26. A total of ₹4,50,000 has been distributed.',
+    title: 'EBC Status Demand — Our Ongoing Advocacy',
+    date: 'December 2025',
+    author: 'Legal & Advocacy Cell',
+    category: 'Welfare',
+    excerpt:
+      'Update on VBSS’s continuing advocacy for inclusion of Suri and Kalwar Vaishya communities in the Extremely Backward Class (EBC) category in Bihar, following precedents set in Odisha and West Bengal.',
+    readTime: '6 min read',
   },
   {
     id: '6',
-    title: 'Diwali Edition 2025 — Festival of Lights',
-    date: 'November 1, 2025',
-    author: 'Editorial Team',
-    category: 'Special Edition',
-    excerpt: 'Celebrating the festival of lights with stories from community elders, recipes from our traditional kitchen, rangoli designs, and a photo gallery from last year\'s grand Diwali Milan celebration.',
+    title: 'Women Empowerment Initiative — Skill Development Drive',
+    hindiTitle: 'महिला सशक्तिकरण',
+    date: 'November 2025',
+    author: 'Women’s Wing, VBSS',
+    category: 'Welfare',
+    excerpt:
+      'The Women’s Wing launched a 3-month skill development programme in tailoring, digital literacy, and financial planning for 60 women from the community.',
+    readTime: '4 min read',
   },
 ];
