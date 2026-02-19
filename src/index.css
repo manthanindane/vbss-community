@@ -4,26 +4,26 @@
 
 @layer base {
   :root {
-    --background: 40 30% 97%;
-    --foreground: 20 10% 11%;
-    --card: 40 30% 97%;
-    --card-foreground: 20 10% 11%;
+    --background: 60 10% 98%;
+    --foreground: 240 30% 14%;
+    --card: 60 10% 98%;
+    --card-foreground: 240 30% 14%;
     --popover: 0 0% 100%;
-    --popover-foreground: 20 10% 11%;
-    --primary: 354 62% 40%;
+    --popover-foreground: 240 30% 14%;
+    --primary: 161 47% 20%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 35 20% 92%;
-    --secondary-foreground: 20 10% 11%;
-    --muted: 35 15% 91%;
-    --muted-foreground: 25 8% 42%;
-    --accent: 35 20% 92%;
-    --accent-foreground: 20 10% 11%;
+    --secondary: 60 8% 94%;
+    --secondary-foreground: 240 30% 14%;
+    --muted: 60 6% 93%;
+    --muted-foreground: 240 5% 45%;
+    --accent: 38 90% 50%;
+    --accent-foreground: 240 30% 14%;
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
-    --border: 35 15% 86%;
-    --input: 35 15% 86%;
-    --ring: 354 62% 40%;
-    --radius: 0.5rem;
+    --border: 60 8% 88%;
+    --input: 60 8% 88%;
+    --ring: 161 47% 20%;
+    --radius: 0.625rem;
   }
 }
 
@@ -32,70 +32,103 @@
   html { scroll-behavior: smooth; }
 
   body {
-    background-color: #FAF7F2;
-    color: #1C1917;
-    font-family: 'DM Sans', system-ui, sans-serif;
+    background-color: #FAFAF7;
+    color: #1A1A2E;
+    font-family: 'Satoshi', 'Plus Jakarta Sans', system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
     line-height: 1.6;
   }
 
-  h1, h2, h3 {
-    font-family: 'Playfair Display', Georgia, serif;
+  h1, h2, h3, h4 {
+    font-family: 'Plus Jakarta Sans', 'Satoshi', system-ui, sans-serif;
+    font-weight: 700;
     line-height: 1.15;
-    letter-spacing: -0.01em;
-    color: #1C1917;
-  }
-
-  h4, h5, h6 {
-    font-family: 'DM Sans', system-ui, sans-serif;
-    font-weight: 600;
+    letter-spacing: -0.025em;
+    color: #1A1A2E;
   }
 }
 
 @layer utilities {
+  /* ── Layout ─────────────────────────────── */
   .section-padding  { @apply py-16 lg:py-24; }
   .container-custom { @apply max-w-6xl mx-auto px-5 sm:px-8 lg:px-12; }
 
-  /* serif heading shorthand */
-  .font-display {
-    font-family: 'Playfair Display', Georgia, serif;
-  }
-
-  /* small all-caps label (Inter, no serif) */
+  /* ── Label — small uppercase tracking tag ─ */
   .label {
-    font-family: 'DM Sans', system-ui, sans-serif;
+    font-family: 'Satoshi', system-ui, sans-serif;
     font-size: 0.68rem;
-    font-weight: 600;
-    letter-spacing: 0.12em;
+    font-weight: 700;
+    letter-spacing: 0.13em;
     text-transform: uppercase;
-    color: #9B2335;
+    color: #1B4D3E;
   }
 
-  /* warm divider */
+  /* ── Warm divider ──────────────────────── */
   .divider {
     height: 1px;
-    background: linear-gradient(90deg, #D8CEBF 0%, transparent 100%);
+    background: linear-gradient(90deg, #E2E2DC 0%, transparent 100%);
   }
 
-  /* offset card (asymmetric shadow feel) */
-  .card-warm {
+  /* ── Card — soft bordered surface ─────── */
+  .card-surface {
     background: #FFFFFF;
-    border: 1px solid #EDE6DA;
-    border-radius: 12px;
+    border: 1px solid #E8E8E2;
+    border-radius: 14px;
+    transition: box-shadow 0.22s ease, transform 0.22s ease, border-color 0.22s ease;
   }
-  .card-warm:hover {
-    border-color: #D8CEBF;
-    box-shadow: 4px 8px 32px rgba(28, 25, 23, 0.06);
+  .card-surface:hover {
+    border-color: #B3D9C7;
+    box-shadow: 0 6px 28px rgba(27, 77, 62, 0.08);
     transform: translateY(-2px);
-    transition: all 0.25s ease;
   }
 
-  /* Asymmetric accent bar */
-  .accent-bar {
+  /* ── Accent dot ─────────────────────────── */
+  .accent-dot {
     display: inline-block;
-    width: 32px;
-    height: 3px;
-    background-color: #9B2335;
-    margin-bottom: 12px;
+    width: 6px;
+    height: 6px;
+    border-radius: 9999px;
+    background-color: #D97706;
+    flex-shrink: 0;
+  }
+
+  /* ── Teal pill badge ────────────────────── */
+  .badge-teal {
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 10px;
+    border-radius: 9999px;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    background-color: #DCF0E7;
+    color: #1B4D3E;
+    font-family: 'Satoshi', system-ui, sans-serif;
+  }
+
+  /* ── Amber pill badge ───────────────────── */
+  .badge-amber {
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 10px;
+    border-radius: 9999px;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    background-color: #FEF3C7;
+    color: #92400E;
+    font-family: 'Satoshi', system-ui, sans-serif;
+  }
+
+  /* ── Section number ─────────────────────── */
+  .section-num {
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    font-weight: 700;
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    color: #B3D9C7;
+    text-transform: uppercase;
   }
 }

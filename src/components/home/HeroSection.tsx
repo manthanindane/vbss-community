@@ -1,176 +1,275 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, MapPin } from 'lucide-react';
 
 const up = (delay = 0) => ({
-  initial: { opacity: 0, y: 22 },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.55, delay, ease: [0.22, 1, 0.36, 1] as [number,number,number,number] },
+  initial:    { opacity: 0, y: 20 },
+  animate:    { opacity: 1, y: 0 },
+  transition: { duration: 0.55, delay, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] },
 });
+
+const states = ['Bihar', 'Jharkhand', 'Odisha', 'West Bengal'];
 
 export default function HeroSection() {
   return (
     <section
       className="relative overflow-hidden"
-      style={{ paddingTop: 60, background: '#FAF7F2' }}
+      style={{ paddingTop: 62, minHeight: '92vh', background: '#FAFAF7' }}
     >
-      {/* Very subtle warm texture */}
+      {/* ── Subtle background geometry ── */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          backgroundImage: 'radial-gradient(circle at 70% 30%, rgba(155,35,53,0.04) 0%, transparent 55%), radial-gradient(circle at 20% 80%, rgba(192,147,89,0.05) 0%, transparent 50%)',
+          backgroundImage:
+            'radial-gradient(ellipse 60% 50% at 80% 20%, rgba(27,77,62,0.06) 0%, transparent 60%),' +
+            'radial-gradient(ellipse 40% 35% at 15% 80%, rgba(217,119,6,0.05) 0%, transparent 55%)',
         }}
       />
 
-      <div className="container-custom">
-        {/* ─── Asymmetric top section ─── */}
-        <div className="grid lg:grid-cols-[3fr_2fr] gap-0 min-h-[88vh] items-center">
+      {/* ── Grid line accent (structural, subtle) ── */}
+      <div
+        className="absolute top-0 right-[38%] bottom-0 w-px pointer-events-none hidden lg:block"
+        style={{ background: 'linear-gradient(to bottom, transparent, rgba(27,77,62,0.08) 20%, rgba(27,77,62,0.08) 80%, transparent)' }}
+      />
 
-          {/* LEFT — text */}
-          <div className="py-16 lg:py-24 lg:pr-16">
-            {/* Label */}
-            <motion.div {...up(0.05)} className="flex items-center gap-3 mb-8">
-              <span
-                className="inline-block h-px w-8"
-                style={{ backgroundColor: '#9B2335' }}
-              />
+      <div className="container-custom">
+        <div className="grid lg:grid-cols-[58fr_42fr] gap-6 lg:gap-0 min-h-[88vh] items-center">
+
+          {/* ── LEFT: Text ── */}
+          <div className="py-14 lg:py-20 lg:pr-14">
+
+            {/* Eyebrow */}
+            <motion.div {...up(0.05)} className="flex items-center gap-2.5 mb-7">
+              <span className="accent-dot" />
               <span className="label">Community Organisation · Est. 2012</span>
             </motion.div>
 
-            {/* Headline — mixed serif + normal weight */}
-            <motion.h1
-              {...up(0.12)}
-              className="font-display text-ink leading-tight"
-              style={{ fontSize: 'clamp(2.6rem, 5.5vw, 4.5rem)', fontWeight: 800, lineHeight: 1.1, letterSpacing: '-0.02em', maxWidth: 580 }}
-            >
-              Uniting the&nbsp;
-              <span style={{ color: '#9B2335', fontStyle: 'italic' }}>Suri Vaishya</span>
-              <br />Community<br />Across India
+            {/* Main headline — Plus Jakarta Sans, bold, tight */}
+            <motion.h1 {...up(0.12)} style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+              <span
+                style={{
+                  display: 'block',
+                  fontSize: 'clamp(2.8rem, 5.8vw, 5rem)',
+                  fontWeight: 800,
+                  letterSpacing: '-0.03em',
+                  lineHeight: 1.05,
+                  color: '#1A1A2E',
+                }}
+              >
+                Uniting the
+              </span>
+              <span
+                style={{
+                  display: 'block',
+                  fontSize: 'clamp(2.8rem, 5.8vw, 5rem)',
+                  fontWeight: 800,
+                  letterSpacing: '-0.03em',
+                  lineHeight: 1.05,
+                  color: '#1B4D3E',
+                }}
+              >
+                Suri Vaishya
+              </span>
+              <span
+                style={{
+                  display: 'block',
+                  fontSize: 'clamp(2.8rem, 5.8vw, 5rem)',
+                  fontWeight: 800,
+                  letterSpacing: '-0.03em',
+                  lineHeight: 1.05,
+                  color: '#1A1A2E',
+                }}
+              >
+                Community
+              </span>
             </motion.h1>
 
             {/* Sub */}
             <motion.p
               {...up(0.2)}
-              className="mt-6 text-stone-500 leading-relaxed"
-              style={{ fontFamily: 'DM Sans, sans-serif', fontSize: '1.05rem', maxWidth: 460, lineHeight: 1.7 }}
+              style={{
+                fontFamily: "'Satoshi', sans-serif",
+                fontSize: '1.05rem',
+                lineHeight: 1.75,
+                color: '#6B7280',
+                maxWidth: 460,
+                marginTop: '1.5rem',
+              }}
             >
               A registered organisation advancing education, health,
-              marriage support and women empowerment for Suri Vaishya families
-              across Bihar, Jharkhand, Odisha and West Bengal.
+              marriage support and women empowerment for Suri Vaishya
+              families across East India.
             </motion.p>
 
+            {/* State pills */}
+            <motion.div {...up(0.26)} className="flex flex-wrap gap-2 mt-5">
+              {states.map((s) => (
+                <span key={s} className="inline-flex items-center gap-1.5 badge-teal">
+                  <MapPin style={{ width: 9, height: 9 }} />
+                  {s}
+                </span>
+              ))}
+            </motion.div>
+
             {/* CTAs */}
-            <motion.div {...up(0.27)} className="mt-9 flex flex-wrap gap-3">
+            <motion.div {...up(0.32)} className="flex flex-wrap gap-3 mt-8">
               <Link
                 to="/about"
-                className="group inline-flex items-center gap-2 px-6 py-3 text-[14px] font-semibold text-white rounded-md transition-all duration-200 hover:opacity-90"
-                style={{ backgroundColor: '#9B2335', fontFamily: 'DM Sans, sans-serif' }}
+                className="group inline-flex items-center gap-2 px-6 py-3 text-[14px] font-semibold text-white rounded-xl transition-all duration-200 hover:opacity-90 hover:shadow-lg"
+                style={{
+                  background: 'linear-gradient(135deg, #1B4D3E 0%, #2E7D5E 100%)',
+                  fontFamily: "'Plus Jakarta Sans', sans-serif",
+                  boxShadow: '0 4px 14px rgba(27,77,62,0.25)',
+                }}
               >
                 About VBSS
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
               </Link>
               <Link
                 to="/events"
-                className="inline-flex items-center gap-2 px-6 py-3 text-[14px] font-semibold text-ink rounded-md border transition-all duration-200 hover:border-stone-400 hover:bg-stone-50"
-                style={{ borderColor: '#D8CEBF', fontFamily: 'DM Sans, sans-serif' }}
+                className="inline-flex items-center gap-2 px-6 py-3 text-[14px] font-semibold rounded-xl border transition-all duration-200 hover:border-teal-300 hover:bg-teal-50"
+                style={{
+                  borderColor: '#D8E8E2',
+                  color: '#1A1A2E',
+                  fontFamily: "'Plus Jakarta Sans', sans-serif",
+                }}
               >
-                View Events
+                Upcoming Events
               </Link>
             </motion.div>
 
-            {/* Registration details — inline, subtle */}
-            <motion.div
-              {...up(0.34)}
-              className="mt-12 flex flex-wrap gap-3"
-            >
+            {/* Registration chips */}
+            <motion.div {...up(0.38)} className="flex flex-wrap gap-2 mt-10">
               {[
-                { k: 'Reg.', v: 'GBBSD 2448/2012' },
+                { k: 'Reg', v: 'GBBSD 2448/2012' },
                 { k: 'Trust', v: 'F-49747 Mumbai' },
-                { k: 'States', v: 'Bihar · JH · OD · WB' },
               ].map(({ k, v }) => (
                 <span
                   key={k}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-[11.5px] text-stone-500 border"
-                  style={{ borderColor: '#EDE6DA', backgroundColor: '#FFFFFF', fontFamily: 'DM Sans, sans-serif' }}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px]"
+                  style={{
+                    backgroundColor: '#FFFFFF',
+                    border: '1px solid #E8E8E2',
+                    fontFamily: "'Satoshi', sans-serif",
+                    color: '#9CA3AF',
+                  }}
                 >
-                  <span className="font-semibold text-stone-400" style={{ fontSize: '0.62rem', letterSpacing: '0.08em', textTransform: 'uppercase' }}>{k}</span>
+                  <span style={{ fontWeight: 700, color: '#B3D9C7', letterSpacing: '0.06em', textTransform: 'uppercase' }}>{k}</span>
                   {v}
                 </span>
               ))}
             </motion.div>
           </div>
 
-          {/* RIGHT — asymmetric image collage */}
+          {/* ── RIGHT: Asymmetric image stack ── */}
           <motion.div
-            initial={{ opacity: 0, x: 20 }}
+            initial={{ opacity: 0, x: 24 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-            className="hidden lg:block relative py-16"
+            transition={{ duration: 0.7, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
+            className="hidden lg:flex flex-col gap-4 py-14 relative"
           >
-            {/* Main image — offset left */}
+            {/* Primary image — slightly left offset */}
             <div
-              className="relative rounded-2xl overflow-hidden shadow-lg"
-              style={{ height: 340, marginLeft: '-2rem', zIndex: 2 }}
+              className="relative rounded-2xl overflow-hidden shadow-xl"
+              style={{ height: 300, marginLeft: '-3rem' }}
             >
               <img
-                src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=700&h=500&fit=crop"
+                src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=720&h=480&fit=crop"
                 alt="Community gathering"
                 className="w-full h-full object-cover"
               />
               <div
                 className="absolute inset-0"
-                style={{ background: 'linear-gradient(to top, rgba(28,25,23,0.35) 0%, transparent 60%)' }}
+                style={{ background: 'linear-gradient(to top, rgba(26,26,46,0.45) 0%, transparent 55%)' }}
               />
-              <div className="absolute bottom-4 left-5">
-                <p className="text-white text-sm font-semibold" style={{ fontFamily: 'DM Sans, sans-serif' }}>Annual Samaj Gathering</p>
-                <p className="text-white/60 text-xs mt-0.5" style={{ fontFamily: 'DM Sans, sans-serif' }}>Mumbai, 2025</p>
+              <div className="absolute bottom-4 left-5 right-5">
+                <p
+                  className="text-white text-sm font-semibold"
+                  style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
+                >
+                  Annual Samaj Mahotsav
+                </p>
+                <p
+                  className="text-white/55 text-xs mt-0.5"
+                  style={{ fontFamily: "'Satoshi', sans-serif" }}
+                >
+                  Mumbai · 2025
+                </p>
               </div>
             </div>
 
-            {/* Floating stat card — offset right */}
-            <div
-              className="absolute top-24 right-0 z-10 bg-white rounded-xl shadow-md border p-5"
-              style={{ borderColor: '#EDE6DA', width: 140 }}
-            >
-              <p
-                className="font-display leading-none"
-                style={{ fontSize: '2.8rem', fontWeight: 800, color: '#9B2335', lineHeight: 1 }}
-              >700+</p>
-              <p className="text-stone-500 text-xs mt-1.5" style={{ fontFamily: 'DM Sans, sans-serif', fontWeight: 500 }}>Active Members</p>
-            </div>
-
-            {/* Second image — offset right, below */}
-            <div
-              className="relative rounded-xl overflow-hidden shadow-md mt-4"
-              style={{ height: 180, marginRight: '-1rem', marginLeft: '2.5rem', zIndex: 2 }}
-            >
-              <img
-                src="https://images.unsplash.com/photo-1607748862156-7c548e7e98f4?w=600&h=300&fit=crop"
-                alt="Women empowerment program"
-                className="w-full h-full object-cover"
-              />
+            {/* Two smaller cards side by side */}
+            <div className="grid grid-cols-2 gap-3" style={{ marginRight: '-1.5rem' }}>
+              {/* Stat card */}
               <div
-                className="absolute inset-0 flex items-end p-4"
-                style={{ background: 'linear-gradient(to top, rgba(28,25,23,0.5) 0%, transparent 60%)' }}
+                className="bg-white rounded-2xl p-5 border flex flex-col gap-1"
+                style={{ borderColor: '#E8E8E2', boxShadow: '0 4px 20px rgba(27,77,62,0.07)' }}
               >
-                <p className="text-white text-xs font-semibold" style={{ fontFamily: 'DM Sans, sans-serif' }}>Women Empowerment</p>
+                <p
+                  className="font-bold leading-none"
+                  style={{
+                    fontFamily: "'Plus Jakarta Sans', sans-serif",
+                    fontSize: '2.5rem',
+                    color: '#1B4D3E',
+                    letterSpacing: '-0.04em',
+                  }}
+                >
+                  700+
+                </p>
+                <p
+                  className="text-xs font-medium"
+                  style={{ fontFamily: "'Satoshi', sans-serif", color: '#9CA3AF' }}
+                >
+                  Active Members
+                </p>
+                <div
+                  className="mt-2 h-1 rounded-full"
+                  style={{ background: 'linear-gradient(90deg, #1B4D3E, #80BDA4)', width: '60%' }}
+                />
+              </div>
+
+              {/* Second small image */}
+              <div className="relative rounded-2xl overflow-hidden" style={{ minHeight: 130 }}>
+                <img
+                  src="https://images.unsplash.com/photo-1607748862156-7c548e7e98f4?w=400&h=280&fit=crop"
+                  alt="Women empowerment"
+                  className="w-full h-full object-cover"
+                />
+                <div
+                  className="absolute inset-0 flex items-end p-3"
+                  style={{ background: 'linear-gradient(to top, rgba(26,26,46,0.55) 0%, transparent 55%)' }}
+                >
+                  <p
+                    className="text-white text-[11px] font-semibold leading-tight"
+                    style={{ fontFamily: "'Satoshi', sans-serif" }}
+                  >
+                    Women Empowerment
+                  </p>
+                </div>
               </div>
             </div>
 
-            {/* Small stat — below left */}
+            {/* Amber accent chip — floating */}
             <div
-              className="absolute bottom-20 left-2 bg-white rounded-lg shadow-sm border p-3.5 z-10"
-              style={{ borderColor: '#EDE6DA' }}
+              className="absolute -bottom-2 left-0 bg-white rounded-xl border px-4 py-2.5 flex items-center gap-2"
+              style={{ borderColor: '#FDE68A', boxShadow: '0 4px 16px rgba(217,119,6,0.1)' }}
             >
-              <p className="font-display text-2xl font-bold" style={{ color: '#9B2335', lineHeight: 1 }}>50+</p>
-              <p className="text-stone-400 text-xs mt-1" style={{ fontFamily: 'DM Sans, sans-serif' }}>Events held</p>
+              <span
+                className="w-2 h-2 rounded-full"
+                style={{ backgroundColor: '#D97706', flexShrink: 0 }}
+              />
+              <span
+                className="text-xs font-semibold"
+                style={{ fontFamily: "'Satoshi', sans-serif", color: '#92400E' }}
+              >
+                50+ Events organised
+              </span>
             </div>
           </motion.div>
         </div>
       </div>
 
-      {/* Bottom warm divider */}
-      <div className="divider" style={{ marginTop: 0 }} />
+      <div className="divider" />
     </section>
   );
 }

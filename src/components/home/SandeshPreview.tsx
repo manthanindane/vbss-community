@@ -9,19 +9,26 @@ export default function SandeshPreview() {
     .slice(0, 3);
 
   return (
-    <section className="section-padding" style={{ background: '#FAF7F2' }}>
+    <section className="section-padding" style={{ background: '#F4F4F0' }}>
       <div className="container-custom">
+
         <div className="flex items-end justify-between mb-10">
           <motion.div
             initial={{ opacity: 0, y: 14 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.45 }}
+            transition={{ duration: 0.44 }}
           >
-            <span className="label block mb-2">Newsletter</span>
+            <span className="section-num block mb-2">04 — Newsletter</span>
             <h2
-              className="font-display text-ink"
-              style={{ fontSize: 'clamp(1.75rem, 3.5vw, 2.5rem)', fontWeight: 800, lineHeight: 1.1 }}
+              style={{
+                fontFamily: "'Plus Jakarta Sans', sans-serif",
+                fontSize: 'clamp(1.75rem, 3.5vw, 2.4rem)',
+                fontWeight: 800,
+                letterSpacing: '-0.03em',
+                lineHeight: 1.1,
+                color: '#1A1A2E',
+              }}
             >
               Vaishya Suri Sandesh
             </h2>
@@ -29,38 +36,30 @@ export default function SandeshPreview() {
           <Link
             to="/sandesh"
             className="hidden sm:inline-flex items-center gap-1.5 text-[13px] font-semibold transition-all group"
-            style={{ color: '#9B2335', fontFamily: 'DM Sans, sans-serif' }}
+            style={{ color: '#1B4D3E', fontFamily: "'Plus Jakarta Sans', sans-serif" }}
           >
-            All Issues <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+            All Issues
+            <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
           </Link>
         </div>
 
-        <div className="grid sm:grid-cols-3 gap-5">
+        {/* Cards — middle one drops down (asymmetric stagger) */}
+        <div className="grid sm:grid-cols-3 gap-4">
           {latest.map((entry, i) => (
             <motion.div
               key={entry.id}
               initial={{ opacity: 0, y: 18 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.1, duration: 0.45 }}
-              className="card-warm p-6 flex flex-col transition-all"
-              style={{ marginTop: i === 1 ? 20 : 0 }}
+              transition={{ delay: i * 0.1, duration: 0.44 }}
+              className="card-surface p-6 flex flex-col bg-white"
+              style={{ marginTop: i === 1 ? 22 : 0 }}
             >
               <div className="flex items-center justify-between mb-4">
+                <span className="badge-amber">{entry.category}</span>
                 <span
-                  className="text-[11px] font-semibold px-2.5 py-1 rounded-md"
-                  style={{
-                    backgroundColor: '#FFF4F4',
-                    color: '#9B2335',
-                    fontFamily: 'DM Sans, sans-serif',
-                    letterSpacing: '0.04em',
-                  }}
-                >
-                  {entry.category}
-                </span>
-                <span
-                  className="text-[11px] text-stone-400"
-                  style={{ fontFamily: 'DM Sans, sans-serif' }}
+                  className="text-[11px]"
+                  style={{ fontFamily: "'Satoshi', sans-serif", color: '#9CA3AF' }}
                 >
                   {entry.date.split(',').pop()?.trim()}
                 </span>
@@ -68,34 +67,44 @@ export default function SandeshPreview() {
 
               <h3
                 className="font-semibold text-ink leading-snug mb-2 flex-1"
-                style={{ fontFamily: 'DM Sans, sans-serif', fontSize: '0.95rem' }}
+                style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: '0.92rem' }}
               >
                 {entry.title}
               </h3>
 
               <p
-                className="text-[13px] text-stone-400 leading-relaxed mb-4"
-                style={{ fontFamily: 'DM Sans, sans-serif', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}
+                style={{
+                  fontFamily: "'Satoshi', sans-serif",
+                  fontSize: '0.81rem',
+                  lineHeight: 1.65,
+                  color: '#9CA3AF',
+                  display: '-webkit-box',
+                  WebkitLineClamp: 3,
+                  WebkitBoxOrient: 'vertical',
+                  overflow: 'hidden',
+                  marginBottom: '1rem',
+                }}
               >
                 {entry.excerpt}
               </p>
 
               <div
                 className="pt-3 flex items-center justify-between"
-                style={{ borderTop: '1px solid #EDE6DA' }}
+                style={{ borderTop: '1px solid #EBEBE6' }}
               >
                 <span
-                  className="text-[11px] text-stone-400"
-                  style={{ fontFamily: 'DM Sans, sans-serif' }}
+                  className="text-[11px]"
+                  style={{ fontFamily: "'Satoshi', sans-serif", color: '#9CA3AF' }}
                 >
                   {entry.author}
                 </span>
                 <Link
                   to="/sandesh"
                   className="group inline-flex items-center gap-1 text-[12px] font-semibold transition-all"
-                  style={{ color: '#9B2335', fontFamily: 'DM Sans, sans-serif' }}
+                  style={{ color: '#1B4D3E', fontFamily: "'Plus Jakarta Sans', sans-serif" }}
                 >
-                  Read <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
+                  Read
+                  <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
                 </Link>
               </div>
             </motion.div>

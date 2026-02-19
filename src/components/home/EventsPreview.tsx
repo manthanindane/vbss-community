@@ -9,18 +9,25 @@ export default function EventsPreview() {
   return (
     <section className="section-padding" style={{ background: '#FFFFFF' }}>
       <div className="container-custom">
+
         {/* Header */}
         <div className="flex items-end justify-between mb-10">
           <motion.div
             initial={{ opacity: 0, y: 14 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.45 }}
+            transition={{ duration: 0.44 }}
           >
-            <span className="label block mb-2">What’s Coming</span>
+            <span className="section-num block mb-2">03 — Events</span>
             <h2
-              className="font-display text-ink"
-              style={{ fontSize: 'clamp(1.75rem, 3.5vw, 2.5rem)', fontWeight: 800, lineHeight: 1.1 }}
+              style={{
+                fontFamily: "'Plus Jakarta Sans', sans-serif",
+                fontSize: 'clamp(1.75rem, 3.5vw, 2.4rem)',
+                fontWeight: 800,
+                letterSpacing: '-0.03em',
+                lineHeight: 1.1,
+                color: '#1A1A2E',
+              }}
             >
               Upcoming Events
             </h2>
@@ -28,27 +35,28 @@ export default function EventsPreview() {
           <Link
             to="/events"
             className="hidden sm:inline-flex items-center gap-1.5 text-[13px] font-semibold transition-all group"
-            style={{ color: '#9B2335', fontFamily: 'DM Sans, sans-serif' }}
+            style={{ color: '#1B4D3E', fontFamily: "'Plus Jakarta Sans', sans-serif" }}
           >
-            All Events <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+            All Events
+            <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
           </Link>
         </div>
 
-        {/* Asymmetric card grid: first card larger */}
-        <div className="grid lg:grid-cols-[2fr_1fr_1fr] gap-5">
+        {/* Asymmetric grid: 2fr 1fr 1fr */}
+        <div className="grid lg:grid-cols-[2fr_1fr_1fr] gap-4">
           {upcoming.map((event, i) => (
             <motion.div
               key={event.id}
-              initial={{ opacity: 0, y: 18 }}
+              initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.1, duration: 0.45 }}
-              className="group card-warm overflow-hidden transition-all"
+              transition={{ delay: i * 0.1, duration: 0.44 }}
+              className="group card-surface overflow-hidden"
             >
               {/* Image */}
               <div
                 className="relative overflow-hidden"
-                style={{ height: i === 0 ? 260 : 180 }}
+                style={{ height: i === 0 ? 250 : 170 }}
               >
                 <img
                   src={event.image}
@@ -57,31 +65,32 @@ export default function EventsPreview() {
                 />
                 <div
                   className="absolute inset-0"
-                  style={{ background: 'linear-gradient(to top, rgba(28,25,23,0.3) 0%, transparent 60%)' }}
+                  style={{ background: 'linear-gradient(to top, rgba(26,26,46,0.35) 0%, transparent 55%)' }}
                 />
-                <span
-                  className="absolute top-3 left-3 px-2.5 py-1 text-white text-xs font-semibold rounded-md"
-                  style={{ backgroundColor: '#9B2335', fontFamily: 'DM Sans, sans-serif' }}
-                >
+                <span className="badge-teal absolute top-3 left-3">
                   {event.category}
                 </span>
               </div>
+
               {/* Content */}
               <div className="p-5">
                 <h3
                   className="font-semibold text-ink leading-snug mb-3"
-                  style={{ fontFamily: 'DM Sans, sans-serif', fontSize: i === 0 ? '1.05rem' : '0.92rem' }}
+                  style={{
+                    fontFamily: "'Plus Jakarta Sans', sans-serif",
+                    fontSize: i === 0 ? '1.02rem' : '0.88rem',
+                  }}
                 >
                   {event.title}
                 </h3>
                 <div className="flex flex-col gap-1.5">
-                  <div className="flex items-center gap-2 text-[12px] text-stone-400">
-                    <Calendar className="w-3.5 h-3.5 shrink-0" style={{ color: '#9B2335' }} />
-                    <span style={{ fontFamily: 'DM Sans, sans-serif' }}>{event.date}</span>
+                  <div className="flex items-center gap-2 text-[12px]" style={{ color: '#9CA3AF' }}>
+                    <Calendar className="w-3.5 h-3.5 shrink-0" style={{ color: '#1B4D3E' }} />
+                    <span style={{ fontFamily: "'Satoshi', sans-serif" }}>{event.date}</span>
                   </div>
-                  <div className="flex items-center gap-2 text-[12px] text-stone-400">
+                  <div className="flex items-center gap-2 text-[12px]" style={{ color: '#9CA3AF' }}>
                     <MapPin className="w-3.5 h-3.5 shrink-0" />
-                    <span style={{ fontFamily: 'DM Sans, sans-serif' }}>{event.venue}</span>
+                    <span style={{ fontFamily: "'Satoshi', sans-serif" }}>{event.venue}</span>
                   </div>
                 </div>
               </div>
