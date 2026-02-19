@@ -6,44 +6,32 @@ interface PageHeroProps {
   hindiTitle?: string;
 }
 
-export default function PageHero({ title, subtitle, hindiTitle }: PageHeroProps) {
+export default function PageHero({ title, subtitle }: PageHeroProps) {
   return (
     <section className="relative pt-32 pb-16 overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-cream-100 via-white to-cream-50" />
-      <div className="absolute inset-0 dot-grid opacity-60" />
+      {/* BG */}
+      <div className="absolute inset-0 bg-gradient-to-b from-gray-50 to-white" />
+      <div className="absolute inset-0 dot-grid opacity-40" />
+
       {/* Glow */}
-      <div className="absolute top-0 right-1/4 w-80 h-80 rounded-full bg-maroon-600/5 blur-3xl" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-48 rounded-full bg-maroon-800/5 blur-3xl" />
 
       <div className="container-custom relative">
-        {hindiTitle && (
-          <motion.p
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="text-sm font-semibold text-maroon-600/60 mb-2 tracking-wide"
-          >
-            {hindiTitle}
-          </motion.p>
-        )}
-        <motion.h1
-          initial={{ opacity: 0, y: 16 }}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.55, delay: 0.05 }}
-          className="text-display-lg md:text-display-xl font-bold text-ink leading-[1.1] max-w-3xl"
+          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          className="max-w-2xl"
         >
-          {title}
-        </motion.h1>
-        {subtitle && (
-          <motion.p
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.12 }}
-            className="mt-4 text-base md:text-lg text-body max-w-xl leading-relaxed"
-          >
-            {subtitle}
-          </motion.p>
-        )}
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-maroon-50 border border-maroon-100 mb-5">
+            <div className="w-1.5 h-1.5 rounded-full bg-maroon-600" />
+            <span className="text-maroon-700 text-xs font-semibold">Vaishya Bhartiya Suri Samaj</span>
+          </div>
+          <h1 className="text-4xl sm:text-5xl font-bold text-ink tracking-tight leading-tight">{title}</h1>
+          {subtitle && (
+            <p className="mt-4 text-gray-500 text-lg leading-relaxed max-w-xl">{subtitle}</p>
+          )}
+        </motion.div>
       </div>
     </section>
   );

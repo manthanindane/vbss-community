@@ -1,77 +1,59 @@
 export interface SandeshEntry {
   id: string;
   title: string;
-  hindiTitle?: string;
   date: string;
   author: string;
-  category: 'Annual Report' | 'Community' | 'Health' | 'Education' | 'Special Edition' | 'Welfare';
+  category: string;
   excerpt: string;
-  readTime: string;
 }
 
 export const sandeshEntries: SandeshEntry[] = [
   {
     id: '1',
     title: 'Annual Report 2025–26',
-    hindiTitle: 'वार्षिक रिपोर्ट',
-    date: 'February 1, 2026',
-    author: 'Secretariat, VBSS',
+    date: 'January 15, 2026',
+    author: 'Secretary, VBSS',
     category: 'Annual Report',
-    excerpt:
-      'A comprehensive review of all activities, welfare programmes, events, and financial statements of the Vaishya Bhartiya Suri Samaj for the year 2025–26.',
-    readTime: '8 min read',
+    excerpt: 'A comprehensive review of VBSS activities in 2025–26 — covering scholarship disbursements, health camp outcomes, women empowerment programs and the state of our 700+ member community across Bihar, Jharkhand, Odisha and West Bengal.',
   },
   {
     id: '2',
-    title: 'Mahavir Jayanti Special Edition',
-    hindiTitle: 'महावीर जयंती विशेषांक',
-    date: 'April 2025',
-    author: 'Editorial Committee',
+    title: 'Mahavir Jayanti Special Edition 2025',
+    date: 'April 14, 2025',
+    author: 'Editorial Committee, VBSS',
     category: 'Special Edition',
-    excerpt:
-      'Special commemorative issue celebrating the birth anniversary of Bhagwan Mahavir with reflections on non-violence, truth, and the Vaishya community’s spiritual heritage.',
-    readTime: '5 min read',
+    excerpt: 'Celebrating the birth anniversary of Bhagwan Mahavir with reflections on the values of non-violence, truth and compassion that form the foundation of our community life and organizational ethos.',
   },
   {
     id: '3',
-    title: 'Community Health Camp — Impact Report',
-    date: 'March 2026',
-    author: 'Health & Welfare Committee',
+    title: 'Community Health Camp Drive — Report & Outcomes',
+    date: 'October 5, 2025',
+    author: 'Health Committee, VBSS',
     category: 'Health',
-    excerpt:
-      'Detailed report on the free health camp held in February 2026, covering 340+ beneficiaries, partnering doctors, and future healthcare initiatives planned by the samaj.',
-    readTime: '4 min read',
+    excerpt: 'Report on the free health check-up camp held in September 2025 — over 300 members screened, 45 referred for specialist consultation, medicines distributed free of cost. Plans for the next camp in Q1 2026.',
   },
   {
     id: '4',
-    title: 'Scholarship Scheme 2025–26 — Applications Open',
-    hindiTitle: 'छात्रवृत्ति योजना',
-    date: 'January 2026',
-    author: 'Education Committee',
-    category: 'Education',
-    excerpt:
-      'The VBSS annual scholarship scheme is now open for applications. This year we are awarding 25 scholarships to meritorious students from economically weaker sections of the community.',
-    readTime: '3 min read',
+    title: 'EBC Classification Demand — Update & Community Stand',
+    date: 'August 20, 2025',
+    author: 'President, VBSS',
+    category: 'Community Update',
+    excerpt: "VBSS formally reiterates its long-standing demand for inclusion of Suri and Kalwar Vaishya communities in Bihar's Extremely Backward Classes (EBC) list, in line with recognition already granted in neighbouring states of Jharkhand, Odisha and West Bengal.",
   },
   {
     id: '5',
-    title: 'EBC Status Demand — Our Ongoing Advocacy',
-    date: 'December 2025',
-    author: 'Legal & Advocacy Cell',
-    category: 'Welfare',
-    excerpt:
-      'Update on VBSS’s continuing advocacy for inclusion of Suri and Kalwar Vaishya communities in the Extremely Backward Class (EBC) category in Bihar, following precedents set in Odisha and West Bengal.',
-    readTime: '6 min read',
+    title: 'Scholarship Program 2025 — 42 Students Felicitated',
+    date: 'July 1, 2025',
+    author: 'Education Committee, VBSS',
+    category: 'Community Update',
+    excerpt: '42 meritorious students from the Suri Vaishya community across four states received scholarships at the Annual Scholarship Ceremony 2025. Total disbursement crossed ₹8 lakhs this year — a new milestone for our education welfare fund.',
   },
   {
     id: '6',
-    title: 'Women Empowerment Initiative — Skill Development Drive',
-    hindiTitle: 'महिला सशक्तिकरण',
-    date: 'November 2025',
-    author: 'Women’s Wing, VBSS',
+    title: 'Women Empowerment Wing — Quarterly Update',
+    date: 'May 10, 2025',
+    author: 'Women Wing Chairperson, VBSS',
     category: 'Welfare',
-    excerpt:
-      'The Women’s Wing launched a 3-month skill development programme in tailoring, digital literacy, and financial planning for 60 women from the community.',
-    readTime: '4 min read',
+    excerpt: 'The Women Wing successfully conducted three skill-development workshops in Mumbai and Patna this quarter. Two self-help groups have been formally registered with a total corpus of ₹3.2 lakhs under the Pradhan Mantri Jan Dhan Yojana.',
   },
 ];

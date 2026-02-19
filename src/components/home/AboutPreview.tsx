@@ -1,98 +1,81 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowRight, Landmark, HeartHandshake, GraduationCap } from 'lucide-react';
-import { Card, CardContent } from '@/components/ui/card';
+import { ArrowRight, GraduationCap, HeartHandshake, VenetianMask } from 'lucide-react';
 
-const features = [
+const pillars = [
   {
-    icon: Landmark,
-    title: 'Cultural Preservation',
-    desc: 'Safeguarding our centuries-old traditions, rituals, and values through active community programs.',
-    color: 'from-primary-500 to-primary-600',
-    bg: 'bg-primary-50',
+    icon: GraduationCap,
+    title: 'Education & Scholarships',
+    desc: 'Supporting meritorious students from the Suri Vaishya community with scholarships, career guidance and mentorship programs.',
   },
   {
     icon: HeartHandshake,
-    title: 'Community Welfare',
-    desc: 'Supporting members through health camps, financial aid programs, and social welfare initiatives.',
-    color: 'from-accent-500 to-accent-600',
-    bg: 'bg-accent-50',
+    title: 'Health & Welfare',
+    desc: 'Organising medical camps, health check-ups, and social welfare initiatives to improve quality of life for community members.',
   },
   {
-    icon: GraduationCap,
-    title: 'Youth Empowerment',
-    desc: 'Scholarships, mentorship, career guidance, and leadership programs for the next generation.',
-    color: 'from-emerald-500 to-emerald-600',
-    bg: 'bg-emerald-50',
+    icon: VenetianMask,
+    title: 'Women Empowerment',
+    desc: 'Running programs focused on women leadership, skill development and creating economic opportunities for women in the community.',
   },
 ];
 
 export default function AboutPreview() {
   return (
-    <section className="section-padding relative">
+    <section className="section-padding">
       <div className="container-custom">
-        {/* Top content */}
-        <div className="grid lg:grid-cols-2 gap-10 lg:gap-20 items-start mb-16">
+        {/* Top */}
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-20 items-end mb-14">
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: '-50px' }}
-            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.55 }}
           >
-            <p className="text-primary-500/60 font-display text-sm mb-2 uppercase tracking-widest">Who We Are</p>
-            <h2 className="font-display text-3xl sm:text-4xl lg:text-[2.75rem] font-bold text-charcoal leading-[1.15] tracking-tight">
-              Dedicated to preserving our{' '}
-              <span className="bg-gradient-to-r from-primary-600 to-accent-600 bg-clip-text text-transparent">
-                rich cultural heritage
-              </span>
+            <p className="text-xs font-semibold uppercase tracking-widest text-maroon-600 mb-3">Who We Are</p>
+            <h2 className="text-section font-bold text-ink leading-tight tracking-tight text-balance">
+              Advancing the Suri Vaishya Community Through Collective Action
             </h2>
-            <div className="mt-4 flex items-center gap-2">
-              <div className="h-0.5 w-10 rounded-full bg-primary-600" />
-              <div className="h-0.5 w-3 rounded-full bg-accent-500" />
-            </div>
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: '-50px' }}
-            transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.55, delay: 0.1 }}
           >
-            <p className="text-slate text-base lg:text-lg leading-relaxed">
-              The Vaishya Bhartiya Suri Samaj was established in 1998 with a vision to unite the Vaishya
-              Suri community of Mumbai. Over two decades, we have grown into a 700+ member strong
-              organization that celebrates traditions, supports welfare, and empowers youth through
-              education and cultural programs.
+            <p className="text-gray-500 text-base leading-relaxed">
+              Vaishya Bhartiya Suri Samaj (VBSS) is a registered non-profit body incorporated under
+              the Society Registration Act 1860 and the Mumbai Public Trust Act 1950. Our mandate
+              covers Bihar, Jharkhand, Odisha and West Bengal — states where the Suri and Kalwar
+              Vaishya communities have historically resided and contributed to trade and commerce.
             </p>
             <Link
               to="/about"
-              className="inline-flex items-center gap-2 text-primary-600 font-semibold text-sm mt-5 group hover:gap-3 transition-all"
+              className="inline-flex items-center gap-1.5 text-maroon-700 font-semibold text-sm mt-5 hover:gap-3 transition-all group"
             >
-              Learn More About Us
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              Learn More
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
             </Link>
           </motion.div>
         </div>
 
-        {/* Feature Cards */}
+        {/* Pillars */}
         <div className="grid sm:grid-cols-3 gap-5">
-          {features.map((feature, i) => (
+          {pillars.map((p, i) => (
             <motion.div
-              key={feature.title}
-              initial={{ opacity: 0, y: 30 }}
+              key={p.title}
+              initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-30px' }}
-              transition={{ delay: i * 0.12, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1, duration: 0.5 }}
+              className="group p-6 rounded-2xl border border-gray-100 bg-white hover:border-maroon-100 hover:shadow-[0_8px_30px_rgba(0,0,0,0.05)] transition-all duration-300"
             >
-              <Card className="border-0 shadow-[0_2px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_40px_rgba(155,35,53,0.06)] transition-all duration-500 bg-white rounded-2xl h-full group">
-                <CardContent className="p-6">
-                  <div className={`w-12 h-12 rounded-xl ${feature.bg} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
-                    <feature.icon className="w-5 h-5 text-current" style={{ color: feature.title === 'Cultural Preservation' ? '#9B2335' : feature.title === 'Community Welfare' ? '#D97706' : '#059669' }} />
-                  </div>
-                  <h3 className="font-display text-lg font-bold text-charcoal mb-2">{feature.title}</h3>
-                  <p className="text-slate text-sm leading-relaxed">{feature.desc}</p>
-                </CardContent>
-              </Card>
+              <div className="w-10 h-10 rounded-xl bg-maroon-50 border border-maroon-100 flex items-center justify-center mb-4 group-hover:bg-maroon-100 transition-colors">
+                <p.icon className="w-5 h-5 text-maroon-700" />
+              </div>
+              <h3 className="text-base font-bold text-ink mb-2">{p.title}</h3>
+              <p className="text-sm text-gray-500 leading-relaxed">{p.desc}</p>
             </motion.div>
           ))}
         </div>

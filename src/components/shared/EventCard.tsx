@@ -1,64 +1,57 @@
 import { motion } from 'framer-motion';
-import { MapPin, Clock, Calendar } from 'lucide-react';
-import { Card, CardContent } from '@/components/ui/card';
+import { Calendar, MapPin, Clock } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import type { Event } from '@/data/events';
 
-const categoryColors = {
-  Religious: 'bg-primary-100 text-primary-700 border-primary-200',
-  Social: 'bg-accent-100 text-accent-800 border-accent-200',
-  Cultural: 'bg-emerald-50 text-emerald-700 border-emerald-200',
-};
+interface Props { event: Event; index: number; }
 
-export default function EventCard({ event, index = 0 }: { event: Event; index?: number }) {
+export default function EventCard({ event, index }: Props) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
+      initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-30px' }}
-      transition={{ duration: 0.5, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
+      viewport={{ once: true }}
+      transition={{ delay: index * 0.08, duration: 0.5 }}
+      className="group bg-white rounded-2xl border border-gray-100 overflow-hidden hover:border-maroon-100 hover:shadow-[0_8px_30px_rgba(0,0,0,0.06)] transition-all duration-300"
     >
-      <Card className="group overflow-hidden border-0 shadow-[0_2px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_40px_rgba(155,35,53,0.08)] transition-all duration-500 bg-white rounded-2xl">
-        <div className="relative overflow-hidden aspect-[16/10]">
-          <img
-            src={event.image}
-            alt={event.title}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
-            loading="lazy"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-          <Badge
-            className={`absolute top-4 left-4 ${categoryColors[event.category]} border text-[11px] font-semibold px-2.5 py-0.5`}
-          >
+      <div className="relative h-48 overflow-hidden">
+        <img
+          src={event.image}
+          alt={event.title}
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
+        <div className="absolute top-3 left-3 flex gap-2">
+          <Badge variant={
+            event.category === 'Religious' ? 'religious' :
+            event.category === 'Social' ? 'social' : 'cultural'
+          }>
             {event.category}
           </Badge>
           {event.upcoming && (
-            <Badge className="absolute top-4 right-4 bg-accent-500 text-white border-0 text-[11px] font-semibold px-2.5 py-0.5 animate-pulse">
+            <Badge variant="default" className="bg-green-600 text-white border-0">
               Upcoming
             </Badge>
           )}
         </div>
-        <CardContent className="p-5">
-          <h3 className="font-display text-lg font-bold text-charcoal mb-3 leading-snug group-hover:text-primary-700 transition-colors">
-            {event.title}
-          </h3>
-          <div className="space-y-2 mb-3">
-            <div className="flex items-center gap-2 text-slate text-sm">
-              <Calendar className="w-3.5 h-3.5 text-primary-500" />
-              <span>{event.date}</span>
-            </div>
-            <div className="flex items-center gap-2 text-slate text-sm">
-              <Clock className="w-3.5 h-3.5 text-primary-500" />
-              <span>{event.time}</span>
-            </div>
-            <div className="flex items-center gap-2 text-slate text-sm">
-              <MapPin className="w-3.5 h-3.5 text-primary-500" />
-              <span className="line-clamp-1">{event.venue}</span>
-            </div>
+      </div>
+      <div className="p-5">
+        <h3 className="font-bold text-ink text-base leading-snug mb-3">{event.title}</h3>
+        <div className="space-y-1.5 mb-3">
+          <div className="flex items-center gap-2 text-xs text-gray-400">
+            <Calendar className="w-3.5 h-3.5" /><span>{event.date}</span>
           </div>
-          <p className="text-slate/80 text-sm leading-relaxed line-clamp-2">{event.description}</p>
-        </CardContent>
-      </Card>
+          {event.time && (
+            <div className="flex items-center gap-2 text-xs text-gray-400">
+              <Clock className="w-3.5 h-3.5" /><span>{event.time}</span>
+            </div>
+          )}
+          <div className="flex items-center gap-2 text-xs text-gray-400">
+            <MapPin className="w-3.5 h-3.5" /><span>{event.venue}</span>
+          </div>
+        </div>
+        <p className="text-xs text-gray-500 leading-relaxed line-clamp-2">{event.description}</p>
+      </div>
     </motion.div>
   );
 }

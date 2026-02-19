@@ -1,8 +1,16 @@
-import { Users, Calendar, Award, MapPin } from 'lucide-react';
+import { Users, CalendarDays, MapPin, Award } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 
-export const stats = [
-  { label: 'Registered Members', value: '700+', icon: Users,    sub: 'Across India' },
-  { label: 'Cultural Events',    value: '50+',  icon: Calendar, sub: 'Annually' },
-  { label: 'Years of Service',   value: '12+',  icon: Award,    sub: 'Since 2012' },
-  { label: 'State Chapters',     value: '4',    icon: MapPin,   sub: 'Bihar, Jharkhand, Odisha, WB' },
+export interface Stat {
+  icon: LucideIcon;
+  num: string;
+  label: string;
+  sub: string;
+}
+
+export const stats: Stat[] = [
+  { icon: Users,        num: '700+', label: 'Active Members',       sub: 'Across 4 states' },
+  { icon: CalendarDays, num: '50+',  label: 'Events Organised',     sub: 'Cultural & welfare' },
+  { icon: MapPin,       num: '4',    label: 'States Covered',       sub: 'Bihar, JH, OD, WB' },
+  { icon: Award,        num: '2012', label: 'Year of Registration',  sub: 'Officially registered' },
 ];

@@ -2,82 +2,81 @@ export interface Member {
   id: string;
   name: string;
   designation: string;
-  phone: string;
   image: string;
+  phone?: string;
   message?: string;
 }
 
 export const members: Member[] = [
   {
     id: '1',
-    name: 'Shri Rameshwar Prasad Suri',
+    name: 'Shri Rajendra Kumar Suri',
     designation: 'President',
-    phone: '+91 98XXX XX001',
-    image: 'https://images.unsplash.com/photo-1566492031773-4f4e44671857?w=200&h=200&fit=crop',
-    message:
-      'The Vaishya Bhartiya Suri Samaj stands as a pillar of unity for our community across Bihar, Jharkhand, Odisha, and West Bengal. Our mission is clear: to uplift every family through education, health, and social support. I invite every member to participate actively and help us build a stronger, more united Suri Vaishya community for generations to come. Jai Hind.',
+    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face',
+    phone: '+91 98XXX XXXXX',
+    message: 'Our samaj has always stood as a pillar of strength for the Suri Vaishya community. My commitment, and that of every committee member, is to advance education, uplift the underprivileged, and keep our cultural identity alive for generations to come. Together we shall continue to rise — Jai Vaishya Samaj.',
   },
   {
     id: '2',
-    name: 'Shri Deepak Kumar Suri',
+    name: 'Shri Pradeep Suri',
     designation: 'Vice President',
-    phone: '+91 98XXX XX002',
-    image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop',
+    image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop&crop=face',
+    phone: '+91 98XXX XXXXX',
   },
   {
     id: '3',
-    name: 'Shri Sunil Suri',
-    designation: 'General Secretary',
-    phone: '+91 98XXX XX003',
-    image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&h=200&fit=crop',
+    name: 'Smt. Anita Agarwal',
+    designation: 'Secretary',
+    image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&h=200&fit=crop&crop=face',
+    phone: '+91 97XXX XXXXX',
   },
   {
     id: '4',
-    name: 'Shri Anil Kumar Suri',
+    name: 'Shri Suresh Soni',
     designation: 'Joint Secretary',
-    phone: '+91 98XXX XX004',
-    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop',
+    image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&h=200&fit=crop&crop=face',
+    phone: '+91 96XXX XXXXX',
   },
   {
     id: '5',
-    name: 'Shri Vinod Prasad Suri',
+    name: 'Shri Naresh Gupta',
     designation: 'Treasurer',
-    phone: '+91 98XXX XX005',
-    image: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=200&h=200&fit=crop',
+    image: 'https://images.unsplash.com/photo-1566492031773-4f4e44671857?w=200&h=200&fit=crop&crop=face',
+    phone: '+91 95XXX XXXXX',
   },
   {
     id: '6',
-    name: 'Smt. Kavita Suri',
-    designation: 'Women’s Wing President',
-    phone: '+91 98XXX XX006',
-    image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&h=200&fit=crop',
+    name: 'Smt. Meena Shah',
+    designation: 'Women Wing Chairperson',
+    image: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=200&h=200&fit=crop&crop=face',
+    phone: '+91 94XXX XXXXX',
   },
   {
     id: '7',
-    name: 'Shri Rajesh Suri',
-    designation: 'Youth Wing President',
-    phone: '+91 98XXX XX007',
-    image: 'https://images.unsplash.com/photo-1568602471122-7832951cc4c5?w=200&h=200&fit=crop',
+    name: 'Shri Dinesh Suri',
+    designation: 'Committee Member',
+    image: 'https://images.unsplash.com/photo-1528763380143-65b3ac89a3ff?w=200&h=200&fit=crop&crop=face',
+    phone: '+91 93XXX XXXXX',
   },
   {
     id: '8',
-    name: 'Shri Manoj Kumar Suri',
+    name: 'Shri Ramesh Khandelwal',
     designation: 'Committee Member',
-    phone: '+91 98XXX XX008',
-    image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&h=200&fit=crop',
+    image: 'https://images.unsplash.com/photo-1558222218-b7b54eede3f3?w=200&h=200&fit=crop&crop=face',
+    phone: '+91 92XXX XXXXX',
   },
   {
     id: '9',
-    name: 'Smt. Priya Suri',
+    name: 'Smt. Kavita Jalan',
     designation: 'Committee Member',
-    phone: '+91 98XXX XX009',
-    image: 'https://images.unsplash.com/photo-1551836022-deb4988cc6c0?w=200&h=200&fit=crop',
+    image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200&h=200&fit=crop&crop=face',
+    phone: '+91 91XXX XXXXX',
   },
   {
     id: '10',
-    name: 'Shri Rakesh Suri',
-    designation: 'Committee Member',
-    phone: '+91 98XXX XX010',
-    image: 'https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?w=200&h=200&fit=crop',
+    name: 'Shri Vijay Suri',
+    designation: 'Youth Wing Head',
+    image: 'https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=200&h=200&fit=crop&crop=face',
+    phone: '+91 90XXX XXXXX',
   },
 ];
