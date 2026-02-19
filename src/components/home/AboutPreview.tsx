@@ -1,81 +1,137 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowRight, GraduationCap, HeartHandshake, VenetianMask } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 const pillars = [
-  {
-    icon: GraduationCap,
-    title: 'Education & Scholarships',
-    desc: 'Supporting meritorious students from the Suri Vaishya community with scholarships, career guidance and mentorship programs.',
-  },
-  {
-    icon: HeartHandshake,
-    title: 'Health & Welfare',
-    desc: 'Organising medical camps, health check-ups, and social welfare initiatives to improve quality of life for community members.',
-  },
-  {
-    icon: VenetianMask,
-    title: 'Women Empowerment',
-    desc: 'Running programs focused on women leadership, skill development and creating economic opportunities for women in the community.',
-  },
+  { num: '01', title: 'Education & Scholarships', desc: 'Merit scholarships, career guidance and mentorship for Suri Vaishya students across four states.' },
+  { num: '02', title: 'Health & Welfare',         desc: 'Free medical camps, screenings and social welfare programs for community members in need.' },
+  { num: '03', title: 'Women Empowerment',        desc: 'Skill development, self-help groups, legal awareness and leadership programs for women.' },
+  { num: '04', title: 'Marriage Support',         desc: 'Community marriage bureau and financial assistance for families needing support.' },
 ];
 
 export default function AboutPreview() {
   return (
-    <section className="section-padding">
+    <section className="section-padding" style={{ background: '#FAFAF7' }}>
       <div className="container-custom">
-        {/* Top */}
-        <div className="grid lg:grid-cols-2 gap-10 lg:gap-20 items-end mb-14">
+
+        {/* ── Header row — asymmetric 40/60 split ── */}
+        <div className="grid lg:grid-cols-[2fr_3fr] gap-10 lg:gap-20 mb-14 items-end">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.55 }}
+            transition={{ duration: 0.48 }}
           >
-            <p className="text-xs font-semibold uppercase tracking-widest text-maroon-600 mb-3">Who We Are</p>
-            <h2 className="text-section font-bold text-ink leading-tight tracking-tight text-balance">
-              Advancing the Suri Vaishya Community Through Collective Action
+            <span className="section-num block mb-2">02 — About</span>
+            <div
+              className="mb-4"
+              style={{ width: 28, height: 3, borderRadius: 99, background: 'linear-gradient(90deg, #1B4D3E, #4A9A7C)' }}
+            />
+            <h2
+              style={{
+                fontFamily: "'Plus Jakarta Sans', sans-serif",
+                fontSize: 'clamp(1.9rem, 3.8vw, 2.9rem)',
+                fontWeight: 800,
+                letterSpacing: '-0.03em',
+                lineHeight: 1.12,
+                color: '#1A1A2E',
+              }}
+            >
+              Built for the Suri Vaishya Community
             </h2>
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.55, delay: 0.1 }}
+            transition={{ duration: 0.48, delay: 0.1 }}
+            className="flex flex-col justify-end gap-5"
           >
-            <p className="text-gray-500 text-base leading-relaxed">
-              Vaishya Bhartiya Suri Samaj (VBSS) is a registered non-profit body incorporated under
-              the Society Registration Act 1860 and the Mumbai Public Trust Act 1950. Our mandate
-              covers Bihar, Jharkhand, Odisha and West Bengal — states where the Suri and Kalwar
-              Vaishya communities have historically resided and contributed to trade and commerce.
+            <p
+              style={{
+                fontFamily: "'Satoshi', sans-serif",
+                fontSize: '1rem',
+                lineHeight: 1.8,
+                color: '#6B7280',
+                maxWidth: 520,
+              }}
+            >
+              Incorporated under the Society Registration Act 1860 and Mumbai Public Trust Act 1950,
+              VBSS unites Suri and Kalwar Vaishya families across Bihar, Jharkhand, Odisha and West
+              Bengal through welfare, culture and advocacy.
             </p>
+
+            {/* EBC advocacy callout */}
+            <div
+              className="rounded-xl p-4 flex gap-3"
+              style={{ background: '#F0FAF5', border: '1px solid #B3D9C7' }}
+            >
+              <span
+                className="mt-0.5 w-1.5 h-1.5 rounded-full shrink-0"
+                style={{ backgroundColor: '#D97706', marginTop: 6 }}
+              />
+              <p
+                style={{
+                  fontFamily: "'Satoshi', sans-serif",
+                  fontSize: '0.875rem',
+                  lineHeight: 1.7,
+                  color: '#374151',
+                }}
+              >
+                <span style={{ fontWeight: 700, color: '#1B4D3E' }}>Active Advocacy — </span>
+                Demanding EBC classification for Suri &amp; Kalwar Vaishya in Bihar, in line with
+                recognition already granted in Jharkhand, Odisha and West Bengal.
+              </p>
+            </div>
+
             <Link
               to="/about"
-              className="inline-flex items-center gap-1.5 text-maroon-700 font-semibold text-sm mt-5 hover:gap-3 transition-all group"
+              className="group self-start inline-flex items-center gap-1.5 text-[13px] font-semibold transition-all duration-200"
+              style={{ color: '#1B4D3E', fontFamily: "'Plus Jakarta Sans', sans-serif" }}
             >
-              Learn More
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+              Full Story
+              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
             </Link>
           </motion.div>
         </div>
 
-        {/* Pillars */}
-        <div className="grid sm:grid-cols-3 gap-5">
-          {pillars.map((p, i) => (
+        {/* ── Pillars — staggered grid ── */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {pillars.map(({ num, title, desc }, i) => (
             <motion.div
-              key={p.title}
-              initial={{ opacity: 0, y: 24 }}
+              key={num}
+              initial={{ opacity: 0, y: 18 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.1, duration: 0.5 }}
-              className="group p-6 rounded-2xl border border-gray-100 bg-white hover:border-maroon-100 hover:shadow-[0_8px_30px_rgba(0,0,0,0.05)] transition-all duration-300"
+              transition={{ delay: i * 0.09, duration: 0.44 }}
+              className="card-surface p-6"
+              style={{ marginTop: [0, 28, 0, 28][i] }}
             >
-              <div className="w-10 h-10 rounded-xl bg-maroon-50 border border-maroon-100 flex items-center justify-center mb-4 group-hover:bg-maroon-100 transition-colors">
-                <p.icon className="w-5 h-5 text-maroon-700" />
-              </div>
-              <h3 className="text-base font-bold text-ink mb-2">{p.title}</h3>
-              <p className="text-sm text-gray-500 leading-relaxed">{p.desc}</p>
+              <p
+                style={{
+                  fontFamily: "'Plus Jakarta Sans', sans-serif",
+                  fontSize: '2.2rem',
+                  fontWeight: 800,
+                  letterSpacing: '-0.04em',
+                  lineHeight: 1,
+                  color: i % 2 === 0 ? '#E8E8E2' : '#D97706',
+                  marginBottom: '1rem',
+                }}
+              >
+                {num}
+              </p>
+              <h3
+                className="font-semibold text-ink mb-2"
+                style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: '0.92rem' }}
+              >
+                {title}
+              </h3>
+              <p
+                style={{ fontFamily: "'Satoshi', sans-serif", fontSize: '0.82rem', lineHeight: 1.65, color: '#9CA3AF' }}
+              >
+                {desc}
+              </p>
             </motion.div>
           ))}
         </div>
