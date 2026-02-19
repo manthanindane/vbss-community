@@ -4,110 +4,98 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 0%;
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 0%;
+    --background: 40 30% 97%;
+    --foreground: 20 10% 11%;
+    --card: 40 30% 97%;
+    --card-foreground: 20 10% 11%;
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 0%;
-    --primary: 0 100% 45%;
+    --popover-foreground: 20 10% 11%;
+    --primary: 354 62% 40%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 0 0% 95%;
-    --secondary-foreground: 0 0% 0%;
-    --muted: 0 0% 94%;
-    --muted-foreground: 0 0% 40%;
-    --accent: 0 100% 45%;
-    --accent-foreground: 0 0% 100%;
-    --destructive: 0 84% 60%;
+    --secondary: 35 20% 92%;
+    --secondary-foreground: 20 10% 11%;
+    --muted: 35 15% 91%;
+    --muted-foreground: 25 8% 42%;
+    --accent: 35 20% 92%;
+    --accent-foreground: 20 10% 11%;
+    --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
-    --border: 0 0% 0%;
-    --input: 0 0% 90%;
-    --ring: 0 100% 45%;
-    --radius: 0rem;
+    --border: 35 15% 86%;
+    --input: 35 15% 86%;
+    --ring: 354 62% 40%;
+    --radius: 0.5rem;
   }
 }
 
 @layer base {
-  * {
-    border-color: hsl(var(--border));
-    box-sizing: border-box;
-  }
-
-  html {
-    scroll-behavior: auto;
-  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
 
   body {
-    background-color: #ffffff;
-    color: #000000;
-    font-family: 'Barlow', system-ui, sans-serif;
+    background-color: #FAF7F2;
+    color: #1C1917;
+    font-family: 'DM Sans', system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    line-height: 1.6;
   }
 
-  h1, h2, h3, h4, h5, h6 {
-    font-family: 'Barlow Condensed', system-ui, sans-serif;
-    text-transform: uppercase;
-    letter-spacing: -0.03em;
-    line-height: 0.92;
+  h1, h2, h3 {
+    font-family: 'Playfair Display', Georgia, serif;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    color: #1C1917;
+  }
+
+  h4, h5, h6 {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-weight: 600;
   }
 }
 
 @layer utilities {
-  /* Layout */
-  .section-padding {
-    @apply py-16 lg:py-24;
-  }
-  .container-custom {
-    @apply max-w-screen-xl mx-auto px-5 sm:px-8 lg:px-12;
-  }
+  .section-padding  { @apply py-16 lg:py-24; }
+  .container-custom { @apply max-w-6xl mx-auto px-5 sm:px-8 lg:px-12; }
 
-  /* Type */
+  /* serif heading shorthand */
   .font-display {
-    font-family: 'Barlow Condensed', system-ui, sans-serif;
+    font-family: 'Playfair Display', Georgia, serif;
+  }
+
+  /* small all-caps label (Inter, no serif) */
+  .label {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    letter-spacing: -0.03em;
-  }
-  .font-mono-label {
-    font-family: 'JetBrains Mono', monospace;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    font-size: 0.7rem;
+    color: #9B2335;
   }
 
-  /* Brutalist helpers */
-  .border-brutal {
-    border: 2px solid #000;
-  }
-  .border-brutal-thick {
-    border: 4px solid #000;
-  }
-  .border-brutal-red {
-    border: 2px solid #E60023;
-  }
-  .shadow-brutal {
-    box-shadow: 4px 4px 0px #000;
-  }
-  .shadow-brutal-red {
-    box-shadow: 4px 4px 0px #E60023;
-  }
-  .text-red-brand {
-    color: #E60023;
-  }
-  .bg-red-brand {
-    background-color: #E60023;
+  /* warm divider */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, #D8CEBF 0%, transparent 100%);
   }
 
-  /* Hard cut animation */
-  .cut-in {
-    animation: cutIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  /* offset card (asymmetric shadow feel) */
+  .card-warm {
+    background: #FFFFFF;
+    border: 1px solid #EDE6DA;
+    border-radius: 12px;
   }
-  @keyframes cutIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to   { opacity: 1; transform: translateY(0); }
+  .card-warm:hover {
+    border-color: #D8CEBF;
+    box-shadow: 4px 8px 32px rgba(28, 25, 23, 0.06);
+    transform: translateY(-2px);
+    transition: all 0.25s ease;
   }
 
-  /* Line clamp */
-  .line-clamp-2 { overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
-  .line-clamp-3 { overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; }
+  /* Asymmetric accent bar */
+  .accent-bar {
+    display: inline-block;
+    width: 32px;
+    height: 3px;
+    background-color: #9B2335;
+    margin-bottom: 12px;
+  }
 }

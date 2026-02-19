@@ -1,46 +1,44 @@
 import { motion } from 'framer-motion';
 
 const stats = [
-  { num: '700+', label: 'Active Members',       sub: 'Bihar · JH · OD · WB' },
-  { num: '50+',  label: 'Events Organised',      sub: 'Cultural & Welfare' },
-  { num: '4',    label: 'States Covered',        sub: 'Across East India' },
-  { num: '2012', label: 'Year of Registration',  sub: 'Legally Incorporated' },
+  { num: '700+', label: 'Active Members',        sub: 'Across 4 states' },
+  { num: '50+',  label: 'Events Organised',       sub: 'Cultural & welfare' },
+  { num: '4',    label: 'States of Operation',    sub: 'Bihar, JH, OD, WB' },
+  { num: '2012', label: 'Registered Since',       sub: 'Legally incorporated' },
 ];
 
 export default function StatsCounter() {
   return (
-    <section className="border-b-4 border-black">
-      <div className="grid grid-cols-2 lg:grid-cols-4">
-        {stats.map(({ num, label, sub }, i) => (
-          <motion.div
-            key={label}
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: i * 0.07, duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
-            className={`p-8 lg:p-10 flex flex-col gap-1 ${
-              i < stats.length - 1 ? 'border-r-2 border-black' : ''
-            } ${
-              i < 2 ? 'border-b-2 border-black lg:border-b-0' : ''
-            }`}
-          >
-            <p
-              className="font-display"
-              style={{ fontFamily: 'Barlow Condensed, sans-serif', fontSize: 'clamp(3rem,6vw,5rem)', fontWeight: 900, letterSpacing: '-0.04em', lineHeight: 0.9, color: i % 2 === 1 ? '#E60023' : '#000' }}
+    <section
+      className="py-0"
+      style={{ background: '#FFFFFF', borderTop: '1px solid #EDE6DA', borderBottom: '1px solid #EDE6DA' }}
+    >
+      <div className="container-custom">
+        <div className="grid grid-cols-2 lg:grid-cols-4">
+          {stats.map(({ num, label, sub }, i) => (
+            <motion.div
+              key={label}
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.07, duration: 0.45 }}
+              className={`py-8 px-6 flex flex-col gap-1 ${
+                i < 3 ? 'border-r border-stone-100 lg:border-r' : ''
+              } ${
+                i < 2 ? 'border-b border-stone-100 lg:border-b-0' : ''
+              }`}
             >
-              {num}
-            </p>
-            <p
-              className="font-bold text-black uppercase mt-2"
-              style={{ fontFamily: 'Barlow, sans-serif', fontSize: '0.8rem', letterSpacing: '0.04em', lineHeight: 1.2 }}
-            >
-              {label}
-            </p>
-            <p style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '0.6rem', letterSpacing: '0.1em', textTransform: 'uppercase', color: '#888', marginTop: 2 }}>
-              {sub}
-            </p>
-          </motion.div>
-        ))}
+              <p
+                className="font-display leading-none"
+                style={{ fontSize: 'clamp(2rem,4vw,2.75rem)', fontWeight: 800, color: i % 2 === 1 ? '#9B2335' : '#1C1917', lineHeight: 1 }}
+              >
+                {num}
+              </p>
+              <p className="text-sm font-semibold text-ink mt-1.5" style={{ fontFamily: 'DM Sans, sans-serif' }}>{label}</p>
+              <p className="text-xs text-stone-400" style={{ fontFamily: 'DM Sans, sans-serif' }}>{sub}</p>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   );

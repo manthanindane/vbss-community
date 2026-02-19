@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const navLinks = [
+const links = [
   { name: 'Home',      path: '/' },
   { name: 'About',     path: '/about' },
   { name: 'Events',    path: '/events' },
@@ -13,118 +14,112 @@ const navLinks = [
 ];
 
 export default function Navbar() {
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const location = useLocation();
+  const { pathname } = useLocation();
 
   useEffect(() => {
-    const fn = () => setScrolled(window.scrollY > 8);
+    const fn = () => setScrolled(window.scrollY > 12);
     window.addEventListener('scroll', fn);
     return () => window.removeEventListener('scroll', fn);
   }, []);
-
-  useEffect(() => { setMenuOpen(false); }, [location]);
+  useEffect(() => setOpen(false), [pathname]);
 
   return (
     <>
       <header
-        className={`fixed top-0 inset-x-0 z-50 ${
-          scrolled ? 'bg-white border-b-2 border-black' : 'bg-white border-b-2 border-black'
+        className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
+          scrolled ? 'bg-[#FAF7F2]/90 backdrop-blur-md border-b border-stone-200' : 'bg-transparent'
         }`}
-        style={{ height: 56 }}
+        style={{ height: 60 }}
       >
         <div className="container-custom h-full flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3 group">
-            <div className="w-8 h-8 bg-black flex items-center justify-center">
-              <span className="text-white font-display font-black text-sm tracking-tight">VB</span>
+            <div
+              className="w-8 h-8 flex items-center justify-center rounded-sm"
+              style={{ backgroundColor: '#9B2335' }}
+            >
+              <span className="text-white text-[11px] font-bold tracking-wide" style={{ fontFamily: 'DM Sans, sans-serif' }}>VB</span>
             </div>
-            <div className="hidden sm:block">
-              <p className="font-mono-label text-black leading-none" style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '0.62rem', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
-                Vaishya Bhartiya Suri Samaj
-              </p>
-              <p style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '0.55rem', letterSpacing: '0.1em', textTransform: 'uppercase', color: '#888', marginTop: 2 }}>
-                Est. 2012 · Mumbai
-              </p>
+            <div className="hidden sm:block leading-tight">
+              <p className="text-[12px] font-semibold text-ink" style={{ letterSpacing: '0.01em' }}>Vaishya Bhartiya Suri Samaj</p>
+              <p className="text-[10px] text-stone-400 mt-0.5" style={{ letterSpacing: '0.06em', textTransform: 'uppercase' }}>Est. 2012</p>
             </div>
           </Link>
 
-          {/* Center — section metadata (desktop) */}
-          <div className="hidden lg:flex items-center gap-1" style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '0.6rem', letterSpacing: '0.12em', textTransform: 'uppercase' }}>
-            {['Education', 'Health', 'Community', 'Welfare'].map((tag) => (
-              <span key={tag} className="px-2 py-1 border border-black text-black">{tag}</span>
-            ))}
-          </div>
-
-          {/* Right nav */}
-          <nav className="hidden lg:flex items-center gap-0">
-            {navLinks.map((link) => {
-              const isActive = location.pathname === link.path;
+          {/* Desktop nav */}
+          <nav className="hidden lg:flex items-center gap-6">
+            {links.map((l) => {
+              const active = pathname === l.path;
               return (
                 <Link
-                  key={link.path}
-                  to={link.path}
-                  className={`px-3 h-14 flex items-center border-l border-black text-xs font-bold tracking-widest uppercase transition-colors duration-100 ${
-                    isActive
-                      ? 'bg-black text-white'
-                      : 'bg-white text-black hover:bg-black hover:text-white'
+                  key={l.path}
+                  to={l.path}
+                  className={`text-[13px] font-medium transition-colors duration-200 relative pb-0.5 ${
+                    active ? 'text-ink' : 'text-stone-500 hover:text-ink'
                   }`}
-                  style={{ height: 56, fontFamily: 'Barlow Condensed, sans-serif', fontSize: '0.75rem', letterSpacing: '0.1em' }}
+                  style={{ fontFamily: 'DM Sans, sans-serif' }}
                 >
-                  {link.name}
+                  {l.name}
+                  {active && (
+                    <span
+                      className="absolute bottom-0 left-0 right-0 h-0.5 rounded-full"
+                      style={{ backgroundColor: '#9B2335' }}
+                    />
+                  )}
                 </Link>
               );
             })}
-            <Link
-              to="/contact"
-              className="px-5 h-14 flex items-center bg-red-brand text-white border-l-2 border-black text-xs font-black tracking-widest uppercase transition-colors duration-100 hover:bg-black"
-              style={{ height: 56, fontFamily: 'Barlow Condensed, sans-serif', fontSize: '0.75rem', letterSpacing: '0.12em', backgroundColor: '#E60023' }}
-            >
-              JOIN
-            </Link>
           </nav>
 
-          {/* Mobile hamburger */}
-          <button
-            onClick={() => setMenuOpen(!menuOpen)}
-            className="lg:hidden flex flex-col justify-center items-center gap-1.5 w-10 h-10 border-2 border-black"
-            aria-label="Toggle menu"
-          >
-            <span className={`block w-5 h-0.5 bg-black transition-all duration-150 ${ menuOpen ? 'rotate-45 translate-y-2' : '' }`} />
-            <span className={`block w-5 h-0.5 bg-black transition-all duration-150 ${ menuOpen ? 'opacity-0' : '' }`} />
-            <span className={`block w-5 h-0.5 bg-black transition-all duration-150 ${ menuOpen ? '-rotate-45 -translate-y-2' : '' }`} />
-          </button>
+          {/* Join CTA */}
+          <div className="flex items-center gap-3">
+            <Link
+              to="/contact"
+              className="hidden md:inline-flex items-center px-4 py-2 text-[13px] font-semibold text-white rounded-md transition-all duration-200 hover:opacity-90"
+              style={{ backgroundColor: '#9B2335', fontFamily: 'DM Sans, sans-serif' }}
+            >
+              Join Samaj
+            </Link>
+            <button
+              onClick={() => setOpen(!open)}
+              className="lg:hidden p-2 rounded-md hover:bg-stone-100 transition-colors"
+              aria-label="Toggle menu"
+            >
+              {open ? <X className="w-5 h-5 text-ink" /> : <Menu className="w-5 h-5 text-ink" />}
+            </button>
+          </div>
         </div>
       </header>
 
-      {/* Mobile full-screen menu */}
+      {/* Mobile menu */}
       <AnimatePresence>
-        {menuOpen && (
+        {open && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.15 }}
-            className="fixed inset-0 z-40 bg-black flex flex-col pt-14"
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-x-0 top-[60px] z-40 bg-[#FAF7F2] border-b border-stone-200 shadow-sm"
           >
-            <nav className="flex flex-col">
-              {navLinks.map((link, i) => (
+            <nav className="container-custom py-4 flex flex-col gap-0">
+              {links.map((l) => (
                 <Link
-                  key={link.path}
-                  to={link.path}
-                  className="px-8 py-6 text-white border-b border-white/10 hover:bg-white hover:text-black transition-colors duration-100"
-                  style={{ fontFamily: 'Barlow Condensed, sans-serif', fontSize: 'clamp(2rem,8vw,3.5rem)', textTransform: 'uppercase', letterSpacing: '-0.02em', lineHeight: 1 }}
+                  key={l.path}
+                  to={l.path}
+                  className="py-3 border-b border-stone-100 text-sm font-medium text-ink last:border-0"
+                  style={{ fontFamily: 'DM Sans, sans-serif' }}
                 >
-                  <span className="font-mono-label text-white/30 mr-4" style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '0.65rem', letterSpacing: '0.1em' }}>0{i + 1}</span>
-                  {link.name}
+                  {l.name}
                 </Link>
               ))}
               <Link
                 to="/contact"
-                className="px-8 py-6 text-black hover:text-white transition-colors duration-100"
-                style={{ backgroundColor: '#E60023', fontFamily: 'Barlow Condensed, sans-serif', fontSize: 'clamp(2rem,8vw,3.5rem)', textTransform: 'uppercase', letterSpacing: '-0.02em', lineHeight: 1 }}
+                className="mt-4 py-3 text-center text-sm font-semibold text-white rounded-md"
+                style={{ backgroundColor: '#9B2335' }}
               >
-                JOIN THE SAMAJ
+                Join Samaj
               </Link>
             </nav>
           </motion.div>

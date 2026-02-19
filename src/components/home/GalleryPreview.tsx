@@ -1,104 +1,79 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { ArrowRight } from 'lucide-react';
 import { galleryImages } from '@/data/gallery';
 
 export default function GalleryPreview() {
-  const preview = galleryImages.slice(0, 7);
-
-  // Manual layout: first is big, rest fill a 2x3 grid
-  const [first, ...rest] = preview;
+  const preview = galleryImages.slice(0, 5);
 
   return (
-    <section className="border-b-4 border-black">
-      {/* Header */}
-      <div className="border-b-2 border-black px-8 lg:px-14 py-5 flex items-center justify-between">
-        <div className="flex items-center gap-4">
-          <span
-            className="font-display text-white px-3 py-1 text-sm font-black uppercase tracking-widest"
-            style={{ backgroundColor: '#E60023', fontFamily: 'Barlow Condensed, sans-serif', letterSpacing: '0.1em' }}
-          >
-            05
-          </span>
-          <span className="font-display text-black uppercase font-black text-xl" style={{ fontFamily: 'Barlow Condensed, sans-serif', letterSpacing: '0.05em' }}>
-            Community Gallery
-          </span>
-        </div>
-        <Link
-          to="/gallery"
-          className="border-2 border-black px-4 py-1.5 font-black uppercase text-xs tracking-widest hover:bg-black hover:text-white transition-colors duration-100"
-          style={{ fontFamily: 'Barlow Condensed, sans-serif', letterSpacing: '0.1em' }}
-        >
-          Full Gallery &rarr;
-        </Link>
-      </div>
-
-      {/* Mosaic grid */}
-      <div className="grid grid-cols-2 lg:grid-cols-4">
-        {/* Large first image */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.25 }}
-          className="relative col-span-2 row-span-2 border-r-2 border-b-2 border-black group"
-          style={{ minHeight: 320 }}
-        >
-          <img
-            src={first.src}
-            alt={first.alt}
-            className="w-full h-full object-cover"
-            style={{ display: 'block', minHeight: 320 }}
-          />
-          <div
-            className="absolute inset-0 bg-black transition-opacity duration-100 opacity-0 group-hover:opacity-40"
-          />
-          <div className="absolute bottom-0 left-0 right-0 p-5 translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-150">
-            <p className="text-white font-display uppercase text-lg font-black" style={{ fontFamily: 'Barlow Condensed, sans-serif' }}>{first.alt}</p>
-          </div>
-        </motion.div>
-
-        {/* Rest — 2-col, fill right side */}
-        {rest.map((img, i) => (
+    <section className="section-padding" style={{ background: '#FFFFFF' }}>
+      <div className="container-custom">
+        <div className="flex items-end justify-between mb-10">
           <motion.div
-            key={img.id}
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
+            initial={{ opacity: 0, y: 14 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: (i + 1) * 0.05, duration: 0.2 }}
-            className={`relative border-black group ${
-              i % 2 === 0 ? 'border-r-2' : ''
-            } border-b-2 last:border-b-0`}
-            style={{ minHeight: 160 }}
+            transition={{ duration: 0.45 }}
           >
-            <img
-              src={img.src}
-              alt={img.alt}
-              className="w-full h-full object-cover"
-              style={{ display: 'block', minHeight: 160 }}
-            />
-            <div className="absolute inset-0 bg-black transition-opacity duration-100 opacity-0 group-hover:opacity-50" />
-            <div className="absolute bottom-0 left-0 right-0 p-3 opacity-0 group-hover:opacity-100 transition-all duration-150">
-              <p className="text-white font-display uppercase text-sm font-black" style={{ fontFamily: 'Barlow Condensed, sans-serif' }}>{img.alt}</p>
+            <span className="label block mb-2">Photo Gallery</span>
+            <h2
+              className="font-display text-ink"
+              style={{ fontSize: 'clamp(1.75rem, 3.5vw, 2.5rem)', fontWeight: 800, lineHeight: 1.1 }}
+            >
+              Community Moments
+            </h2>
+          </motion.div>
+          <Link
+            to="/gallery"
+            className="hidden sm:inline-flex items-center gap-1.5 text-[13px] font-semibold transition-all group"
+            style={{ color: '#9B2335', fontFamily: 'DM Sans, sans-serif' }}
+          >
+            Full Gallery <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+          </Link>
+        </div>
+
+        {/* Asymmetric masonry-style grid */}
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-3">
+          {/* Big left image */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.98 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4 }}
+            className="relative row-span-2 rounded-2xl overflow-hidden group"
+            style={{ gridRow: 'span 2', minHeight: 320 }}
+          >
+            <img src={preview[0].src} alt={preview[0].alt} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+            <div
+              className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-5"
+              style={{ background: 'linear-gradient(to top, rgba(28,25,23,0.5) 0%, transparent 55%)' }}
+            >
+              <p className="text-white text-sm font-semibold" style={{ fontFamily: 'DM Sans, sans-serif' }}>{preview[0].alt}</p>
             </div>
           </motion.div>
-        ))}
-      </div>
 
-      {/* Bottom CTA band */}
-      <div style={{ backgroundColor: '#E60023' }} className="px-8 lg:px-14 py-6 flex items-center justify-between border-t-2 border-black">
-        <p
-          className="text-white font-display uppercase font-black"
-          style={{ fontFamily: 'Barlow Condensed, sans-serif', fontSize: 'clamp(1.2rem,3vw,2rem)', letterSpacing: '-0.01em' }}
-        >
-          See All Community Photos
-        </p>
-        <Link
-          to="/gallery"
-          className="border-2 border-white px-6 py-3 text-white font-black uppercase tracking-widest hover:bg-white hover:text-black transition-colors duration-100"
-          style={{ fontFamily: 'Barlow Condensed, sans-serif', fontSize: '0.9rem', letterSpacing: '0.1em' }}
-        >
-          Gallery &rarr;
-        </Link>
+          {/* Right side — stacked shorter images */}
+          {preview.slice(1).map((img, i) => (
+            <motion.div
+              key={img.id}
+              initial={{ opacity: 0, scale: 0.98 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: (i + 1) * 0.06, duration: 0.4 }}
+              className="relative rounded-xl overflow-hidden group"
+              style={{ height: i < 2 ? 155 : 155 }}
+            >
+              <img src={img.src} alt={img.alt} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+              <div
+                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3"
+                style={{ background: 'linear-gradient(to top, rgba(28,25,23,0.5) 0%, transparent 55%)' }}
+              >
+                <p className="text-white text-xs font-semibold" style={{ fontFamily: 'DM Sans, sans-serif' }}>{img.alt}</p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   );

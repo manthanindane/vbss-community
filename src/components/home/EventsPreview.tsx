@@ -1,87 +1,93 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { Calendar, MapPin, ArrowRight } from 'lucide-react';
 import { events } from '@/data/events';
 
 export default function EventsPreview() {
   const upcoming = events.filter((e) => e.upcoming).slice(0, 3);
 
   return (
-    <section className="bg-black border-b-4 border-black">
-      {/* Header */}
-      <div className="border-b-2 border-white/20 px-8 lg:px-14 py-5 flex items-center justify-between">
-        <div className="flex items-center gap-4">
-          <span
-            className="font-display text-black px-3 py-1 text-sm font-black uppercase tracking-widest"
-            style={{ backgroundColor: '#E60023', fontFamily: 'Barlow Condensed, sans-serif', letterSpacing: '0.1em' }}
-          >
-            03
-          </span>
-          <span className="font-display text-white uppercase font-black text-xl" style={{ fontFamily: 'Barlow Condensed, sans-serif', letterSpacing: '0.05em' }}>
-            Upcoming Events
-          </span>
-        </div>
-        <Link
-          to="/events"
-          className="border-2 border-white px-4 py-1.5 font-black uppercase text-xs tracking-widest text-white hover:bg-white hover:text-black transition-colors duration-100"
-          style={{ fontFamily: 'Barlow Condensed, sans-serif', letterSpacing: '0.1em' }}
-        >
-          All Events &rarr;
-        </Link>
-      </div>
-
-      {/* Event grid */}
-      <div className="grid lg:grid-cols-3">
-        {upcoming.map((event, i) => (
+    <section className="section-padding" style={{ background: '#FFFFFF' }}>
+      <div className="container-custom">
+        {/* Header */}
+        <div className="flex items-end justify-between mb-10">
           <motion.div
-            key={event.id}
             initial={{ opacity: 0, y: 14 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: i * 0.07, duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            className={`flex flex-col border-white/20 ${
-              i < 2 ? 'border-r-2' : ''
-            } border-b-2 lg:border-b-0`}
+            transition={{ duration: 0.45 }}
           >
-            {/* Image */}
-            <div className="relative" style={{ height: 220 }}>
-              <img
-                src={event.image}
-                alt={event.title}
-                className="w-full h-full object-cover"
-                style={{ filter: 'grayscale(30%) contrast(1.1)' }}
-              />
-              <div className="absolute inset-0" style={{ background: 'rgba(0,0,0,0.25)' }} />
-              {/* Category badge */}
-              <span
-                className="absolute top-3 left-3 px-2 py-1 font-black uppercase text-white text-xs"
-                style={{ backgroundColor: '#E60023', fontFamily: 'Barlow Condensed, sans-serif', letterSpacing: '0.1em' }}
-              >
-                {event.category}
-              </span>
-            </div>
+            <span className="label block mb-2">What’s Coming</span>
+            <h2
+              className="font-display text-ink"
+              style={{ fontSize: 'clamp(1.75rem, 3.5vw, 2.5rem)', fontWeight: 800, lineHeight: 1.1 }}
+            >
+              Upcoming Events
+            </h2>
+          </motion.div>
+          <Link
+            to="/events"
+            className="hidden sm:inline-flex items-center gap-1.5 text-[13px] font-semibold transition-all group"
+            style={{ color: '#9B2335', fontFamily: 'DM Sans, sans-serif' }}
+          >
+            All Events <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+          </Link>
+        </div>
 
-            {/* Content */}
-            <div className="p-6 flex flex-col gap-3 flex-1">
-              <h3
-                className="font-display text-white uppercase font-black leading-tight"
-                style={{ fontFamily: 'Barlow Condensed, sans-serif', fontSize: '1.4rem', letterSpacing: '-0.01em', lineHeight: 1.05 }}
+        {/* Asymmetric card grid: first card larger */}
+        <div className="grid lg:grid-cols-[2fr_1fr_1fr] gap-5">
+          {upcoming.map((event, i) => (
+            <motion.div
+              key={event.id}
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1, duration: 0.45 }}
+              className="group card-warm overflow-hidden transition-all"
+            >
+              {/* Image */}
+              <div
+                className="relative overflow-hidden"
+                style={{ height: i === 0 ? 260 : 180 }}
               >
-                {event.title}
-              </h3>
-              <div className="flex flex-col gap-1 mt-1">
-                <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '0.6rem', letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.5)' }}>
-                  {event.date}
-                </span>
-                <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '0.6rem', letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.4)' }}>
-                  {event.venue}
+                <img
+                  src={event.image}
+                  alt={event.title}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div
+                  className="absolute inset-0"
+                  style={{ background: 'linear-gradient(to top, rgba(28,25,23,0.3) 0%, transparent 60%)' }}
+                />
+                <span
+                  className="absolute top-3 left-3 px-2.5 py-1 text-white text-xs font-semibold rounded-md"
+                  style={{ backgroundColor: '#9B2335', fontFamily: 'DM Sans, sans-serif' }}
+                >
+                  {event.category}
                 </span>
               </div>
-              <p style={{ fontFamily: 'Barlow, sans-serif', fontSize: '0.82rem', lineHeight: 1.6, color: 'rgba(255,255,255,0.6)', marginTop: 4 }} className="line-clamp-2">
-                {event.description}
-              </p>
-            </div>
-          </motion.div>
-        ))}
+              {/* Content */}
+              <div className="p-5">
+                <h3
+                  className="font-semibold text-ink leading-snug mb-3"
+                  style={{ fontFamily: 'DM Sans, sans-serif', fontSize: i === 0 ? '1.05rem' : '0.92rem' }}
+                >
+                  {event.title}
+                </h3>
+                <div className="flex flex-col gap-1.5">
+                  <div className="flex items-center gap-2 text-[12px] text-stone-400">
+                    <Calendar className="w-3.5 h-3.5 shrink-0" style={{ color: '#9B2335' }} />
+                    <span style={{ fontFamily: 'DM Sans, sans-serif' }}>{event.date}</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-[12px] text-stone-400">
+                    <MapPin className="w-3.5 h-3.5 shrink-0" />
+                    <span style={{ fontFamily: 'DM Sans, sans-serif' }}>{event.venue}</span>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   );

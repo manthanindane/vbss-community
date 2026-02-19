@@ -1,195 +1,176 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { ArrowRight } from 'lucide-react';
 
-const cut = (delay = 0) => ({
-  initial: { opacity: 0, y: 16 },
+const up = (delay = 0) => ({
+  initial: { opacity: 0, y: 22 },
   animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.22, delay, ease: [0.16, 1, 0.3, 1] as [number,number,number,number] },
+  transition: { duration: 0.55, delay, ease: [0.22, 1, 0.36, 1] as [number,number,number,number] },
 });
 
 export default function HeroSection() {
   return (
-    <section className="border-b-4 border-black" style={{ paddingTop: 56 }}>
-      {/* TICKER STRIP */}
-      <div className="bg-black overflow-hidden border-b-2 border-black" style={{ height: 36 }}>
-        <div
-          className="flex items-center gap-12 whitespace-nowrap text-white h-full"
-          style={{
-            fontFamily: 'JetBrains Mono, monospace',
-            fontSize: '0.62rem',
-            letterSpacing: '0.14em',
-            textTransform: 'uppercase',
-            animation: 'marquee 28s linear infinite',
-          }}
-        >
-          {Array(6).fill(null).map((_, i) => (
-            <span key={i} className="flex items-center gap-8">
-              <span>Vaishya Bhartiya Suri Samaj</span>
-              <span style={{ color: '#E60023' }}>✦</span>
-              <span>Est. 2012</span>
-              <span style={{ color: '#E60023' }}>✦</span>
-              <span>GBBSD 2448/2012</span>
-              <span style={{ color: '#E60023' }}>✦</span>
-              <span>F-49747 Mumbai</span>
-              <span style={{ color: '#E60023' }}>✦</span>
-              <span>Bihar · Jharkhand · Odisha · West Bengal</span>
-              <span style={{ color: '#E60023' }}>✦</span>
-            </span>
-          ))}
-        </div>
-      </div>
+    <section
+      className="relative overflow-hidden"
+      style={{ paddingTop: 60, background: '#FAF7F2' }}
+    >
+      {/* Very subtle warm texture */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          backgroundImage: 'radial-gradient(circle at 70% 30%, rgba(155,35,53,0.04) 0%, transparent 55%), radial-gradient(circle at 20% 80%, rgba(192,147,89,0.05) 0%, transparent 50%)',
+        }}
+      />
 
-      {/* MAIN HERO GRID */}
-      <div className="grid lg:grid-cols-[1fr_420px] min-h-[calc(100vh-92px)]">
+      <div className="container-custom">
+        {/* ─── Asymmetric top section ─── */}
+        <div className="grid lg:grid-cols-[3fr_2fr] gap-0 min-h-[88vh] items-center">
 
-        {/* LEFT — headline block */}
-        <div className="border-r-2 border-black flex flex-col justify-between p-8 lg:p-14">
-          {/* Top label row */}
-          <motion.div {...cut(0.05)} className="flex items-center gap-4">
-            <span
-              className="px-3 py-1 border-2 text-white font-black text-xs tracking-widest uppercase"
-              style={{ backgroundColor: '#E60023', borderColor: '#E60023', fontFamily: 'Barlow Condensed, monospace', letterSpacing: '0.12em' }}
-            >
-              Community Organisation
-            </span>
-            <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '0.65rem', letterSpacing: '0.1em', textTransform: 'uppercase', color: '#888' }}>
-              01 / 04
-            </span>
-          </motion.div>
+          {/* LEFT — text */}
+          <div className="py-16 lg:py-24 lg:pr-16">
+            {/* Label */}
+            <motion.div {...up(0.05)} className="flex items-center gap-3 mb-8">
+              <span
+                className="inline-block h-px w-8"
+                style={{ backgroundColor: '#9B2335' }}
+              />
+              <span className="label">Community Organisation · Est. 2012</span>
+            </motion.div>
 
-          {/* Giant headline */}
-          <div className="my-8 lg:my-0">
+            {/* Headline — mixed serif + normal weight */}
             <motion.h1
-              {...cut(0.1)}
-              className="font-display text-white bg-black leading-none uppercase"
-              style={{
-                fontFamily: 'Barlow Condensed, sans-serif',
-                fontSize: 'clamp(4.5rem, 11vw, 10.5rem)',
-                fontWeight: 900,
-                letterSpacing: '-0.04em',
-                lineHeight: 0.88,
-                padding: '16px 24px',
-                display: 'inline-block',
-              }}
+              {...up(0.12)}
+              className="font-display text-ink leading-tight"
+              style={{ fontSize: 'clamp(2.6rem, 5.5vw, 4.5rem)', fontWeight: 800, lineHeight: 1.1, letterSpacing: '-0.02em', maxWidth: 580 }}
             >
-              SURI<br />VAISHYA<br />SAMAJ
+              Uniting the&nbsp;
+              <span style={{ color: '#9B2335', fontStyle: 'italic' }}>Suri Vaishya</span>
+              <br />Community<br />Across India
             </motion.h1>
 
-            <motion.div {...cut(0.18)} className="mt-6 flex items-start gap-6">
-              <div
-                className="shrink-0 text-white font-black uppercase"
-                style={{ backgroundColor: '#E60023', padding: '8px 14px', fontFamily: 'Barlow Condensed, sans-serif', fontSize: '1.1rem', letterSpacing: '-0.01em', lineHeight: 1 }}
+            {/* Sub */}
+            <motion.p
+              {...up(0.2)}
+              className="mt-6 text-stone-500 leading-relaxed"
+              style={{ fontFamily: 'DM Sans, sans-serif', fontSize: '1.05rem', maxWidth: 460, lineHeight: 1.7 }}
+            >
+              A registered organisation advancing education, health,
+              marriage support and women empowerment for Suri Vaishya families
+              across Bihar, Jharkhand, Odisha and West Bengal.
+            </motion.p>
+
+            {/* CTAs */}
+            <motion.div {...up(0.27)} className="mt-9 flex flex-wrap gap-3">
+              <Link
+                to="/about"
+                className="group inline-flex items-center gap-2 px-6 py-3 text-[14px] font-semibold text-white rounded-md transition-all duration-200 hover:opacity-90"
+                style={{ backgroundColor: '#9B2335', fontFamily: 'DM Sans, sans-serif' }}
               >
-                INDIA
-              </div>
-              <p
-                className="text-black leading-relaxed"
-                style={{ fontFamily: 'Barlow, sans-serif', fontSize: '1rem', fontWeight: 400, maxWidth: 420, lineHeight: 1.6 }}
+                About VBSS
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+              </Link>
+              <Link
+                to="/events"
+                className="inline-flex items-center gap-2 px-6 py-3 text-[14px] font-semibold text-ink rounded-md border transition-all duration-200 hover:border-stone-400 hover:bg-stone-50"
+                style={{ borderColor: '#D8CEBF', fontFamily: 'DM Sans, sans-serif' }}
               >
-                A registered organisation advancing education, health, marriage
-                support and women empowerment for Suri Vaishya families across
-                Bihar, Jharkhand, Odisha and West Bengal.
-              </p>
+                View Events
+              </Link>
+            </motion.div>
+
+            {/* Registration details — inline, subtle */}
+            <motion.div
+              {...up(0.34)}
+              className="mt-12 flex flex-wrap gap-3"
+            >
+              {[
+                { k: 'Reg.', v: 'GBBSD 2448/2012' },
+                { k: 'Trust', v: 'F-49747 Mumbai' },
+                { k: 'States', v: 'Bihar · JH · OD · WB' },
+              ].map(({ k, v }) => (
+                <span
+                  key={k}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-[11.5px] text-stone-500 border"
+                  style={{ borderColor: '#EDE6DA', backgroundColor: '#FFFFFF', fontFamily: 'DM Sans, sans-serif' }}
+                >
+                  <span className="font-semibold text-stone-400" style={{ fontSize: '0.62rem', letterSpacing: '0.08em', textTransform: 'uppercase' }}>{k}</span>
+                  {v}
+                </span>
+              ))}
             </motion.div>
           </div>
 
-          {/* CTA row */}
-          <motion.div {...cut(0.24)} className="flex flex-wrap items-center gap-4">
-            <Link
-              to="/about"
-              className="group inline-flex items-center gap-3 border-2 border-black bg-black text-white font-black uppercase tracking-widest px-7 py-4 transition-all duration-100 hover:bg-white hover:text-black"
-              style={{ fontFamily: 'Barlow Condensed, sans-serif', fontSize: '1rem', letterSpacing: '0.1em' }}
+          {/* RIGHT — asymmetric image collage */}
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+            className="hidden lg:block relative py-16"
+          >
+            {/* Main image — offset left */}
+            <div
+              className="relative rounded-2xl overflow-hidden shadow-lg"
+              style={{ height: 340, marginLeft: '-2rem', zIndex: 2 }}
             >
-              About VBSS
-              <span className="group-hover:translate-x-1 transition-transform duration-100">&rarr;</span>
-            </Link>
-            <Link
-              to="/events"
-              className="group inline-flex items-center gap-3 border-2 border-black bg-white text-black font-black uppercase tracking-widest px-7 py-4 transition-all duration-100 hover:bg-black hover:text-white"
-              style={{ fontFamily: 'Barlow Condensed, sans-serif', fontSize: '1rem', letterSpacing: '0.1em' }}
+              <img
+                src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=700&h=500&fit=crop"
+                alt="Community gathering"
+                className="w-full h-full object-cover"
+              />
+              <div
+                className="absolute inset-0"
+                style={{ background: 'linear-gradient(to top, rgba(28,25,23,0.35) 0%, transparent 60%)' }}
+              />
+              <div className="absolute bottom-4 left-5">
+                <p className="text-white text-sm font-semibold" style={{ fontFamily: 'DM Sans, sans-serif' }}>Annual Samaj Gathering</p>
+                <p className="text-white/60 text-xs mt-0.5" style={{ fontFamily: 'DM Sans, sans-serif' }}>Mumbai, 2025</p>
+              </div>
+            </div>
+
+            {/* Floating stat card — offset right */}
+            <div
+              className="absolute top-24 right-0 z-10 bg-white rounded-xl shadow-md border p-5"
+              style={{ borderColor: '#EDE6DA', width: 140 }}
             >
-              Events
-              <span className="group-hover:translate-x-1 transition-transform duration-100">&rarr;</span>
-            </Link>
+              <p
+                className="font-display leading-none"
+                style={{ fontSize: '2.8rem', fontWeight: 800, color: '#9B2335', lineHeight: 1 }}
+              >700+</p>
+              <p className="text-stone-500 text-xs mt-1.5" style={{ fontFamily: 'DM Sans, sans-serif', fontWeight: 500 }}>Active Members</p>
+            </div>
+
+            {/* Second image — offset right, below */}
+            <div
+              className="relative rounded-xl overflow-hidden shadow-md mt-4"
+              style={{ height: 180, marginRight: '-1rem', marginLeft: '2.5rem', zIndex: 2 }}
+            >
+              <img
+                src="https://images.unsplash.com/photo-1607748862156-7c548e7e98f4?w=600&h=300&fit=crop"
+                alt="Women empowerment program"
+                className="w-full h-full object-cover"
+              />
+              <div
+                className="absolute inset-0 flex items-end p-4"
+                style={{ background: 'linear-gradient(to top, rgba(28,25,23,0.5) 0%, transparent 60%)' }}
+              >
+                <p className="text-white text-xs font-semibold" style={{ fontFamily: 'DM Sans, sans-serif' }}>Women Empowerment</p>
+              </div>
+            </div>
+
+            {/* Small stat — below left */}
+            <div
+              className="absolute bottom-20 left-2 bg-white rounded-lg shadow-sm border p-3.5 z-10"
+              style={{ borderColor: '#EDE6DA' }}
+            >
+              <p className="font-display text-2xl font-bold" style={{ color: '#9B2335', lineHeight: 1 }}>50+</p>
+              <p className="text-stone-400 text-xs mt-1" style={{ fontFamily: 'DM Sans, sans-serif' }}>Events held</p>
+            </div>
           </motion.div>
         </div>
-
-        {/* RIGHT — Bento stack */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.3, delay: 0.15 }}
-          className="flex flex-col border-l-0"
-        >
-          {/* Top image */}
-          <div className="relative border-b-2 border-black" style={{ flex: '0 0 42%' }}>
-            <img
-              src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=700&h=400&fit=crop"
-              alt="Annual Samaj Gathering"
-              className="w-full h-full object-cover"
-              style={{ display: 'block' }}
-            />
-            <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 60%)' }} />
-            <div className="absolute bottom-0 left-0 right-0 p-4">
-              <p style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '0.6rem', letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.7)', marginBottom: 4 }}>Annual Gathering</p>
-              <p className="text-white font-display text-xl uppercase" style={{ fontFamily: 'Barlow Condensed, sans-serif', fontWeight: 700 }}>Mumbai, 2025</p>
-            </div>
-          </div>
-
-          {/* Middle — 2 stat boxes */}
-          <div className="grid grid-cols-2 border-b-2 border-black" style={{ flex: '0 0 20%' }}>
-            <div className="border-r-2 border-black p-5 flex flex-col justify-between">
-              <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '0.6rem', letterSpacing: '0.1em', textTransform: 'uppercase', color: '#888' }}>Members</span>
-              <p className="font-display text-black" style={{ fontFamily: 'Barlow Condensed, sans-serif', fontSize: '3.5rem', fontWeight: 900, letterSpacing: '-0.04em', lineHeight: 1 }}>700+</p>
-            </div>
-            <div className="p-5 flex flex-col justify-between">
-              <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '0.6rem', letterSpacing: '0.1em', textTransform: 'uppercase', color: '#888' }}>Events</span>
-              <p className="font-display" style={{ fontFamily: 'Barlow Condensed, sans-serif', fontSize: '3.5rem', fontWeight: 900, letterSpacing: '-0.04em', lineHeight: 1, color: '#E60023' }}>50+</p>
-            </div>
-          </div>
-
-          {/* Second image */}
-          <div className="relative border-b-2 border-black" style={{ flex: '0 0 24%' }}>
-            <img
-              src="https://images.unsplash.com/photo-1607748862156-7c548e7e98f4?w=700&h=300&fit=crop"
-              alt="Women Empowerment Program"
-              className="w-full h-full object-cover"
-              style={{ display: 'block' }}
-            />
-            <div className="absolute inset-0" style={{ background: 'rgba(0,0,0,0.35)' }} />
-            <div className="absolute inset-0 flex items-center justify-center">
-              <span
-                className="text-white font-display uppercase text-center px-4"
-                style={{ fontFamily: 'Barlow Condensed, sans-serif', fontSize: 'clamp(1.4rem,3.5vw,2.5rem)', fontWeight: 800, letterSpacing: '-0.02em', lineHeight: 1.1 }}
-              >
-                Women Empowerment
-              </span>
-            </div>
-          </div>
-
-          {/* Bottom reg block */}
-          <div className="bg-black p-5 flex-1 flex flex-col justify-between">
-            <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '0.6rem', letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.4)' }}>Registration</span>
-            <div className="space-y-2">
-              <div className="flex justify-between items-center border-b border-white/10 pb-1.5">
-                <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '0.58rem', color: 'rgba(255,255,255,0.5)', letterSpacing: '0.06em', textTransform: 'uppercase' }}>Society Act 1860</span>
-                <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '0.65rem', color: '#E60023', fontWeight: 600, letterSpacing: '0.06em' }}>GBBSD 2448/2012</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '0.58rem', color: 'rgba(255,255,255,0.5)', letterSpacing: '0.06em', textTransform: 'uppercase' }}>Mum. Public Trust 1950</span>
-                <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '0.65rem', color: '#E60023', fontWeight: 600, letterSpacing: '0.06em' }}>F-49747</span>
-              </div>
-            </div>
-          </div>
-        </motion.div>
       </div>
 
-      <style>{`
-        @keyframes marquee {
-          0%   { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
-        }
-      `}</style>
+      {/* Bottom warm divider */}
+      <div className="divider" style={{ marginTop: 0 }} />
     </section>
   );
 }
