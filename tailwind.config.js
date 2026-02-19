@@ -5,6 +5,33 @@ export default {
   theme: {
     extend: {
       colors: {
+        // CSS variable-based colors (ShadCN pattern)
+        background: 'hsl(var(--background))',
+        foreground: 'hsl(var(--foreground))',
+        border: 'hsl(var(--border))',
+        input: 'hsl(var(--input))',
+        ring: 'hsl(var(--ring))',
+        card: {
+          DEFAULT: 'hsl(var(--card))',
+          foreground: 'hsl(var(--card-foreground))',
+        },
+        popover: {
+          DEFAULT: 'hsl(var(--popover))',
+          foreground: 'hsl(var(--popover-foreground))',
+        },
+        muted: {
+          DEFAULT: 'hsl(var(--muted))',
+          foreground: 'hsl(var(--muted-foreground))',
+        },
+        secondary: {
+          DEFAULT: 'hsl(var(--secondary))',
+          foreground: 'hsl(var(--secondary-foreground))',
+        },
+        destructive: {
+          DEFAULT: 'hsl(var(--destructive))',
+          foreground: 'hsl(var(--destructive-foreground))',
+        },
+        // Brand colors
         primary: {
           DEFAULT: '#9B2335',
           50: '#FDF2F4',
@@ -17,6 +44,7 @@ export default {
           700: '#8B1F2F',
           800: '#741D2C',
           900: '#631C29',
+          foreground: '#FFFFFF',
         },
         accent: {
           DEFAULT: '#D97706',
@@ -30,6 +58,7 @@ export default {
           700: '#B45309',
           800: '#92400E',
           900: '#78350F',
+          foreground: '#FFFFFF',
         },
         cream: {
           DEFAULT: '#FFF8F0',
