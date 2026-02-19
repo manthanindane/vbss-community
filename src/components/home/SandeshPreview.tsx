@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowRight, BookOpen } from 'lucide-react';
 import { sandeshEntries } from '@/data/sandesh';
 
 export default function SandeshPreview() {
@@ -9,53 +8,81 @@ export default function SandeshPreview() {
     .slice(0, 3);
 
   return (
-    <section className="section-padding">
-      <div className="container-custom">
-        <div className="flex items-end justify-between mb-10">
+    <section className="border-b-4 border-black">
+      {/* Header */}
+      <div className="border-b-2 border-black px-8 lg:px-14 py-5 flex items-center justify-between">
+        <div className="flex items-center gap-4">
+          <span
+            className="font-display text-white px-3 py-1 text-sm font-black uppercase tracking-widest"
+            style={{ backgroundColor: '#E60023', fontFamily: 'Barlow Condensed, sans-serif', letterSpacing: '0.1em' }}
+          >
+            04
+          </span>
+          <span className="font-display text-black uppercase font-black text-xl" style={{ fontFamily: 'Barlow Condensed, sans-serif', letterSpacing: '0.05em' }}>
+            Vaishya Suri Sandesh
+          </span>
+        </div>
+        <Link
+          to="/sandesh"
+          className="border-2 border-black px-4 py-1.5 font-black uppercase text-xs tracking-widest hover:bg-black hover:text-white transition-colors duration-100"
+          style={{ fontFamily: 'Barlow Condensed, sans-serif', letterSpacing: '0.1em' }}
+        >
+          All Issues &rarr;
+        </Link>
+      </div>
+
+      <div className="grid lg:grid-cols-3">
+        {latest.map((entry, i) => (
           <motion.div
-            initial={{ opacity: 0, y: 16 }}
+            key={entry.id}
+            initial={{ opacity: 0, y: 14 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
+            transition={{ delay: i * 0.07, duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            className={`p-8 lg:p-10 flex flex-col gap-4 ${
+              i < 2 ? 'border-r-2 border-black' : ''
+            } border-b-2 lg:border-b-0 border-black group hover:bg-black transition-colors duration-100`}
           >
-            <p className="text-xs font-semibold uppercase tracking-widest text-maroon-600 mb-2">Newsletter</p>
-            <h2 className="text-section font-bold text-ink tracking-tight">Vaishya Suri Sandesh</h2>
-          </motion.div>
-          <Link
-            to="/sandesh"
-            className="hidden sm:inline-flex items-center gap-1.5 text-sm font-semibold text-maroon-700 hover:gap-3 transition-all group"
-          >
-            All Issues <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-          </Link>
-        </div>
+            <div className="flex items-center justify-between">
+              <span
+                className="px-2.5 py-1 text-white font-black text-xs uppercase group-hover:border-white"
+                style={{ backgroundColor: '#E60023', fontFamily: 'Barlow Condensed, sans-serif', letterSpacing: '0.1em' }}
+              >
+                {entry.category}
+              </span>
+              <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '0.58rem', letterSpacing: '0.1em', textTransform: 'uppercase', color: '#999' }} className="group-hover:text-white/40">
+                {entry.date}
+              </span>
+            </div>
 
-        <div className="grid sm:grid-cols-3 gap-5">
-          {latest.map((entry, i) => (
-            <motion.div
-              key={entry.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1, duration: 0.5 }}
-              className="group p-6 rounded-2xl border border-gray-100 bg-white hover:border-maroon-100 hover:shadow-[0_8px_30px_rgba(0,0,0,0.05)] transition-all duration-300"
+            <h3
+              className="font-display text-black uppercase font-black group-hover:text-white transition-colors duration-100"
+              style={{ fontFamily: 'Barlow Condensed, sans-serif', fontSize: '1.5rem', letterSpacing: '-0.01em', lineHeight: 1.05 }}
             >
-              <div className="flex items-start justify-between mb-4">
-                <div className="w-9 h-9 rounded-lg bg-maroon-50 flex items-center justify-center">
-                  <BookOpen className="w-4 h-4 text-maroon-700" />
-                </div>
-                <span className="text-[11px] font-medium text-gray-400 bg-gray-50 px-2 py-0.5 rounded">
-                  {entry.category}
-                </span>
-              </div>
-              <h3 className="font-bold text-ink text-sm leading-snug mb-2">{entry.title}</h3>
-              <p className="text-xs text-gray-500 leading-relaxed line-clamp-3">{entry.excerpt}</p>
-              <div className="mt-4 pt-3 border-t border-gray-50 flex items-center justify-between">
-                <span className="text-xs text-gray-400">{entry.date}</span>
-                <Link to="/sandesh" className="text-xs font-semibold text-maroon-700 hover:text-maroon-800">Read →</Link>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+              {entry.title}
+            </h3>
+
+            <p
+              style={{ fontFamily: 'Barlow, sans-serif', fontSize: '0.82rem', lineHeight: 1.65, color: '#555' }}
+              className="line-clamp-3 group-hover:text-white/60 transition-colors duration-100"
+            >
+              {entry.excerpt}
+            </p>
+
+            <div className="mt-auto pt-4 border-t-2 border-black group-hover:border-white/20 transition-colors duration-100 flex items-center justify-between">
+              <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '0.58rem', letterSpacing: '0.08em', textTransform: 'uppercase', color: '#888' }} className="group-hover:text-white/40">
+                By {entry.author}
+              </span>
+              <Link
+                to="/sandesh"
+                className="font-black uppercase text-xs tracking-widest group-hover:text-white transition-colors duration-100"
+                style={{ fontFamily: 'Barlow Condensed, sans-serif', letterSpacing: '0.1em', color: '#E60023' }}
+              >
+                Read &rarr;
+              </Link>
+            </div>
+          </motion.div>
+        ))}
       </div>
     </section>
   );
