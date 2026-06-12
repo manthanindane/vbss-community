@@ -1,222 +1,118 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { Facebook, Instagram, Youtube, MessageCircle } from 'lucide-react';
-
-const quickLinks = [
-  { name: 'About Us',  path: '/about' },
-  { name: 'Events',    path: '/events' },
-  { name: 'Gallery',   path: '/gallery' },
-  { name: 'Committee', path: '/committee' },
-  { name: 'Sandesh',   path: '/sandesh' },
-  { name: 'Contact',   path: '/contact' },
-];
-
-const socials = [
-  { Icon: Facebook,      href: '#', label: 'Facebook' },
-  { Icon: Instagram,     href: '#', label: 'Instagram' },
-  { Icon: Youtube,       href: '#', label: 'YouTube' },
-  { Icon: MessageCircle, href: '#', label: 'WhatsApp' },
-];
+import { Facebook, Instagram, Youtube, MessageCircle, MapPin, Phone, Mail, Clock, ArrowRight } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 export default function Footer() {
   return (
-    <footer style={{ background: '#111827', color: '#FAFAF7' }}>
-
-      {/* ── CTA band ── */}
-      <div
-        className="px-5 sm:px-8 lg:px-14 py-12 lg:py-16"
-        style={{ borderBottom: '1px solid rgba(255,255,255,0.07)' }}
-      >
-        <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
-          <div>
-            <p
-              className="text-xs font-bold uppercase tracking-widest mb-3"
-              style={{ color: '#4A9A7C', fontFamily: "'Satoshi', sans-serif", letterSpacing: '0.14em' }}
-            >
-              Be Part of Something Bigger
-            </p>
-            <h2
-              style={{
-                fontFamily: "'Plus Jakarta Sans', sans-serif",
-                fontSize: 'clamp(1.7rem, 3.8vw, 2.6rem)',
-                fontWeight: 800,
-                letterSpacing: '-0.03em',
-                lineHeight: 1.1,
-                color: '#FFFFFF',
-              }}
-            >
-              Join the Vaishya Suri<br />Community — Together We Rise
-            </h2>
-          </div>
-          <Link
-            to="/contact"
-            className="shrink-0 inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold text-white rounded-xl transition-all duration-200 hover:opacity-85"
-            style={{
-              background: 'linear-gradient(135deg, #1B4D3E 0%, #2E7D5E 100%)',
-              fontFamily: "'Plus Jakarta Sans', sans-serif",
-              boxShadow: '0 4px 16px rgba(27,77,62,0.4)',
-            }}
-          >
-            Become a Member
-          </Link>
+    <footer>
+      {/* Pre-footer CTA */}
+      <div className="bg-gradient-to-r from-maroon-800 to-maroon-950 mandala-bg section-padding">
+        <div className="container-main text-center relative z-10">
+          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">
+            Join Our Growing Community
+          </h2>
+          <p className="text-maroon-200 text-lg mb-8 max-w-2xl mx-auto">
+            Become a part of the Vaishya Bhartiya Suri Samaj and help us preserve our heritage while building a stronger future together.
+          </p>
+          <Button variant="secondary" size="lg" asChild>
+            <Link to="/contact">
+              Become a Member
+              <ArrowRight className="w-4 h-4 ml-2" />
+            </Link>
+          </Button>
         </div>
       </div>
 
-      {/* ── Main columns ── */}
-      <div className="max-w-6xl mx-auto px-5 sm:px-8 lg:px-14 py-12">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
-
-          {/* Brand */}
-          <div className="lg:col-span-2">
-            <div className="flex items-center gap-3 mb-4">
-              <div
-                className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0"
-                style={{ background: 'linear-gradient(135deg, #1B4D3E 0%, #2E7D5E 100%)' }}
-              >
-                <span
-                  className="text-white font-bold"
-                  style={{ fontSize: '11px', letterSpacing: '0.04em', fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-                >
-                  VS
-                </span>
+      {/* Main Footer */}
+      <div className="bg-charcoal-950 text-charcoal-300 pt-20 pb-10">
+        <div className="container-main">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+            
+            {/* Brand Column */}
+            <div>
+              <div className="flex items-center gap-3 mb-6">
+                <div className="bg-gradient-to-br from-maroon-700 to-maroon-800 rounded-lg p-2 shadow-warm">
+                  <span className="font-hindi text-xl text-gold-300 block leading-none">व</span>
+                </div>
+                <span className="font-display font-bold text-2xl text-white">VBSS</span>
               </div>
-              <div>
-                <p
-                  className="text-sm font-semibold text-white"
-                  style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-                >
-                  Vaishya Bhartiya Suri Samaj
-                </p>
-                <p
-                  className="text-[10px] mt-0.5"
-                  style={{
-                    color: 'rgba(255,255,255,0.25)',
-                    letterSpacing: '0.09em',
-                    textTransform: 'uppercase',
-                    fontFamily: "'Satoshi', sans-serif",
-                  }}
-                >
-                  VBSS · Est. 2012
-                </p>
-              </div>
-            </div>
-            <p
-              className="text-sm leading-relaxed mb-5"
-              style={{
-                color: 'rgba(255,255,255,0.4)',
-                fontFamily: "'Satoshi', sans-serif",
-                maxWidth: 320,
-                lineHeight: 1.75,
-              }}
-            >
-              Advancing education, health, marriage support and women empowerment
-              for the Suri Vaishya community across Bihar, Jharkhand, Odisha and West Bengal.
-            </p>
-            <div className="flex gap-2">
-              {socials.map(({ Icon, href, label }) => (
-                <a
-                  key={label}
-                  href={href}
-                  aria-label={label}
-                  className="w-8 h-8 rounded-lg flex items-center justify-center transition-colors duration-200 hover:bg-white/10"
-                  style={{ border: '1px solid rgba(255,255,255,0.1)' }}
-                >
-                  <Icon className="w-3.5 h-3.5" style={{ color: 'rgba(255,255,255,0.35)' }} />
+              <p className="text-charcoal-400 mb-8">
+                Preserving Heritage. Building Community. Uniting the Suri Vaishya families across India.
+              </p>
+              <div className="flex gap-4">
+                <a href="#" className="w-10 h-10 rounded-full bg-charcoal-800 flex items-center justify-center hover:bg-gold-500 hover:text-white transition-all" aria-label="Facebook">
+                  <Facebook className="w-5 h-5" />
                 </a>
-              ))}
+                <a href="#" className="w-10 h-10 rounded-full bg-charcoal-800 flex items-center justify-center hover:bg-gold-500 hover:text-white transition-all" aria-label="Instagram">
+                  <Instagram className="w-5 h-5" />
+                </a>
+                <a href="#" className="w-10 h-10 rounded-full bg-charcoal-800 flex items-center justify-center hover:bg-gold-500 hover:text-white transition-all" aria-label="YouTube">
+                  <Youtube className="w-5 h-5" />
+                </a>
+                <a href="#" className="w-10 h-10 rounded-full bg-charcoal-800 flex items-center justify-center hover:bg-gold-500 hover:text-white transition-all" aria-label="WhatsApp">
+                  <MessageCircle className="w-5 h-5" />
+                </a>
+              </div>
             </div>
-            <div className="mt-5 flex flex-wrap gap-2">
-              {['GBBSD 2448/2012', 'F-49747 MUMBAI'].map((r) => (
-                <span
-                  key={r}
-                  className="text-[10px] px-2.5 py-1 rounded-lg"
-                  style={{
-                    color: 'rgba(255,255,255,0.25)',
-                    border: '1px solid rgba(255,255,255,0.08)',
-                    fontFamily: "'Satoshi', sans-serif",
-                    letterSpacing: '0.07em',
-                    textTransform: 'uppercase',
-                  }}
-                >
-                  {r}
-                </span>
-              ))}
+
+            {/* Quick Links */}
+            <div>
+              <h3 className="font-heading text-lg font-semibold text-white mb-6">Quick Links</h3>
+              <ul className="flex flex-col gap-3">
+                <li><Link to="/" className="hover:text-gold-400 transition-colors">Home</Link></li>
+                <li><Link to="/about" className="hover:text-gold-400 transition-colors">About Us</Link></li>
+                <li><Link to="/events" className="hover:text-gold-400 transition-colors">Events & Celebrations</Link></li>
+                <li><Link to="/gallery" className="hover:text-gold-400 transition-colors">Gallery</Link></li>
+                <li><Link to="/committee" className="hover:text-gold-400 transition-colors">Leadership</Link></li>
+                <li><Link to="/sandesh" className="hover:text-gold-400 transition-colors">Vaishya Suri Sandesh</Link></li>
+                <li><Link to="/contact" className="hover:text-gold-400 transition-colors">Contact Us</Link></li>
+              </ul>
             </div>
+
+            {/* Programs */}
+            <div>
+              <h3 className="font-heading text-lg font-semibold text-white mb-6">Our Programs</h3>
+              <ul className="flex flex-col gap-3">
+                <li>Education & Scholarships</li>
+                <li>Health & Welfare Camps</li>
+                <li>Women Empowerment</li>
+                <li>Youth Development</li>
+                <li>Community Matrimony</li>
+              </ul>
+            </div>
+
+            {/* Contact */}
+            <div>
+              <h3 className="font-heading text-lg font-semibold text-white mb-6">Contact Us</h3>
+              <ul className="flex flex-col gap-4">
+                <li className="flex gap-3 items-start">
+                  <MapPin className="w-5 h-5 text-gold-500 shrink-0 mt-0.5" />
+                  <span>Samaj Bhavan, 3rd Floor, Dadar West, Mumbai – 400028</span>
+                </li>
+                <li className="flex gap-3 items-center">
+                  <Phone className="w-5 h-5 text-gold-500 shrink-0" />
+                  <span>+91 22 2430 XXXX</span>
+                </li>
+                <li className="flex gap-3 items-center">
+                  <Mail className="w-5 h-5 text-gold-500 shrink-0" />
+                  <span>info@vbss.org</span>
+                </li>
+                <li className="flex gap-3 items-center">
+                  <Clock className="w-5 h-5 text-gold-500 shrink-0" />
+                  <span>Mon–Sat, 10:00 AM – 6:00 PM</span>
+                </li>
+              </ul>
+            </div>
+
           </div>
 
-          {/* Quick links */}
-          <div>
-            <p
-              className="text-[11px] font-bold uppercase tracking-widest mb-4"
-              style={{ color: 'rgba(255,255,255,0.2)', fontFamily: "'Satoshi', sans-serif", letterSpacing: '0.13em' }}
-            >
-              Quick Links
-            </p>
-            <ul className="space-y-2.5">
-              {quickLinks.map((l) => (
-                <li key={l.path}>
-                  <Link
-                    to={l.path}
-                    className="text-sm transition-colors duration-150 hover:text-white"
-                    style={{ color: 'rgba(255,255,255,0.4)', fontFamily: "'Satoshi', sans-serif" }}
-                  >
-                    {l.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Contact */}
-          <div>
-            <p
-              className="text-[11px] font-bold uppercase tracking-widest mb-4"
-              style={{ color: 'rgba(255,255,255,0.2)', fontFamily: "'Satoshi', sans-serif", letterSpacing: '0.13em' }}
-            >
-              Contact
-            </p>
-            <ul className="space-y-4">
-              {[
-                { label: 'Address', val: 'Samaj Bhavan, Dadar West, Mumbai — 400028' },
-                { label: 'Phone',   val: '+91 22 2430 XXXX' },
-                { label: 'Email',   val: 'info@vbss-samaj.org' },
-              ].map(({ label, val }) => (
-                <li key={label}>
-                  <p
-                    className="text-[10px] uppercase tracking-wide mb-1"
-                    style={{ color: 'rgba(255,255,255,0.2)', fontFamily: "'Satoshi', sans-serif", letterSpacing: '0.1em' }}
-                  >
-                    {label}
-                  </p>
-                  <p
-                    className="text-sm"
-                    style={{ color: 'rgba(255,255,255,0.4)', fontFamily: "'Satoshi', sans-serif", lineHeight: 1.55 }}
-                  >
-                    {val}
-                  </p>
-                </li>
-              ))}
-            </ul>
+          {/* Bottom Bar */}
+          <div className="pt-8 border-t border-charcoal-800 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-charcoal-500">
+            <p>© {new Date().getFullYear()} Vaishya Bhartiya Suri Samaj. All rights reserved.</p>
+            <p>Made with <span className="text-maroon-500">❤️</span> for our community</p>
           </div>
         </div>
-      </div>
-
-      {/* ── Bottom bar ── */}
-      <div
-        className="max-w-6xl mx-auto px-5 sm:px-8 lg:px-14 py-5 flex flex-col sm:flex-row items-center justify-between gap-3"
-        style={{ borderTop: '1px solid rgba(255,255,255,0.05)' }}
-      >
-        <p
-          className="text-xs"
-          style={{ color: 'rgba(255,255,255,0.18)', fontFamily: "'Satoshi', sans-serif" }}
-        >
-          © 2026 Vaishya Bhartiya Suri Samaj. All rights reserved.
-        </p>
-        <p
-          className="text-xs"
-          style={{ color: 'rgba(255,255,255,0.12)', fontFamily: "'Satoshi', sans-serif" }}
-        >
-          Society Reg. Act 1860 · Mumbai Public Trust Act 1950
-        </p>
       </div>
     </footer>
   );

@@ -1,152 +1,192 @@
-import { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { Menu, X } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { NavLink, Link } from 'react-router-dom';
+import { Menu, X, ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-
-const links = [
-  { name: 'Home',      path: '/' },
-  { name: 'About',     path: '/about' },
-  { name: 'Events',    path: '/events' },
-  { name: 'Gallery',   path: '/gallery' },
-  { name: 'Committee', path: '/committee' },
-  { name: 'Sandesh',   path: '/sandesh' },
-  { name: 'Contact',   path: '/contact' },
-];
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 
 export default function Navbar() {
-  const [open, setOpen]       = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const { pathname }           = useLocation();
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    const fn = () => setScrolled(window.scrollY > 12);
-    window.addEventListener('scroll', fn);
-    return () => window.removeEventListener('scroll', fn);
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-  useEffect(() => setOpen(false), [pathname]);
+
+  // Close mobile menu on route change
+  useEffect(() => {
+    setIsMobileMenuOpen(false);
+  }, []);
+
+  const navLinks = [
+    { name: 'Home', path: '/' },
+    { name: 'About', path: '/about' },
+    { name: 'Events', path: '/events' },
+    { name: 'Gallery', path: '/gallery' },
+    { name: 'Committee', path: '/committee' },
+    { name: 'Sandesh', path: '/sandesh' },
+    { name: 'Contact', path: '/contact' },
+  ];
 
   return (
     <>
       <header
-        className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
-          scrolled
-            ? 'bg-[#FAFAF7]/92 backdrop-blur-md border-b border-[#E8E8E2]'
-            : 'bg-transparent'
-        }`}
-        style={{ height: 62 }}
+        className={cn(
+          'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
+          isScrolled
+            ? 'bg-white/90 backdrop-blur-xl border-b border-cream-300 shadow-soft py-3'
+            : 'bg-transparent py-5'
+        )}
       >
-        <div className="container-custom h-full flex items-center justify-between">
-
-          {/* ── Logo ── */}
-          <Link to="/" className="flex items-center gap-2.5 group">
-            <div
-              className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0"
-              style={{ background: 'linear-gradient(135deg, #1B4D3E 0%, #2E7D5E 100%)' }}
-            >
-              <span
-                className="text-white font-bold"
-                style={{ fontSize: '11px', letterSpacing: '0.04em', fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-              >
-                VS
-              </span>
+        <div className="container-main flex items-center justify-between">
+          {/* Logo */}
+          <Link to="/" className="flex items-center gap-3 group">
+            <div className="bg-gradient-to-br from-maroon-700 to-maroon-800 rounded-lg p-2 shadow-warm group-hover:shadow-warm-lg transition-shadow">
+              <span className="font-hindi text-xl text-gold-300 block leading-none">व</span>
             </div>
-            <div className="hidden sm:block">
-              <p
-                className="text-[13px] font-semibold text-ink leading-none"
-                style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", letterSpacing: '-0.01em' }}
-              >
-                Vaishya Suri Samaj
-              </p>
-              <p
-                className="text-[10px] mt-0.5"
-                style={{
-                  fontFamily: "'Satoshi', sans-serif",
-                  letterSpacing: '0.09em',
-                  textTransform: 'uppercase',
-                  color: '#9CA3AF',
-                }}
-              >
-                VBSS · Est. 2012
-              </p>
+            <div className="flex flex-col">
+              <span className={cn(
+                "font-display font-bold text-xl leading-none tracking-tight transition-colors",
+                isScrolled ? "text-charcoal-900" : "text-white"
+              )}>
+                VBSS
+              </span>
+              <span className={cn(
+                "font-hindi text-xs tracking-wider transition-colors",
+                isScrolled ? "text-charcoal-500" : "text-white/80"
+              )}>
+                सूरी समाज
+              </span>
             </div>
           </Link>
 
-          {/* ── Desktop nav ── */}
-          <nav className="hidden lg:flex items-center gap-1">
-            {links.map((l) => {
-              const active = pathname === l.path;
-              return (
-                <Link
-                  key={l.path}
-                  to={l.path}
-                  className={`px-3.5 py-2 rounded-lg text-[13px] font-medium transition-all duration-200 ${
-                    active
-                      ? 'bg-teal-50 text-teal-700'
-                      : 'text-ink/60 hover:text-ink hover:bg-black/[0.04]'
-                  }`}
-                  style={{ fontFamily: "'Satoshi', sans-serif" }}
-                >
-                  {l.name}
-                </Link>
-              );
-            })}
+          {/* Desktop Nav */}
+          <nav className="hidden lg:flex items-center gap-8">
+            <ul className="flex items-center gap-6">
+              {navLinks.map((link) => (
+                <li key={link.path}>
+                  <NavLink
+                    to={link.path}
+                    className={({ isActive }) => cn(
+                      "font-heading text-sm font-semibold transition-colors relative py-2",
+                      isActive
+                        ? (isScrolled ? "text-gold-600" : "text-gold-300")
+                        : (isScrolled ? "text-charcoal-600 hover:text-gold-600" : "text-white/80 hover:text-white")
+                    )}
+                  >
+                    {({ isActive }) => (
+                      <>
+                        {link.name}
+                        {isActive && (
+                          <motion.div
+                            layoutId="navbar-indicator"
+                            className="absolute bottom-0 left-0 right-0 h-0.5 bg-gold-500 rounded-full"
+                            transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                          />
+                        )}
+                      </>
+                    )}
+                  </NavLink>
+                </li>
+              ))}
+            </ul>
+
+            <Button
+              variant={isScrolled ? "default" : "secondary"}
+              className={cn(!isScrolled && "bg-white text-maroon-900 hover:bg-white/90")}
+              asChild
+            >
+              <Link to="/contact">
+                Join Community
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </Link>
+            </Button>
           </nav>
 
-          {/* ── CTA + hamburger ── */}
-          <div className="flex items-center gap-2">
-            <Link
-              to="/contact"
-              className="hidden md:inline-flex items-center px-4 py-2 text-[13px] font-semibold text-white rounded-lg transition-all duration-200 hover:opacity-90"
-              style={{
-                background: 'linear-gradient(135deg, #1B4D3E 0%, #2E7D5E 100%)',
-                fontFamily: "'Plus Jakarta Sans', sans-serif",
-              }}
-            >
-              Join Samaj
-            </Link>
-            <button
-              onClick={() => setOpen(!open)}
-              className="lg:hidden p-2 rounded-lg hover:bg-black/[0.05] transition-colors"
-              aria-label="Toggle menu"
-            >
-              {open
-                ? <X     className="w-5 h-5 text-ink" />
-                : <Menu  className="w-5 h-5 text-ink" />}
-            </button>
-          </div>
+          {/* Mobile Menu Toggle */}
+          <button
+            className="lg:hidden p-2 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-gold-500"
+            onClick={() => setIsMobileMenuOpen(true)}
+            aria-label="Open menu"
+          >
+            <Menu className={cn("w-6 h-6", isScrolled ? "text-charcoal-900" : "text-white")} />
+          </button>
         </div>
       </header>
 
-      {/* ── Mobile overlay ── */}
+      {/* Mobile Menu Overlay */}
       <AnimatePresence>
-        {open && (
-          <motion.div
-            initial={{ opacity: 0, y: -6 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -6 }}
-            transition={{ duration: 0.18 }}
-            className="fixed inset-x-0 top-[62px] z-40 bg-[#FAFAF7] border-b border-[#E8E8E2] shadow-sm"
-          >
-            <nav className="container-custom py-4 flex flex-col">
-              {links.map((l) => (
-                <Link
-                  key={l.path}
-                  to={l.path}
-                  className="py-3 border-b border-[#F0F0EC] text-[14px] font-medium text-ink last:border-0"
-                  style={{ fontFamily: "'Satoshi', sans-serif" }}
-                >
-                  {l.name}
+        {isMobileMenuOpen && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="fixed inset-0 bg-charcoal-950/60 backdrop-blur-sm z-50 lg:hidden"
+              onClick={() => setIsMobileMenuOpen(false)}
+            />
+            <motion.div
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '100%' }}
+              transition={{ type: "spring", bounce: 0, duration: 0.4 }}
+              className="fixed inset-y-0 right-0 w-[80%] max-w-sm bg-white shadow-soft-xl z-50 lg:hidden flex flex-col"
+            >
+              <div className="flex items-center justify-between p-6 border-b border-cream-200">
+                <Link to="/" className="flex items-center gap-3" onClick={() => setIsMobileMenuOpen(false)}>
+                  <div className="bg-gradient-to-br from-maroon-700 to-maroon-800 rounded-lg p-2">
+                    <span className="font-hindi text-lg text-gold-300 block leading-none">व</span>
+                  </div>
+                  <span className="font-display font-bold text-xl text-charcoal-900">VBSS</span>
                 </Link>
-              ))}
-              <Link
-                to="/contact"
-                className="mt-4 py-3 text-center text-sm font-semibold text-white rounded-xl"
-                style={{ background: 'linear-gradient(135deg, #1B4D3E 0%, #2E7D5E 100%)', fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-              >
-                Join Samaj
-              </Link>
-            </nav>
-          </motion.div>
+                <button
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="p-2 rounded-full bg-cream-100 text-charcoal-600 hover:bg-cream-200 transition-colors focus:outline-none focus:ring-2 focus:ring-gold-500"
+                  aria-label="Close menu"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+
+              <div className="flex-1 overflow-y-auto py-6 px-6">
+                <ul className="flex flex-col gap-4">
+                  {navLinks.map((link, i) => (
+                    <motion.li
+                      key={link.path}
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: i * 0.05 + 0.1 }}
+                    >
+                      <NavLink
+                        to={link.path}
+                        onClick={() => setIsMobileMenuOpen(false)}
+                        className={({ isActive }) => cn(
+                          "block py-2 font-heading text-lg font-semibold transition-colors border-b border-cream-100",
+                          isActive ? "text-gold-600 border-gold-200" : "text-charcoal-700"
+                        )}
+                      >
+                        {link.name}
+                      </NavLink>
+                    </motion.li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="p-6 border-t border-cream-200">
+                <Button className="w-full" size="lg" asChild onClick={() => setIsMobileMenuOpen(false)}>
+                  <Link to="/contact">
+                    Join Community
+                    <ArrowRight className="w-4 h-4 ml-2" />
+                  </Link>
+                </Button>
+              </div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </>

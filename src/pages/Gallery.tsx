@@ -1,127 +1,160 @@
-import { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Eye, ChevronLeft, ChevronRight } from 'lucide-react';
+import PageTransition from '@/components/shared/PageTransition';
 import PageHero from '@/components/layout/PageHero';
-import { galleryImages } from '@/data/gallery';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
-
-type GalleryFilter = 'All' | 'Events' | 'Festivals' | 'Gatherings';
-const filters: GalleryFilter[] = ['All', 'Events', 'Festivals', 'Gatherings'];
+import { Badge } from '@/components/ui/badge';
+import { galleryImages } from '@/data/gallery';
 
 export default function Gallery() {
-  const [active, setActive] = useState<GalleryFilter>('All');
-  const [selectedIdx, setSelectedIdx] = useState<number | null>(null);
+  const [filter, setFilter] = useState('All');
+  const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
 
-  const filtered = galleryImages.filter((img) => active === 'All' || img.category === active);
+  const tabs = ['All', 'Events', 'Festivals', 'Gatherings'];
 
-  const goNext = () => {
-    if (selectedIdx !== null) setSelectedIdx((selectedIdx + 1) % filtered.length);
-  };
-  const goPrev = () => {
-    if (selectedIdx !== null) setSelectedIdx((selectedIdx - 1 + filtered.length) % filtered.length);
-  };
+  const filteredImages = galleryImages.filter((img) => {
+    if (filter === 'All') return true;
+    return img.category === filter;
+  });
+
+  const handlePrevious = useCallback(() => {
+    if (selectedImageIndex !== null) {
+      setSelectedImageIndex(selectedImageIndex === 0 ? filteredImages.length - 1 : selectedImageIndex - 1);
+    }
+  }, [selectedImageIndex, filteredImages.length]);
+
+  const handleNext = useCallback(() => {
+    if (selectedImageIndex !== null) {
+      setSelectedImageIndex(selectedImageIndex === filteredImages.length - 1 ? 0 : selectedImageIndex + 1);
+    }
+  }, [selectedImageIndex, filteredImages.length]);
+
+  // Keyboard navigation for lightbox
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (selectedImageIndex === null) return;
+      if (e.key === 'ArrowLeft') handlePrevious();
+      if (e.key === 'ArrowRight') handleNext();
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [selectedImageIndex, handlePrevious, handleNext]);
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.4 }}
-    >
-      <PageHero
-        title="Community Gallery"
-        subtitle="A visual journey through our events, festivals, and cherished community moments."
+    <PageTransition>
+      <PageHero 
+        title="Community Gallery" 
+        hindiTitle="गैलरी"
+        subtitle="Moments from our community gatherings and celebrations"
       />
 
-      <section className="section-padding">
-        <div className="container-custom">
-          {/* Filter Tabs */}
-          <div className="flex justify-center mb-10">
-            <Tabs value={active} onValueChange={(v) => setActive(v as GalleryFilter)}>
-              <TabsList className="bg-cream-100 h-auto p-1.5 rounded-xl gap-1">
-                {filters.map((f) => (
-                  <TabsTrigger
-                    key={f}
-                    value={f}
-                    className="rounded-lg px-4 py-2 text-sm font-medium data-[state=active]:bg-white data-[state=active]:text-primary-700 data-[state=active]:shadow-sm"
-                  >
-                    {f}
+      <div id="main-content" className="section-padding min-h-[60vh]">
+        <div className="container-main">
+          
+          <div className="flex justify-center mb-12 overflow-x-auto pb-4 custom-scrollbar">
+            <Tabs defaultValue="All" onValueChange={setFilter} className="w-full sm:w-auto flex justify-center">
+              <TabsList>
+                {tabs.map((tab) => (
+                  <TabsTrigger key={tab} value={tab}>
+                    {tab}
                   </TabsTrigger>
                 ))}
               </TabsList>
             </Tabs>
           </div>
 
-          {/* Masonry Grid */}
-          <motion.div
-            key={active}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.3 }}
-            className="columns-2 md:columns-3 lg:columns-4 gap-3 lg:gap-4"
-          >
-            {filtered.map((img, i) => (
-              <motion.div
-                key={img.id}
-                initial={{ opacity: 0, y: 15 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.04, duration: 0.4 }}
-                className="relative group cursor-pointer mb-3 lg:mb-4 break-inside-avoid"
-                onClick={() => setSelectedIdx(i)}
-              >
-                <div className="overflow-hidden rounded-2xl">
-                  <img
-                    src={img.src}
-                    alt={img.alt}
-                    className="w-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
+          <motion.div layout className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4">
+            <AnimatePresence>
+              {filteredImages.map((img, index) => (
+                <motion.div
+                  key={img.id}
+                  layout
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  transition={{ duration: 0.3 }}
+                  className="break-inside-avoid relative rounded-2xl overflow-hidden group cursor-pointer shadow-soft"
+                  onClick={() => setSelectedImageIndex(index)}
+                >
+                  <img 
+                    src={img.src} 
+                    alt={img.alt} 
                     loading="lazy"
-                    style={{ aspectRatio: i % 3 === 0 ? '3/4' : i % 3 === 1 ? '4/3' : '1/1' }}
+                    className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                    <p className="text-white text-sm font-medium">{img.alt}</p>
-                    <p className="text-white/60 text-xs mt-0.5">{img.category}</p>
+                  
+                  <div className="absolute inset-0 bg-gradient-to-t from-charcoal-950/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                    <div className="flex items-center justify-between mb-2 translate-y-2 group-hover:translate-y-0 transition-transform">
+                      <span className="text-xs font-heading font-medium px-2.5 py-1 rounded-full bg-white/20 text-white backdrop-blur-md">
+                        {img.category}
+                      </span>
+                      <Eye className="w-5 h-5 text-white opacity-0 group-hover:opacity-100 transition-opacity delay-100" />
+                    </div>
+                    <h3 className="font-heading font-semibold text-white text-sm translate-y-2 group-hover:translate-y-0 transition-transform delay-75">
+                      {img.alt}
+                    </h3>
                   </div>
-                </div>
-              </motion.div>
-            ))}
+                </motion.div>
+              ))}
+            </AnimatePresence>
           </motion.div>
-        </div>
-      </section>
 
-      {/* Lightbox */}
-      <Dialog open={selectedIdx !== null} onOpenChange={() => setSelectedIdx(null)}>
-        <DialogContent className="max-w-4xl bg-black/95 border-0 p-0 overflow-hidden rounded-2xl">
-          <DialogTitle className="sr-only">Gallery Image</DialogTitle>
-          {selectedIdx !== null && (
-            <div className="relative">
-              <img
-                src={filtered[selectedIdx].src.replace('w=600&h=400', 'w=1200&h=800')}
-                alt={filtered[selectedIdx].alt}
-                className="w-full h-auto max-h-[80vh] object-contain"
-              />
-              <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent">
-                <p className="text-white font-display text-lg font-bold">{filtered[selectedIdx].alt}</p>
-                <p className="text-white/60 text-sm">{filtered[selectedIdx].category}</p>
+        </div>
+      </div>
+
+      {/* Lightbox Dialog */}
+      <Dialog open={selectedImageIndex !== null} onOpenChange={(open) => !open && setSelectedImageIndex(null)}>
+        <DialogContent className="max-w-5xl bg-charcoal-950 border-charcoal-800 p-0 overflow-hidden rounded-2xl">
+          <DialogTitle className="sr-only">Image Lightbox</DialogTitle>
+          
+          {selectedImageIndex !== null && (
+            <div className="relative w-full h-[80vh] flex flex-col">
+              {/* Image Container */}
+              <div className="relative flex-1 flex items-center justify-center p-4 bg-charcoal-950">
+                <img 
+                  src={filteredImages[selectedImageIndex].src} 
+                  alt={filteredImages[selectedImageIndex].alt}
+                  className="max-w-full max-h-full object-contain"
+                />
+                
+                {/* Navigation Buttons */}
+                <button 
+                  onClick={(e) => { e.stopPropagation(); handlePrevious(); }}
+                  className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center backdrop-blur-md transition-colors focus:outline-none focus:ring-2 focus:ring-gold-500"
+                  aria-label="Previous image"
+                >
+                  <ChevronLeft className="w-6 h-6" />
+                </button>
+                <button 
+                  onClick={(e) => { e.stopPropagation(); handleNext(); }}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center backdrop-blur-md transition-colors focus:outline-none focus:ring-2 focus:ring-gold-500"
+                  aria-label="Next image"
+                >
+                  <ChevronRight className="w-6 h-6" />
+                </button>
               </div>
-              <button
-                onClick={(e) => { e.stopPropagation(); goPrev(); }}
-                className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors"
-              >
-                <ChevronLeft className="w-5 h-5" />
-              </button>
-              <button
-                onClick={(e) => { e.stopPropagation(); goNext(); }}
-                className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors"
-              >
-                <ChevronRight className="w-5 h-5" />
-              </button>
+              
+              {/* Image Info Footer */}
+              <div className="bg-charcoal-900 p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div>
+                  <h3 className="text-white font-heading text-lg font-semibold mb-1">
+                    {filteredImages[selectedImageIndex].alt}
+                  </h3>
+                  <p className="text-charcoal-400 text-sm">
+                    Image {selectedImageIndex + 1} of {filteredImages.length}
+                  </p>
+                </div>
+                <Badge variant="secondary" className="bg-gold-500/20 text-gold-400 border-gold-500/30">
+                  {filteredImages[selectedImageIndex].category}
+                </Badge>
+              </div>
             </div>
           )}
         </DialogContent>
       </Dialog>
-    </motion.div>
+    </PageTransition>
   );
 }

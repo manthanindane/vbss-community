@@ -1,102 +1,94 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Calendar, MapPin, ArrowRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import SectionHeading from '@/components/shared/SectionHeading';
+import EventCard from '@/components/shared/EventCard';
 import { events } from '@/data/events';
 
 export default function EventsPreview() {
-  const upcoming = events.filter((e) => e.upcoming).slice(0, 3);
+  // Get up to 3 upcoming events
+  const upcomingEvents = events.filter(e => e.upcoming).slice(0, 3);
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.1 }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
+  };
 
   return (
-    <section className="section-padding" style={{ background: '#FFFFFF' }}>
-      <div className="container-custom">
+    <section className="section-padding bg-white relative">
+      {/* Decorative background element */}
+      <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none opacity-[0.02]">
+        <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="w-full h-full">
+          <path d="M0,0 L100,0 L100,100 L0,100 Z" fill="url(#grid)" />
+          <defs>
+            <pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse">
+              <path d="M 10 0 L 0 0 0 10" fill="none" stroke="currentColor" strokeWidth="0.5" />
+            </pattern>
+          </defs>
+        </svg>
+      </div>
 
-        {/* Header */}
-        <div className="flex items-end justify-between mb-10">
+      <div className="container-main relative z-10">
+        <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+          <SectionHeading 
+            sectionNumber="02" 
+            hindiTitle="आगामी कार्यक्रम" 
+            title="Events & Celebrations"
+            align="left"
+          />
+          
           <motion.div
-            initial={{ opacity: 0, y: 14 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.44 }}
+            className="hidden md:block pb-6"
           >
-            <span className="section-num block mb-2">03 — Events</span>
-            <h2
-              style={{
-                fontFamily: "'Plus Jakarta Sans', sans-serif",
-                fontSize: 'clamp(1.75rem, 3.5vw, 2.4rem)',
-                fontWeight: 800,
-                letterSpacing: '-0.03em',
-                lineHeight: 1.1,
-                color: '#1A1A2E',
-              }}
-            >
-              Upcoming Events
-            </h2>
+            <Button variant="outline" asChild>
+              <Link to="/events">
+                View All Events
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </Link>
+            </Button>
           </motion.div>
-          <Link
-            to="/events"
-            className="hidden sm:inline-flex items-center gap-1.5 text-[13px] font-semibold transition-all group"
-            style={{ color: '#1B4D3E', fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-          >
-            All Events
-            <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
-          </Link>
         </div>
 
-        {/* Asymmetric grid: 2fr 1fr 1fr */}
-        <div className="grid lg:grid-cols-[2fr_1fr_1fr] gap-4">
-          {upcoming.map((event, i) => (
-            <motion.div
-              key={event.id}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1, duration: 0.44 }}
-              className="group card-surface overflow-hidden"
-            >
-              {/* Image */}
-              <div
-                className="relative overflow-hidden"
-                style={{ height: i === 0 ? 250 : 170 }}
-              >
-                <img
-                  src={event.image}
-                  alt={event.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div
-                  className="absolute inset-0"
-                  style={{ background: 'linear-gradient(to top, rgba(26,26,46,0.35) 0%, transparent 55%)' }}
-                />
-                <span className="badge-teal absolute top-3 left-3">
-                  {event.category}
-                </span>
-              </div>
-
-              {/* Content */}
-              <div className="p-5">
-                <h3
-                  className="font-semibold text-ink leading-snug mb-3"
-                  style={{
-                    fontFamily: "'Plus Jakarta Sans', sans-serif",
-                    fontSize: i === 0 ? '1.02rem' : '0.88rem',
-                  }}
-                >
-                  {event.title}
-                </h3>
-                <div className="flex flex-col gap-1.5">
-                  <div className="flex items-center gap-2 text-[12px]" style={{ color: '#9CA3AF' }}>
-                    <Calendar className="w-3.5 h-3.5 shrink-0" style={{ color: '#1B4D3E' }} />
-                    <span style={{ fontFamily: "'Satoshi', sans-serif" }}>{event.date}</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-[12px]" style={{ color: '#9CA3AF' }}>
-                    <MapPin className="w-3.5 h-3.5 shrink-0" />
-                    <span style={{ fontFamily: "'Satoshi', sans-serif" }}>{event.venue}</span>
-                  </div>
-                </div>
-              </div>
+        <motion.div 
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-50px' }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+        >
+          {upcomingEvents.map((event) => (
+            <motion.div key={event.id} variants={itemVariants} className="h-full">
+              <EventCard event={event} />
             </motion.div>
           ))}
-        </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mt-12 text-center md:hidden"
+        >
+          <Button variant="outline" size="lg" className="w-full sm:w-auto" asChild>
+            <Link to="/events">
+              View All Events
+              <ArrowRight className="w-4 h-4 ml-2" />
+            </Link>
+          </Button>
+        </motion.div>
       </div>
     </section>
   );

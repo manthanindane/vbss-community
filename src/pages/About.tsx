@@ -1,177 +1,214 @@
+import React from 'react';
 import { motion } from 'framer-motion';
-import { Eye, Target, Heart, Shield, BookOpen, Handshake } from 'lucide-react';
+import { Shield, AlertTriangle, Target, Eye, Heart, Scale, BookOpen, Users } from 'lucide-react';
+import PageTransition from '@/components/shared/PageTransition';
 import PageHero from '@/components/layout/PageHero';
-
-const values = [
-  { icon: Heart,     title: 'Compassion',  desc: 'Extending welfare support to every member of our community — from scholarships and health camps to marriage assistance and crisis relief.' },
-  { icon: Shield,    title: 'Integrity',   desc: 'Upholding transparency and ethical governance in all our organisational activities, finances and public advocacy.' },
-  { icon: BookOpen,  title: 'Education',   desc: 'Investing in the intellectual growth of Suri Vaishya youth through scholarships, mentorship and career development programs.' },
-  { icon: Handshake, title: 'Unity',       desc: 'Fostering bonds across Bihar, Jharkhand, Odisha and West Bengal — connecting the Suri Vaishya community regardless of geography.' },
-];
-
-const timeline = [
-  { year: '2012', title: 'Foundation & Registration',    desc: 'VBSS formally registered under Society Registration Act 1860 (GBBSD 2448/2012) and Mumbai Public Trust Act 1950 (F-49747 Mumbai).' },
-  { year: '2013', title: 'First Annual Gathering',        desc: 'Inaugural annual gathering held in Mumbai, attended by 200+ members from across Maharashtra, marking the start of our annual samaj milan tradition.' },
-  { year: '2015', title: 'Scholarship Fund Launched',     desc: 'Education welfare fund established; first batch of 12 students from Bihar, Jharkhand and West Bengal received merit scholarships.' },
-  { year: '2017', title: 'Women Empowerment Wing',        desc: 'Launched a dedicated women empowerment wing focusing on self-help groups, skill development and legal awareness for women in the community.' },
-  { year: '2019', title: 'EBC Advocacy Campaign',         desc: 'VBSS formally began advocacy for inclusion of Suri and Kalwar Vaishya communities in Bihar\'s Extremely Backward Classes (EBC) classification.' },
-  { year: '2020', title: 'Digital Community Network',     desc: 'Launched digital member directory, WhatsApp broadcast network and Facebook community page to connect 700+ members across four states.' },
-  { year: '2023', title: 'Health Camp Initiative',        desc: 'Free health camp initiative launched, starting with Mumbai and expanding to Patna — over 600 members screened in the first two editions.' },
-  { year: '2026', title: 'Growing & Advocating',          desc: 'With 700+ registered members, 50+ events organised and active programs across 4 states, VBSS continues to serve and advocate for the community.' },
-];
-
-const fadeUp = (delay = 0) => ({
-  initial: { opacity: 0, y: 20 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true },
-  transition: { duration: 0.5, delay },
-});
+import SectionHeading from '@/components/shared/SectionHeading';
 
 export default function About() {
+  const timelineEvents = [
+    { year: '2012', title: 'Foundation', desc: 'VBSS formally registered in Mumbai' },
+    { year: '2013', title: 'First Annual Gathering', desc: 'Over 200 families united for the first event' },
+    { year: '2015', title: 'Women Wing Launched', desc: 'Focusing on empowerment and skill development' },
+    { year: '2017', title: 'Youth Wing Established', desc: 'Connecting the next generation with our roots' },
+    { year: '2019', title: 'Health Initiative', desc: 'First free mega medical camp organized' },
+    { year: '2021', title: 'Community Growth', desc: 'Crossed the 500 active member milestone' },
+    { year: '2024', title: 'Expansion', desc: 'Membership crossed 700 families across 4 states' },
+    { year: '2025', title: 'Education Focus', desc: 'Record 42 scholarships awarded in a single year' },
+  ];
+
   return (
-    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.35 }}>
-      <PageHero
-        title="About VBSS"
-        subtitle="Learn about the Vaishya Bhartiya Suri Samaj — our founding, our mission, and the community we serve."
+    <PageTransition>
+      <PageHero 
+        title="About Our Samaj" 
+        hindiTitle="हमारे बारे में"
+        subtitle="Learn about our history, mission, and the values that unite us"
       />
 
-      {/* History */}
-      <section className="section-padding">
-        <div className="container-custom">
-          <div className="grid lg:grid-cols-2 gap-14 items-start">
-            <motion.div {...fadeUp(0)}>
-              <p className="text-xs font-semibold uppercase tracking-widest text-maroon-600 mb-3">Our Story</p>
-              <h2 className="text-section font-bold text-ink tracking-tight leading-tight mb-5">
-                Serving the Suri Vaishya Community Since 2012
-              </h2>
-              <div className="space-y-4 text-gray-500 text-base leading-relaxed">
-                <p>
-                  Vaishya Bhartiya Suri Samaj (VBSS) is a registered non-profit organisation established
-                  to advance the social, educational and economic welfare of the Suri Vaishya community —
-                  a trading community with deep roots across Bihar, Jharkhand, Odisha and West Bengal.
-                </p>
-                <p>
-                  Incorporated under the Society Registration Act 1860 (GBBSD 2448/2012) and the Mumbai
-                  Public Trust Act 1950 (F-49747 Mumbai), VBSS operates with full legal standing and
-                  financial transparency. Our headquarters is in Mumbai, with active chapters across
-                  four states.
-                </p>
-                <p>
-                  Our primary mandate covers education (scholarships and mentorship), health
-                  (free medical camps), marriage support, and women empowerment — addressing the most
-                  critical needs of community members across all economic strata.
-                </p>
-              </div>
-            </motion.div>
-
-            <motion.div {...fadeUp(0.1)} className="space-y-4">
-              {/* Registration details box */}
-              <div className="p-5 rounded-2xl border border-gray-100 bg-gray-50">
-                <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-3">Legal Registration</p>
-                <div className="space-y-2">
-                  {[
-                    { label: 'Society Registration Act 1860', value: 'GBBSD 2448/2012' },
-                    { label: 'Mumbai Public Trust Act 1950',  value: 'F-49747 MUMBAI' },
-                    { label: 'Headquarters',                  value: 'Mumbai, Maharashtra' },
-                    { label: 'Area of Operation',             value: 'Bihar, Jharkhand, Odisha, West Bengal' },
-                  ].map(({ label, value }) => (
-                    <div key={label} className="flex items-start justify-between py-2 border-b border-gray-100 last:border-0">
-                      <span className="text-sm text-gray-500">{label}</span>
-                      <span className="text-sm font-semibold text-ink text-right ml-4">{value}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* EBC Demand note */}
-              <div className="p-5 rounded-2xl border border-maroon-100 bg-maroon-50">
-                <p className="text-xs font-semibold uppercase tracking-widest text-maroon-500 mb-2">Ongoing Advocacy</p>
-                <p className="text-sm text-maroon-800 leading-relaxed font-medium">
-                  VBSS is actively advocating for the inclusion of Suri and Kalwar Vaishya communities
-                  in Bihar\'s Extremely Backward Classes (EBC) list — a status already granted in
-                  Jharkhand, Odisha and West Bengal.
-                </p>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* Mission & Vision */}
-      <section className="section-padding bg-gray-50/50">
-        <div className="container-custom">
-          <div className="grid md:grid-cols-2 gap-5 max-w-4xl mx-auto">
-            {[{
-              icon: Target, label: 'Our Mission', color: 'border-maroon-100 bg-maroon-50',
-              iconColor: 'text-maroon-700 bg-white',
-              text: 'To unite and uplift the Suri Vaishya community through education, health, marriage support and women empowerment — bridging inequality and preserving cultural identity across Bihar, Jharkhand, Odisha and West Bengal.',
-            }, {
-              icon: Eye, label: 'Our Vision', color: 'border-gold-200 bg-gold-50',
-              iconColor: 'text-gold-700 bg-white',
-              text: 'An empowered, educated and unified Suri Vaishya community where every member — regardless of economic standing — has access to opportunities, welfare support and the strength of collective belonging.',
-            }].map(({ icon: Icon, label, color, iconColor, text }) => (
-              <motion.div key={label} {...fadeUp(0)} className={`p-7 rounded-2xl border ${color}`}>
-                <div className={`w-10 h-10 rounded-xl shadow-sm border border-gray-100 flex items-center justify-center mb-5 ${iconColor}`}>
-                  <Icon className="w-5 h-5" />
-                </div>
-                <h3 className="text-lg font-bold text-ink mb-3">{label}</h3>
-                <p className="text-gray-600 text-sm leading-relaxed">{text}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Core Values */}
-      <section className="section-padding">
-        <div className="container-custom">
-          <motion.div {...fadeUp(0)} className="mb-12">
-            <p className="text-xs font-semibold uppercase tracking-widest text-maroon-600 mb-2">What We Stand For</p>
-            <h2 className="text-section font-bold text-ink tracking-tight">Core Values</h2>
-          </motion.div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {values.map((v, i) => (
-              <motion.div key={v.title} {...fadeUp(i * 0.08)}
-                className="p-6 rounded-2xl border border-gray-100 bg-white hover:border-maroon-100 hover:shadow-[0_6px_24px_rgba(0,0,0,0.05)] transition-all duration-300"
+      <div id="main-content">
+        {/* History Section */}
+        <section className="section-padding">
+          <div className="container-main">
+            <SectionHeading title="Our Story" hindiTitle="हमारी कहानी" />
+            
+            <div className="grid lg:grid-cols-2 gap-12 items-center mb-12">
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="relative rounded-2xl overflow-hidden shadow-soft-xl"
               >
-                <div className="w-10 h-10 rounded-xl bg-maroon-50 border border-maroon-100 flex items-center justify-center mb-4">
-                  <v.icon className="w-5 h-5 text-maroon-700" />
-                </div>
-                <h3 className="font-bold text-ink mb-1.5">{v.title}</h3>
-                <p className="text-sm text-gray-500 leading-relaxed">{v.desc}</p>
+                <img 
+                  src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=800&h=600&fit=crop" 
+                  alt="Community Gathering" 
+                  className="w-full h-full object-cover"
+                />
               </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Timeline */}
-      <section className="section-padding bg-gray-50/50">
-        <div className="container-custom">
-          <motion.div {...fadeUp(0)} className="mb-12">
-            <p className="text-xs font-semibold uppercase tracking-widest text-maroon-600 mb-2">Our Journey</p>
-            <h2 className="text-section font-bold text-ink tracking-tight">Key Milestones</h2>
-          </motion.div>
-
-          <div className="relative max-w-2xl">
-            <div className="absolute left-4 top-2 bottom-2 w-px bg-gradient-to-b from-maroon-200 to-transparent" />
-            <div className="space-y-7">
-              {timeline.map((item, i) => (
-                <motion.div key={item.year} {...fadeUp(i * 0.05)}
-                  className="relative flex gap-6 pl-10"
-                >
-                  <div className="absolute left-[13px] top-1.5 w-2.5 h-2.5 rounded-full bg-white border-2 border-maroon-400 z-10" />
-                  <div>
-                    <span className="inline-block text-xs font-bold text-maroon-600 bg-maroon-50 border border-maroon-100 px-2.5 py-0.5 rounded-full mb-1">{item.year}</span>
-                    <h3 className="font-bold text-ink text-sm">{item.title}</h3>
-                    <p className="text-sm text-gray-500 leading-relaxed mt-0.5">{item.desc}</p>
+              
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+              >
+                <div className="prose prose-lg prose-charcoal max-w-none">
+                  <p className="mb-4">
+                    The Vaishya Bhartiya Suri Samaj (VBSS) represents the vibrant and enterprising Suri Vaishya merchant community, with roots primarily in Bihar, Jharkhand, Odisha, and West Bengal.
+                  </p>
+                  <p className="mb-4">
+                    Founded in 2012 by a group of visionary community leaders, VBSS was established with a singular goal: to unite our scattered families under one umbrella, providing a platform for mutual support, cultural preservation, and collective progress.
+                  </p>
+                  <p className="mb-8">
+                    Historically known for our strong business acumen and ethical trading practices, our community now spans diverse professions. VBSS ensures that while we march forward, we remain deeply connected to the values of our ancestors.
+                  </p>
+                </div>
+                
+                <div className="card-surface p-6 flex flex-col sm:flex-row items-center sm:items-start gap-4 bg-cream-50/50">
+                  <div className="w-12 h-12 rounded-full bg-gold-100 flex items-center justify-center shrink-0">
+                    <Shield className="w-6 h-6 text-gold-600" />
                   </div>
-                </motion.div>
-              ))}
+                  <div>
+                    <h4 className="font-heading font-semibold text-charcoal-900 mb-2 text-center sm:text-left">Registered Organization</h4>
+                    <p className="text-sm text-charcoal-600 text-center sm:text-left">
+                      Officially registered under the Society Registration Act 1860 (GBBSD 2448/2012) and the Mumbai Public Trust Act 1950 (F-49747).
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+
+            {/* EBC Advocacy */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="bg-gold-50 border-l-4 border-l-gold-500 p-6 rounded-r-2xl flex flex-col sm:flex-row gap-4 items-start"
+            >
+              <AlertTriangle className="w-6 h-6 text-gold-600 shrink-0 mt-1" />
+              <div>
+                <h4 className="font-heading font-semibold text-charcoal-900 mb-2">Community Advocacy</h4>
+                <p className="text-sm text-charcoal-700">
+                  VBSS actively champions the inclusion of the Suri and Kalwar Vaishya communities in Bihar's Extremely Backward Classes (EBC) list, advocating for parity with the recognition already granted in neighboring states like Jharkhand and West Bengal.
+                </p>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Mission & Vision */}
+        <section className="section-padding bg-cream-100/50">
+          <div className="container-main">
+            <div className="grid lg:grid-cols-2 gap-8">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+                className="card-surface p-8 lg:p-12"
+              >
+                <div className="w-16 h-16 rounded-2xl bg-maroon-50 flex items-center justify-center mb-6">
+                  <Target className="w-8 h-8 text-maroon-700" />
+                </div>
+                <h3 className="font-display text-3xl font-bold text-charcoal-900 mb-4">Our Mission</h3>
+                <p className="text-lg text-charcoal-600 leading-relaxed">
+                  To unite, empower, and uplift the Suri Vaishya community by providing educational support, facilitating healthcare access, promoting women's empowerment, and preserving our rich cultural heritage for future generations.
+                </p>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                className="card-surface p-8 lg:p-12"
+              >
+                <div className="w-16 h-16 rounded-2xl bg-gold-50 flex items-center justify-center mb-6">
+                  <Eye className="w-8 h-8 text-gold-600" />
+                </div>
+                <h3 className="font-display text-3xl font-bold text-charcoal-900 mb-4">Our Vision</h3>
+                <p className="text-lg text-charcoal-600 leading-relaxed">
+                  To be recognized as a model community organization that successfully bridges traditional values with modern aspirations, ensuring every member of the samaj has the opportunity to thrive and succeed.
+                </p>
+              </motion.div>
             </div>
           </div>
-        </div>
-      </section>
-    </motion.div>
+        </section>
+
+        {/* Core Values */}
+        <section className="section-padding">
+          <div className="container-main">
+            <SectionHeading title="Core Values" hindiTitle="मूल्य" />
+            
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {[
+                { title: 'Compassion', icon: Heart, bg: 'bg-maroon-50', text: 'text-maroon-700', desc: 'Caring for the vulnerable members of our community through dedicated welfare programs.' },
+                { title: 'Integrity', icon: Scale, bg: 'bg-gold-50', text: 'text-gold-700', desc: 'Upholding the honest business practices and ethical standards of our ancestors.' },
+                { title: 'Education', icon: BookOpen, bg: 'bg-terracotta-50', text: 'text-terracotta-700', desc: 'Believing that knowledge is the foundation of progress and empowerment.' },
+                { title: 'Unity', icon: Users, bg: 'bg-sage-50', text: 'text-sage-700', desc: 'Standing together in times of need and celebrating our successes collectively.' },
+              ].map((value, i) => {
+                const Icon = value.icon;
+                return (
+                  <motion.div
+                    key={value.title}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: i * 0.1 }}
+                    className="card-surface p-6"
+                  >
+                    <div className={`w-14 h-14 rounded-2xl ${value.bg} flex items-center justify-center mb-6`}>
+                      <Icon className={`w-7 h-7 ${value.text}`} />
+                    </div>
+                    <h4 className="font-heading text-xl font-bold text-charcoal-900 mb-3">{value.title}</h4>
+                    <p className="text-sm text-charcoal-600 leading-relaxed">{value.desc}</p>
+                  </motion.div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        {/* Timeline */}
+        <section className="section-padding bg-cream-100/50">
+          <div className="container-main">
+            <SectionHeading title="Our Journey" hindiTitle="हमारी यात्रा" />
+            
+            <div className="relative max-w-4xl mx-auto mt-12">
+              {/* Central Line */}
+              <div className="absolute left-[15px] lg:left-1/2 top-0 bottom-0 w-0.5 bg-gold-200 lg:-translate-x-1/2"></div>
+              
+              <div className="space-y-12">
+                {timelineEvents.map((item, i) => (
+                  <motion.div
+                    key={item.year}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: '-100px' }}
+                    transition={{ duration: 0.5 }}
+                    className={`relative flex flex-col lg:flex-row items-start lg:items-center ${
+                      i % 2 === 0 ? 'lg:flex-row-reverse' : ''
+                    }`}
+                  >
+                    {/* Dot */}
+                    <div className="absolute left-0 lg:left-1/2 w-8 h-8 rounded-full bg-gold-500 border-4 border-white shadow-soft lg:-translate-x-1/2 z-10"></div>
+                    
+                    {/* Content Box */}
+                    <div className={`ml-12 lg:ml-0 lg:w-1/2 ${i % 2 === 0 ? 'lg:pl-16' : 'lg:pr-16 lg:text-right'}`}>
+                      <div className="card-surface p-6 inline-block w-full">
+                        <span className="font-display text-3xl font-bold gradient-text block mb-2">{item.year}</span>
+                        <h4 className="font-heading text-lg font-bold text-charcoal-900 mb-2">{item.title}</h4>
+                        <p className="text-sm text-charcoal-600">{item.desc}</p>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </PageTransition>
   );
 }

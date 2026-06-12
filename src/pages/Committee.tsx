@@ -1,90 +1,125 @@
+import React from 'react';
 import { motion } from 'framer-motion';
-import { Quote } from 'lucide-react';
+import { Quote, Phone } from 'lucide-react';
+import PageTransition from '@/components/shared/PageTransition';
 import PageHero from '@/components/layout/PageHero';
+import SectionHeading from '@/components/shared/SectionHeading';
 import MemberCard from '@/components/shared/MemberCard';
-import { Card, CardContent } from '@/components/ui/card';
-import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { members } from '@/data/members';
 
 export default function Committee() {
-  const president = members.find((m) => m.designation === 'President');
-  const otherMembers = members.filter((m) => m.designation !== 'President');
+  const president = members.find(m => m.designation === 'President') || members[0];
+  const committeeMembers = members.filter(m => m.designation !== 'President');
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.1 }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
+  };
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.4 }}
-    >
-      <PageHero
-        title="Our Leadership"
-        subtitle="Meet the dedicated individuals who lead and serve the Vaishya Bhartiya Suri Samaj."
+    <PageTransition>
+      <PageHero 
+        title="Our Leadership" 
+        hindiTitle="हमारा नेतृत्व"
+        subtitle="Meet the dedicated leaders serving our community with vision and integrity"
       />
 
-      {/* President's Message */}
-      {president && (
-        <section className="section-padding">
-          <div className="container-custom">
+      <div id="main-content">
+        {/* President's Message Section */}
+        <section className="section-padding bg-cream-50 relative overflow-hidden">
+          {/* Decorative mandala bg element */}
+          <div className="absolute -right-64 -top-64 w-[600px] h-[600px] opacity-[0.03] pointer-events-none">
+            <svg viewBox="0 0 400 400" className="w-full h-full text-charcoal-900 fill-current">
+              <circle cx="200" cy="200" r="180" fill="none" stroke="currentColor" strokeWidth="2" />
+              <path d="M200 20 L200 380 M20 200 L380 200" stroke="currentColor" strokeWidth="2" />
+            </svg>
+          </div>
+
+          <div className="container-main relative z-10">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
+              className="card-surface p-8 lg:p-14"
             >
-              <Card className="border-0 shadow-[0_8px_60px_rgba(0,0,0,0.06)] rounded-3xl overflow-hidden max-w-4xl mx-auto">
-                <div className="h-2 bg-gradient-to-r from-primary-600 via-accent-500 to-primary-600" />
-                <CardContent className="p-8 lg:p-12">
-                  <div className="flex flex-col md:flex-row items-start gap-8">
-                    <div className="flex-shrink-0">
-                      <Avatar className="w-28 h-28 ring-4 ring-primary-100">
-                        <AvatarImage src={president.image} alt={president.name} />
-                        <AvatarFallback className="bg-primary-100 text-primary-700 font-display text-2xl font-bold">RK</AvatarFallback>
-                      </Avatar>
-                    </div>
-                    <div className="flex-1">
-                      <Quote className="w-8 h-8 text-primary-200 mb-3" />
-                      <p className="text-slate text-base leading-relaxed italic">
-                        {president.message}
-                      </p>
-                      <div className="mt-6 pt-4 border-t border-primary-50">
-                        <p className="font-display text-lg font-bold text-charcoal">{president.name}</p>
-                        <p className="text-primary-600 text-sm font-medium">{president.designation}, Vaishya Bhartiya Suri Samaj</p>
-                      </div>
-                    </div>
+              <div className="grid lg:grid-cols-[240px_1fr] gap-10 lg:gap-16 items-start">
+                <div className="flex justify-center lg:justify-start">
+                  <div className="w-48 h-48 lg:w-56 lg:h-56 rounded-2xl overflow-hidden ring-4 ring-gold-300/40 shadow-soft-xl rotate-[-2deg] transition-transform hover:rotate-0 duration-500">
+                    <img 
+                      src={president.image} 
+                      alt={president.name} 
+                      className="w-full h-full object-cover"
+                    />
                   </div>
-                </CardContent>
-              </Card>
+                </div>
+                
+                <div className="text-center lg:text-left flex flex-col items-center lg:items-start">
+                  <div className="flex items-center gap-3 mb-4">
+                    <span className="w-10 h-[1px] bg-gold-400"></span>
+                    <span className="font-heading font-bold text-gold-600 tracking-widest uppercase text-sm">
+                      President's Message
+                    </span>
+                  </div>
+                  
+                  <h2 className="font-display text-4xl lg:text-5xl font-bold text-charcoal-900 mb-2">
+                    {president.name}
+                  </h2>
+                  <p className="font-heading text-lg text-charcoal-500 mb-8">
+                    President, Vaishya Bhartiya Suri Samaj
+                  </p>
+                  
+                  <div className="relative mb-8">
+                    <Quote className="absolute -top-4 -left-6 w-10 h-10 text-cream-200 -z-10 rotate-180" />
+                    <blockquote className="text-xl lg:text-2xl text-charcoal-700 italic leading-relaxed font-medium">
+                      "{president.message}"
+                    </blockquote>
+                  </div>
+
+                  {president.phone && (
+                    <div className="inline-flex items-center gap-2 text-sm text-charcoal-600 bg-cream-100/50 py-2 px-4 rounded-full border border-cream-200">
+                      <Phone className="w-4 h-4 text-gold-600" />
+                      <span>{president.phone}</span>
+                    </div>
+                  )}
+                </div>
+              </div>
             </motion.div>
           </div>
         </section>
-      )}
 
-      {/* Committee Members */}
-      <section className="section-padding bg-gradient-to-b from-cream-50 to-white">
-        <div className="container-custom">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-12"
-          >
-            <h2 className="font-display text-3xl sm:text-4xl font-bold text-charcoal">Committee Members</h2>
-            <p className="text-slate mt-3 max-w-lg mx-auto">The dedicated team working behind the scenes to make our community thrive.</p>
-            <div className="mt-4 flex items-center justify-center gap-2">
-              <div className="h-0.5 w-10 rounded-full bg-primary-600" />
-              <div className="h-0.5 w-3 rounded-full bg-accent-500" />
-            </div>
-          </motion.div>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {otherMembers.map((member, i) => (
-              <MemberCard key={member.id} member={member} index={i} />
-            ))}
+        {/* Executive Committee Grid */}
+        <section className="section-padding bg-cream-100/50">
+          <div className="container-main">
+            <SectionHeading 
+              title="Executive Committee" 
+              hindiTitle="कार्यकारिणी समिति" 
+            />
+            
+            <motion.div 
+              variants={containerVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: '-50px' }}
+              className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
+            >
+              {committeeMembers.map((member) => (
+                <motion.div key={member.id} variants={itemVariants} className="h-full">
+                  <MemberCard member={member} />
+                </motion.div>
+              ))}
+            </motion.div>
           </div>
-        </div>
-      </section>
-    </motion.div>
+        </section>
+      </div>
+    </PageTransition>
   );
 }

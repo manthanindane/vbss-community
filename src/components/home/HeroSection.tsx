@@ -1,275 +1,149 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowRight, MapPin } from 'lucide-react';
-
-const up = (delay = 0) => ({
-  initial:    { opacity: 0, y: 20 },
-  animate:    { opacity: 1, y: 0 },
-  transition: { duration: 0.55, delay, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] },
-});
-
-const states = ['Bihar', 'Jharkhand', 'Odisha', 'West Bengal'];
+import { ArrowRight, ChevronDown } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 export default function HeroSection() {
   return (
-    <section
-      className="relative overflow-hidden"
-      style={{ paddingTop: 62, minHeight: '92vh', background: '#FAFAF7' }}
-    >
-      {/* ── Subtle background geometry ── */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          backgroundImage:
-            'radial-gradient(ellipse 60% 50% at 80% 20%, rgba(27,77,62,0.06) 0%, transparent 60%),' +
-            'radial-gradient(ellipse 40% 35% at 15% 80%, rgba(217,119,6,0.05) 0%, transparent 55%)',
-        }}
-      />
-
-      {/* ── Grid line accent (structural, subtle) ── */}
-      <div
-        className="absolute top-0 right-[38%] bottom-0 w-px pointer-events-none hidden lg:block"
-        style={{ background: 'linear-gradient(to bottom, transparent, rgba(27,77,62,0.08) 20%, rgba(27,77,62,0.08) 80%, transparent)' }}
-      />
-
-      <div className="container-custom">
-        <div className="grid lg:grid-cols-[58fr_42fr] gap-6 lg:gap-0 min-h-[88vh] items-center">
-
-          {/* ── LEFT: Text ── */}
-          <div className="py-14 lg:py-20 lg:pr-14">
-
-            {/* Eyebrow */}
-            <motion.div {...up(0.05)} className="flex items-center gap-2.5 mb-7">
-              <span className="accent-dot" />
-              <span className="label">Community Organisation · Est. 2012</span>
+    <section className="relative min-h-[100svh] flex items-center pt-24 pb-32 overflow-hidden bg-gradient-to-br from-maroon-900 via-maroon-800 to-charcoal-950 mandala-bg">
+      <div className="container-main relative z-10 w-full">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          
+          {/* Left Column: Text Content */}
+          <div className="flex flex-col items-start text-left max-w-2xl">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="mb-6"
+            >
+              <span className="label-tag-light border border-white/20 rounded-full px-4 py-1.5 bg-white/5 backdrop-blur-sm">
+                Since 2012 • 4 States • 700+ Families
+              </span>
             </motion.div>
 
-            {/* Main headline — Plus Jakarta Sans, bold, tight */}
-            <motion.h1 {...up(0.12)} style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
-              <span
-                style={{
-                  display: 'block',
-                  fontSize: 'clamp(2.8rem, 5.8vw, 5rem)',
-                  fontWeight: 800,
-                  letterSpacing: '-0.03em',
-                  lineHeight: 1.05,
-                  color: '#1A1A2E',
-                }}
-              >
-                Uniting the
-              </span>
-              <span
-                style={{
-                  display: 'block',
-                  fontSize: 'clamp(2.8rem, 5.8vw, 5rem)',
-                  fontWeight: 800,
-                  letterSpacing: '-0.03em',
-                  lineHeight: 1.05,
-                  color: '#1B4D3E',
-                }}
-              >
-                Suri Vaishya
-              </span>
-              <span
-                style={{
-                  display: 'block',
-                  fontSize: 'clamp(2.8rem, 5.8vw, 5rem)',
-                  fontWeight: 800,
-                  letterSpacing: '-0.03em',
-                  lineHeight: 1.05,
-                  color: '#1A1A2E',
-                }}
-              >
-                Community
-              </span>
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="font-display text-5xl sm:text-6xl lg:text-7xl font-bold text-white leading-[1.1] mb-6"
+            >
+              Preserving Heritage,<br />
+              Building <span className="gradient-text-light">Community.</span>
             </motion.h1>
 
-            {/* Sub */}
             <motion.p
-              {...up(0.2)}
-              style={{
-                fontFamily: "'Satoshi', sans-serif",
-                fontSize: '1.05rem',
-                lineHeight: 1.75,
-                color: '#6B7280',
-                maxWidth: 460,
-                marginTop: '1.5rem',
-              }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="text-lg lg:text-xl text-maroon-200 mb-10 font-medium leading-relaxed"
             >
-              A registered organisation advancing education, health,
-              marriage support and women empowerment for Suri Vaishya
-              families across East India.
+              Vaishya Bhartiya Suri Samaj — uniting families across Bihar, Jharkhand, Odisha and West Bengal in celebration of our rich cultural legacy and shared values.
             </motion.p>
 
-            {/* State pills */}
-            <motion.div {...up(0.26)} className="flex flex-wrap gap-2 mt-5">
-              {states.map((s) => (
-                <span key={s} className="inline-flex items-center gap-1.5 badge-teal">
-                  <MapPin style={{ width: 9, height: 9 }} />
-                  {s}
-                </span>
-              ))}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="flex flex-col sm:flex-row gap-4 mb-12 w-full sm:w-auto"
+            >
+              <Button size="lg" variant="secondary" className="w-full sm:w-auto" asChild>
+                <Link to="/about">
+                  Explore Our Community
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </Link>
+              </Button>
+              <Button size="lg" variant="outline" className="w-full sm:w-auto border-white/30 text-white hover:bg-white/10" asChild>
+                <Link to="/events">
+                  View Events
+                </Link>
+              </Button>
             </motion.div>
 
-            {/* CTAs */}
-            <motion.div {...up(0.32)} className="flex flex-wrap gap-3 mt-8">
-              <Link
-                to="/about"
-                className="group inline-flex items-center gap-2 px-6 py-3 text-[14px] font-semibold text-white rounded-xl transition-all duration-200 hover:opacity-90 hover:shadow-lg"
-                style={{
-                  background: 'linear-gradient(135deg, #1B4D3E 0%, #2E7D5E 100%)',
-                  fontFamily: "'Plus Jakarta Sans', sans-serif",
-                  boxShadow: '0 4px 14px rgba(27,77,62,0.25)',
-                }}
-              >
-                About VBSS
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-              </Link>
-              <Link
-                to="/events"
-                className="inline-flex items-center gap-2 px-6 py-3 text-[14px] font-semibold rounded-xl border transition-all duration-200 hover:border-teal-300 hover:bg-teal-50"
-                style={{
-                  borderColor: '#D8E8E2',
-                  color: '#1A1A2E',
-                  fontFamily: "'Plus Jakarta Sans', sans-serif",
-                }}
-              >
-                Upcoming Events
-              </Link>
-            </motion.div>
-
-            {/* Registration chips */}
-            <motion.div {...up(0.38)} className="flex flex-wrap gap-2 mt-10">
-              {[
-                { k: 'Reg', v: 'GBBSD 2448/2012' },
-                { k: 'Trust', v: 'F-49747 Mumbai' },
-              ].map(({ k, v }) => (
-                <span
-                  key={k}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px]"
-                  style={{
-                    backgroundColor: '#FFFFFF',
-                    border: '1px solid #E8E8E2',
-                    fontFamily: "'Satoshi', sans-serif",
-                    color: '#9CA3AF',
-                  }}
-                >
-                  <span style={{ fontWeight: 700, color: '#B3D9C7', letterSpacing: '0.06em', textTransform: 'uppercase' }}>{k}</span>
-                  {v}
-                </span>
-              ))}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+              className="hidden lg:flex gap-4"
+            >
+              <div className="glass-card-dark rounded-full px-5 py-2 flex items-center gap-3">
+                <span className="accent-dot"></span>
+                <span className="font-heading text-sm text-white font-medium">700+ Members</span>
+              </div>
+              <div className="glass-card-dark rounded-full px-5 py-2 flex items-center gap-3">
+                <span className="accent-dot"></span>
+                <span className="font-heading text-sm text-white font-medium">Est. 2012</span>
+              </div>
             </motion.div>
           </div>
 
-          {/* ── RIGHT: Asymmetric image stack ── */}
+          {/* Right Column: Image Bento Grid */}
           <motion.div
-            initial={{ opacity: 0, x: 24 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
-            className="hidden lg:flex flex-col gap-4 py-14 relative"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="hidden lg:grid grid-cols-2 grid-rows-[160px_160px_160px] gap-4 relative"
           >
-            {/* Primary image — slightly left offset */}
-            <div
-              className="relative rounded-2xl overflow-hidden shadow-xl"
-              style={{ height: 300, marginLeft: '-3rem' }}
-            >
-              <img
-                src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=720&h=480&fit=crop"
-                alt="Community gathering"
-                className="w-full h-full object-cover"
+            {/* Tall Image (Left) */}
+            <div className="row-span-2 col-span-1 rounded-2xl overflow-hidden shadow-soft-xl group relative">
+              <img 
+                src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=800&h=1200&fit=crop" 
+                alt="Community Gathering" 
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
-              <div
-                className="absolute inset-0"
-                style={{ background: 'linear-gradient(to top, rgba(26,26,46,0.45) 0%, transparent 55%)' }}
-              />
-              <div className="absolute bottom-4 left-5 right-5">
-                <p
-                  className="text-white text-sm font-semibold"
-                  style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-                >
-                  Annual Samaj Mahotsav
-                </p>
-                <p
-                  className="text-white/55 text-xs mt-0.5"
-                  style={{ fontFamily: "'Satoshi', sans-serif" }}
-                >
-                  Mumbai · 2025
-                </p>
-              </div>
+              <div className="absolute inset-0 bg-gradient-to-t from-charcoal-900/60 to-transparent"></div>
             </div>
 
-            {/* Two smaller cards side by side */}
-            <div className="grid grid-cols-2 gap-3" style={{ marginRight: '-1.5rem' }}>
-              {/* Stat card */}
-              <div
-                className="bg-white rounded-2xl p-5 border flex flex-col gap-1"
-                style={{ borderColor: '#E8E8E2', boxShadow: '0 4px 20px rgba(27,77,62,0.07)' }}
-              >
-                <p
-                  className="font-bold leading-none"
-                  style={{
-                    fontFamily: "'Plus Jakarta Sans', sans-serif",
-                    fontSize: '2.5rem',
-                    color: '#1B4D3E',
-                    letterSpacing: '-0.04em',
-                  }}
-                >
-                  700+
-                </p>
-                <p
-                  className="text-xs font-medium"
-                  style={{ fontFamily: "'Satoshi', sans-serif", color: '#9CA3AF' }}
-                >
-                  Active Members
-                </p>
-                <div
-                  className="mt-2 h-1 rounded-full"
-                  style={{ background: 'linear-gradient(90deg, #1B4D3E, #80BDA4)', width: '60%' }}
-                />
-              </div>
+            {/* Top Right Image */}
+            <motion.div 
+              animate={{ y: [0, -8, 0] }}
+              transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
+              className="row-span-1 col-span-1 rounded-2xl overflow-hidden shadow-soft-xl group relative"
+            >
+              <img 
+                src="https://images.unsplash.com/photo-1609766857041-ed402ea8069a?w=600&h=600&fit=crop" 
+                alt="Cultural Ritual" 
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+            </motion.div>
 
-              {/* Second small image */}
-              <div className="relative rounded-2xl overflow-hidden" style={{ minHeight: 130 }}>
-                <img
-                  src="https://images.unsplash.com/photo-1607748862156-7c548e7e98f4?w=400&h=280&fit=crop"
-                  alt="Women empowerment"
-                  className="w-full h-full object-cover"
-                />
-                <div
-                  className="absolute inset-0 flex items-end p-3"
-                  style={{ background: 'linear-gradient(to top, rgba(26,26,46,0.55) 0%, transparent 55%)' }}
-                >
-                  <p
-                    className="text-white text-[11px] font-semibold leading-tight"
-                    style={{ fontFamily: "'Satoshi', sans-serif" }}
-                  >
-                    Women Empowerment
-                  </p>
-                </div>
-              </div>
+            {/* Middle Right Image */}
+            <div className="row-span-1 col-span-1 rounded-2xl overflow-hidden shadow-soft-xl group relative">
+              <img 
+                src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&h=600&fit=crop" 
+                alt="Youth Meet" 
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              />
             </div>
 
-            {/* Amber accent chip — floating */}
-            <div
-              className="absolute -bottom-2 left-0 bg-white rounded-xl border px-4 py-2.5 flex items-center gap-2"
-              style={{ borderColor: '#FDE68A', boxShadow: '0 4px 16px rgba(217,119,6,0.1)' }}
-            >
-              <span
-                className="w-2 h-2 rounded-full"
-                style={{ backgroundColor: '#D97706', flexShrink: 0 }}
+            {/* Bottom Wide Image */}
+            <div className="row-span-1 col-span-2 rounded-2xl overflow-hidden shadow-soft-xl group relative">
+              <img 
+                src="https://images.unsplash.com/photo-1604423146732-9b9d4e4f4dff?w=1000&h=400&fit=crop" 
+                alt="Diwali Celebration" 
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
-              <span
-                className="text-xs font-semibold"
-                style={{ fontFamily: "'Satoshi', sans-serif", color: '#92400E' }}
-              >
-                50+ Events organised
-              </span>
+              <div className="absolute inset-0 bg-gradient-to-t from-charcoal-900/60 to-transparent"></div>
+            </div>
+
+            {/* Decorative Element */}
+            <div className="absolute top-[48%] left-[48%] -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-gold-500 rounded-2xl rotate-12 shadow-gold-glow flex items-center justify-center mix-blend-screen z-20">
+              <span className="font-hindi text-white text-2xl rotate-[-12deg]">व</span>
             </div>
           </motion.div>
         </div>
       </div>
 
-      <div className="divider" />
+      {/* Scroll Indicator */}
+      <motion.div 
+        animate={{ y: [0, 8, 0] }}
+        transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/50"
+      >
+        <span className="text-xs font-heading tracking-widest uppercase">Scroll</span>
+        <ChevronDown className="w-5 h-5" />
+      </motion.div>
     </section>
   );
 }

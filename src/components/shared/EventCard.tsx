@@ -1,56 +1,73 @@
+import React from 'react';
 import { motion } from 'framer-motion';
-import { Calendar, MapPin, Clock } from 'lucide-react';
+import { CalendarDays, MapPin, Clock } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import type { Event } from '@/data/events';
 
-interface Props { event: Event; index: number; }
+interface EventCardProps {
+  event: Event;
+}
 
-export default function EventCard({ event, index }: Props) {
+export default function EventCard({ event }: EventCardProps) {
+  const badgeVariant = 
+    event.category === 'Religious' ? 'religious' :
+    event.category === 'Social' ? 'social' : 'cultural';
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ delay: index * 0.08, duration: 0.5 }}
-      className="group bg-white rounded-2xl border border-gray-100 overflow-hidden hover:border-maroon-100 hover:shadow-[0_8px_30px_rgba(0,0,0,0.06)] transition-all duration-300"
+      viewport={{ once: true, margin: '-50px' }}
+      transition={{ duration: 0.5 }}
+      className="card-surface group flex flex-col h-full overflow-hidden"
     >
-      <div className="relative h-48 overflow-hidden">
-        <img
-          src={event.image}
-          alt={event.title}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+      <div className="relative aspect-[4/3] overflow-hidden">
+        <img 
+          src={event.image} 
+          alt={event.title} 
+          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
-        <div className="absolute top-3 left-3 flex gap-2">
-          <Badge variant={
-            event.category === 'Religious' ? 'religious' :
-            event.category === 'Social' ? 'social' : 'cultural'
-          }>
+        <div className="absolute inset-0 bg-gradient-to-t from-charcoal-950/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        
+        <div className="absolute top-4 left-4 flex flex-col gap-2 items-start">
+          <Badge variant={badgeVariant} className="shadow-sm">
             {event.category}
           </Badge>
           {event.upcoming && (
-            <Badge variant="default" className="bg-green-600 text-white border-0">
+            <Badge variant="upcoming" className="animate-pulse-soft shadow-sm">
               Upcoming
             </Badge>
           )}
         </div>
       </div>
-      <div className="p-5">
-        <h3 className="font-bold text-ink text-base leading-snug mb-3">{event.title}</h3>
-        <div className="space-y-1.5 mb-3">
-          <div className="flex items-center gap-2 text-xs text-gray-400">
-            <Calendar className="w-3.5 h-3.5" /><span>{event.date}</span>
+      
+      <div className="p-6 flex flex-col flex-grow">
+        <h3 className="font-heading text-xl font-semibold text-charcoal-900 mb-4 line-clamp-2">
+          {event.title}
+        </h3>
+        
+        <div className="flex flex-col gap-2 mb-4 text-sm text-charcoal-600">
+          <div className="flex items-center gap-2">
+            <CalendarDays className="w-4 h-4 text-gold-500" />
+            <span>{event.date}</span>
           </div>
           {event.time && (
-            <div className="flex items-center gap-2 text-xs text-gray-400">
-              <Clock className="w-3.5 h-3.5" /><span>{event.time}</span>
+            <div className="flex items-center gap-2">
+              <Clock className="w-4 h-4 text-gold-500" />
+              <span>{event.time}</span>
             </div>
           )}
-          <div className="flex items-center gap-2 text-xs text-gray-400">
-            <MapPin className="w-3.5 h-3.5" /><span>{event.venue}</span>
+          <div className="flex items-center gap-2">
+            <MapPin className="w-4 h-4 text-gold-500 shrink-0" />
+            <span className="line-clamp-1">{event.venue}</span>
           </div>
         </div>
-        <p className="text-xs text-gray-500 leading-relaxed line-clamp-2">{event.description}</p>
+        
+        <div className="mt-auto pt-4 border-t border-cream-200">
+          <p className="text-sm text-charcoal-500 line-clamp-2">
+            {event.description}
+          </p>
+        </div>
       </div>
     </motion.div>
   );

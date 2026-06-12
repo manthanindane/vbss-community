@@ -1,47 +1,91 @@
-import { Routes, Route, useLocation } from "react-router-dom";
-import { AnimatePresence } from "framer-motion";
-import { useEffect } from "react";
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
-import BackToTop from "@/components/shared/BackToTop";
-import Home from "@/pages/Home";
-import About from "@/pages/About";
-import Events from "@/pages/Events";
-import Gallery from "@/pages/Gallery";
-import Committee from "@/pages/Committee";
-import Sandesh from "@/pages/Sandesh";
-import Contact from "@/pages/Contact";
+import { lazy, Suspense, useEffect } from 'react';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { AnimatePresence } from 'framer-motion';
+import Navbar from '@/components/layout/Navbar';
+import Footer from '@/components/layout/Footer';
+import BackToTop from '@/components/shared/BackToTop';
 
+// Lazy load all pages for better performance
+const Home = lazy(() => import('./pages/Home'));
+const About = lazy(() => import('./pages/About'));
+const Events = lazy(() => import('./pages/Events'));
+const Gallery = lazy(() => import('./pages/Gallery'));
+const Committee = lazy(() => import('./pages/Committee'));
+const Sandesh = lazy(() => import('./pages/Sandesh'));
+const Contact = lazy(() => import('./pages/Contact'));
+const NotFound = lazy(() => import('./pages/NotFound'));
+
+// Component to scroll to top on route change
 function ScrollToTop() {
   const { pathname } = useLocation();
+
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'instant', // instant scroll for route changes
+    });
   }, [pathname]);
+
   return null;
 }
 
-export default function App() {
-  const location = useLocation();
-
+// Global loading fallback
+function LoadingFallback() {
   return (
-    <div className="flex min-h-screen flex-col">
-      <ScrollToTop />
-      <Navbar />
-      <main className="flex-1">
-        <AnimatePresence mode="wait">
-          <Routes location={location} key={location.pathname}>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/events" element={<Events />} />
-            <Route path="/gallery" element={<Gallery />} />
-            <Route path="/committee" element={<Committee />} />
-            <Route path="/sandesh" element={<Sandesh />} />
-            <Route path="/contact" element={<Contact />} />
-          </Routes>
-        </AnimatePresence>
-      </main>
-      <Footer />
-      <BackToTop />
+    <div className="min-h-screen flex items-center justify-center bg-cream-50">
+      <div className="flex flex-col items-center gap-4">
+        <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-maroon-700 to-maroon-900 flex items-center justify-center animate-pulse">
+          <span className="font-hindi text-2xl text-gold-300">व</span>
+        </div>
+        <div className="flex gap-1.5">
+          <span className="w-2.5 h-2.5 rounded-full bg-maroon-300 animate-bounce" style={{ animationDelay: '0ms' }}></span>
+          <span className="w-2.5 h-2.5 rounded-full bg-maroon-400 animate-bounce" style={{ animationDelay: '150ms' }}></span>
+          <span className="w-2.5 h-2.5 rounded-full bg-maroon-500 animate-bounce" style={{ animationDelay: '300ms' }}></span>
+        </div>
+      </div>
     </div>
   );
 }
+
+// Wrapper for AnimatePresence
+function AnimatedRoutes() {
+  const location = useLocation();
+  
+  return (
+    <AnimatePresence mode="wait">
+      <Routes location={location} key={location.pathname}>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/events" element={<Events />} />
+        <Route path="/gallery" element={<Gallery />} />
+        <Route path="/committee" element={<Committee />} />
+        <Route path="/sandesh" element={<Sandesh />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </AnimatePresence>
+  );
+}
+
+function App() {
+  return (
+    <BrowserRouter>
+      <ScrollToTop />
+      <div className="min-h-screen flex flex-col font-sans text-charcoal-900 bg-cream-50 selection:bg-maroon-200 selection:text-maroon-900">
+        <Navbar />
+        
+        <main className="flex-grow flex flex-col">
+          <Suspense fallback={<LoadingFallback />}>
+            <AnimatedRoutes />
+          </Suspense>
+        </main>
+        
+        <Footer />
+        <BackToTop />
+      </div>
+    </BrowserRouter>
+  );
+}
+
+export default App;

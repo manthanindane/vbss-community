@@ -2,133 +2,284 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ═══════════════════════════════════════════════════
+   VBSS Community — Design System
+   Heritage Elegance: Deep Maroon + Warm Gold
+   ═══════════════════════════════════════════════════ */
+
+/* ── CSS Custom Properties ────────────────────────── */
 @layer base {
   :root {
-    --background: 60 10% 98%;
-    --foreground: 240 30% 14%;
-    --card: 60 10% 98%;
-    --card-foreground: 240 30% 14%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 240 30% 14%;
-    --primary: 161 47% 20%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 60 8% 94%;
-    --secondary-foreground: 240 30% 14%;
-    --muted: 60 6% 93%;
-    --muted-foreground: 240 5% 45%;
-    --accent: 38 90% 50%;
-    --accent-foreground: 240 30% 14%;
-    --destructive: 0 72% 51%;
+    --background:          40 33% 97%;
+    --foreground:          240 10% 12%;
+    --card:                0 0% 100%;
+    --card-foreground:     240 10% 12%;
+    --popover:             0 0% 100%;
+    --popover-foreground:  240 10% 12%;
+    --primary:             0 68% 36%;
+    --primary-foreground:  0 0% 100%;
+    --secondary:           40 60% 47%;
+    --secondary-foreground: 0 0% 100%;
+    --muted:               40 20% 93%;
+    --muted-foreground:    240 5% 46%;
+    --accent:              40 30% 94%;
+    --accent-foreground:   240 10% 12%;
+    --destructive:         0 84% 60%;
     --destructive-foreground: 0 0% 100%;
-    --border: 60 8% 88%;
-    --input: 60 8% 88%;
-    --ring: 161 47% 20%;
-    --radius: 0.625rem;
+    --border:              40 15% 88%;
+    --input:               40 15% 88%;
+    --ring:                0 68% 36%;
+    --radius:              0.75rem;
   }
-}
 
-@layer base {
-  * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
+  /* ── Reset & Base ─────────────────────────────── */
+  *,
+  *::before,
+  *::after {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
 
   body {
-    background-color: #FAFAF7;
-    color: #1A1A2E;
-    font-family: 'Satoshi', 'Plus Jakarta Sans', system-ui, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    line-height: 1.6;
+    @apply bg-background text-foreground font-sans;
+    font-feature-settings: 'cv11', 'ss01';
+    line-height: 1.7;
   }
 
-  h1, h2, h3, h4 {
-    font-family: 'Plus Jakarta Sans', 'Satoshi', system-ui, sans-serif;
-    font-weight: 700;
-    line-height: 1.15;
-    letter-spacing: -0.025em;
-    color: #1A1A2E;
+  /* Selection colours */
+  ::selection {
+    @apply bg-maroon-100 text-maroon-900;
+  }
+
+  /* Skip-to-content (accessibility) */
+  .skip-to-content {
+    @apply absolute -top-12 left-4 z-[100] rounded-md bg-maroon-700 px-4 py-2 text-white font-heading text-sm transition-all focus:top-4;
+  }
+
+  /* Focus visible — accessible keyboard focus */
+  *:focus-visible {
+    @apply outline-2 outline-offset-2 outline-gold-500;
+  }
+
+  /* ── Typography base ──────────────────────────── */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display font-bold leading-tight tracking-tight text-charcoal-900;
+  }
+
+  h1 { @apply text-4xl sm:text-5xl lg:text-6xl; letter-spacing: -0.03em; }
+  h2 { @apply text-3xl sm:text-4xl lg:text-5xl; letter-spacing: -0.025em; }
+  h3 { @apply text-2xl sm:text-3xl; letter-spacing: -0.02em; }
+  h4 { @apply text-xl sm:text-2xl; }
+
+  /* Smooth image rendering */
+  img {
+    @apply max-w-full h-auto;
+    image-rendering: -webkit-optimize-contrast;
   }
 }
 
-@layer utilities {
-  /* ── Layout ─────────────────────────────── */
-  .section-padding  { @apply py-16 lg:py-24; }
-  .container-custom { @apply max-w-6xl mx-auto px-5 sm:px-8 lg:px-12; }
+/* ── Component Utilities ────────────────────────────── */
+@layer components {
 
-  /* ── Label — small uppercase tracking tag ─ */
-  .label {
-    font-family: 'Satoshi', system-ui, sans-serif;
-    font-size: 0.68rem;
-    font-weight: 700;
-    letter-spacing: 0.13em;
-    text-transform: uppercase;
-    color: #1B4D3E;
+  /* Section spacing */
+  .section-padding {
+    @apply py-20 lg:py-28;
   }
 
-  /* ── Warm divider ──────────────────────── */
-  .divider {
-    height: 1px;
-    background: linear-gradient(90deg, #E2E2DC 0%, transparent 100%);
+  .section-padding-sm {
+    @apply py-14 lg:py-20;
   }
 
-  /* ── Card — soft bordered surface ─────── */
+  /* Container */
+  .container-main {
+    @apply max-w-7xl mx-auto px-5 sm:px-8 lg:px-12;
+  }
+
+  .container-narrow {
+    @apply max-w-5xl mx-auto px-5 sm:px-8 lg:px-12;
+  }
+
+  .container-wide {
+    @apply max-w-8xl mx-auto px-5 sm:px-8 lg:px-12;
+  }
+
+  /* ── Glass Card ───────────────────────────────── */
+  .glass-card {
+    @apply bg-white/70 backdrop-blur-xl border border-white/30 shadow-soft;
+  }
+
+  .glass-card-dark {
+    @apply bg-charcoal-900/60 backdrop-blur-xl border border-white/10;
+  }
+
+  /* ── Card surface ─────────────────────────────── */
   .card-surface {
-    background: #FFFFFF;
-    border: 1px solid #E8E8E2;
-    border-radius: 14px;
-    transition: box-shadow 0.22s ease, transform 0.22s ease, border-color 0.22s ease;
+    @apply bg-white rounded-2xl border border-cream-300/60 shadow-soft
+           transition-all duration-300 ease-out;
   }
+
   .card-surface:hover {
-    border-color: #B3D9C7;
-    box-shadow: 0 6px 28px rgba(27, 77, 62, 0.08);
-    transform: translateY(-2px);
+    @apply shadow-soft-lg border-gold-200/60 -translate-y-1;
   }
 
-  /* ── Accent dot ─────────────────────────── */
-  .accent-dot {
-    display: inline-block;
-    width: 6px;
-    height: 6px;
-    border-radius: 9999px;
-    background-color: #D97706;
-    flex-shrink: 0;
+  /* ── Gradient text ────────────────────────────── */
+  .gradient-text {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, #9b1c1c 0%, #d49a17 100%);
   }
 
-  /* ── Teal pill badge ────────────────────── */
-  .badge-teal {
-    display: inline-flex;
-    align-items: center;
-    padding: 3px 10px;
-    border-radius: 9999px;
-    font-size: 0.68rem;
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    background-color: #DCF0E7;
-    color: #1B4D3E;
-    font-family: 'Satoshi', system-ui, sans-serif;
+  .gradient-text-gold {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, #d49a17 0%, #f6b935 100%);
   }
 
-  /* ── Amber pill badge ───────────────────── */
-  .badge-amber {
-    display: inline-flex;
-    align-items: center;
-    padding: 3px 10px;
-    border-radius: 9999px;
-    font-size: 0.68rem;
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    background-color: #FEF3C7;
-    color: #92400E;
-    font-family: 'Satoshi', system-ui, sans-serif;
+  .gradient-text-light {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
   }
 
-  /* ── Section number ─────────────────────── */
+  /* ── Gradient divider ─────────────────────────── */
+  .divider-gradient {
+    @apply h-[2px] rounded-full;
+    background: linear-gradient(90deg,
+      transparent 0%,
+      #d49a17 20%,
+      #9b1c1c 50%,
+      #d49a17 80%,
+      transparent 100%
+    );
+  }
+
+  .divider-gradient-sm {
+    @apply h-[2px] w-16 rounded-full;
+    background: linear-gradient(90deg, #d49a17, #9b1c1c);
+  }
+
+  /* ── Mandala Background ───────────────────────── */
+  .mandala-bg {
+    position: relative;
+  }
+
+  .mandala-bg::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'%3E%3Ccircle cx='200' cy='200' r='180' fill='none' stroke='%23ffffff' stroke-width='0.5' opacity='0.06'/%3E%3Ccircle cx='200' cy='200' r='140' fill='none' stroke='%23ffffff' stroke-width='0.5' opacity='0.05'/%3E%3Ccircle cx='200' cy='200' r='100' fill='none' stroke='%23ffffff' stroke-width='0.5' opacity='0.04'/%3E%3Ccircle cx='200' cy='200' r='60' fill='none' stroke='%23ffffff' stroke-width='0.5' opacity='0.03'/%3E%3Cpath d='M200 20 L200 380 M20 200 L380 200' stroke='%23ffffff' stroke-width='0.3' opacity='0.04'/%3E%3Cpath d='M73 73 L327 327 M327 73 L73 327' stroke='%23ffffff' stroke-width='0.3' opacity='0.03'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 300px 300px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .mandala-bg > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── Label tag ────────────────────────────────── */
+  .label-tag {
+    @apply inline-block text-xs font-heading font-semibold uppercase tracking-[0.15em] text-gold-600;
+  }
+
+  .label-tag-light {
+    @apply inline-block text-xs font-heading font-semibold uppercase tracking-[0.15em] text-gold-300;
+  }
+
+  /* ── Section number ───────────────────────────── */
   .section-num {
-    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
-    font-weight: 700;
-    font-size: 0.68rem;
-    letter-spacing: 0.12em;
-    color: #B3D9C7;
-    text-transform: uppercase;
+    @apply font-heading text-sm font-bold text-gold-500/60 tracking-widest;
+  }
+
+  /* ── Accent dot ───────────────────────────────── */
+  .accent-dot {
+    @apply inline-block w-1.5 h-1.5 rounded-full bg-gold-500;
+  }
+
+  /* ── Badge variants ───────────────────────────── */
+  .badge-religious {
+    @apply bg-maroon-50 text-maroon-700 border-maroon-200;
+  }
+  .badge-social {
+    @apply bg-gold-50 text-gold-700 border-gold-200;
+  }
+  .badge-cultural {
+    @apply bg-terracotta-50 text-terracotta-700 border-terracotta-200;
+  }
+  .badge-upcoming {
+    @apply bg-sage-50 text-sage-700 border-sage-200;
+  }
+
+  /* ── Button glow ──────────────────────────────── */
+  .btn-glow {
+    @apply relative overflow-hidden;
+  }
+  .btn-glow::after {
+    content: '';
+    @apply absolute inset-0 rounded-full opacity-0 transition-opacity duration-300;
+    background: radial-gradient(circle at center, rgba(212,154,23,0.3) 0%, transparent 70%);
+  }
+  .btn-glow:hover::after {
+    @apply opacity-100;
+  }
+
+  /* ── Image shimmer loading ────────────────────── */
+  .shimmer {
+    @apply relative overflow-hidden bg-cream-200;
+  }
+  .shimmer::after {
+    content: '';
+    @apply absolute inset-0 animate-shimmer;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    background-size: 200% 100%;
+  }
+}
+
+/* ── Utility Overrides ──────────────────────────────── */
+@layer utilities {
+
+  /* Reduce motion */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  /* Line clamp utilities */
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* Scrollbar styling */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    @apply bg-cream-100;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-maroon-200 rounded-full;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    @apply bg-maroon-300;
   }
 }
