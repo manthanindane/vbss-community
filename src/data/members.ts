@@ -10,11 +10,11 @@ export interface Member {
 export const members: Member[] = [
   {
     id: '1',
-    name: 'Shri Rajendra Kumar Suri',
+    name: '[VBSS President Name]',
     designation: 'President',
     image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face',
-    phone: '+91 98XXX XXXXX',
-    message: 'Our samaj has always stood as a pillar of strength for the Suri Vaishya community. My commitment, and that of every committee member, is to advance education, uplift the underprivileged, and keep our cultural identity alive for generations to come. Together we shall continue to rise — Jai Vaishya Samaj.',
+    phone: '+91 99670 28601',
+    message: 'Our Samaj has always stood as a pillar of strength for the Suri Vaishya community. My commitment, and that of every committee member, is to advance education, uplift the underprivileged, and keep our cultural identity alive for generations to come. Together we shall continue to rise.',
   },
   {
     id: '2',

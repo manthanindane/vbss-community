@@ -18,11 +18,11 @@ export const sandeshEntries: SandeshEntry[] = [
   },
   {
     id: '2',
-    title: 'Mahavir Jayanti Special Edition 2025',
-    date: 'April 14, 2025',
+    title: 'Holi Milan Samaroh Special Edition 2026',
+    date: 'March 15, 2026',
     author: 'Editorial Committee, VBSS',
     category: 'Special Edition',
-    excerpt: 'Celebrating the birth anniversary of Bhagwan Mahavir with reflections on the values of non-violence, truth and compassion that form the foundation of our community life and organizational ethos.',
+    excerpt: 'Celebrating the festival of colors with the entire community. Includes reflections on our shared cultural heritage, highlights from the Mumbai Holi Milan gathering, and updates on our cultural preservation initiatives.',
   },
   {
     id: '3',

@@ -180,16 +180,42 @@ export default function Contact() {
               
               <ul className="space-y-8 mb-10">
                 <li className="flex gap-4 items-start">
-                  <div className="w-12 h-12 rounded-xl bg-gold-100 flex items-center justify-center shrink-0 text-gold-600">
+                  <div className="w-12 h-12 rounded-xl bg-gold-100 flex items-center justify-center shrink-0 text-gold-600 mt-1">
                     <MapPin className="w-6 h-6" />
                   </div>
                   <div>
-                    <h4 className="font-heading font-semibold text-charcoal-900 mb-1">Our Address</h4>
-                    <p className="text-charcoal-600 text-sm leading-relaxed">
-                      Samaj Bhavan, 3rd Floor,<br />
-                      Dadar West, Mumbai – 400028<br />
-                      Maharashtra, India
-                    </p>
+                    <h4 className="font-heading font-semibold text-charcoal-900 mb-2">Our Locations</h4>
+                    
+                    <div className="mb-4">
+                      <strong className="text-sm text-charcoal-900 block mb-1">Head Office (Mumbai)</strong>
+                      <p className="text-charcoal-600 text-sm leading-relaxed">
+                        Gala No. 6, Tukaram Bhandari Compound,<br />
+                        Behind New India Bank, M.G. Road,<br />
+                        Charkop Village, Kandivali (West),<br />
+                        Mumbai – 400067
+                      </p>
+                    </div>
+
+                    <div className="mb-4">
+                      <strong className="text-sm text-charcoal-900 block mb-1">Branch Office: Delhi</strong>
+                      <p className="text-charcoal-600 text-sm leading-relaxed">
+                        CA. Arvind Kumar<br />
+                        1/17, 3rd floor, Paras Chambers,<br />
+                        Lalita Park, Laxmi Nagar, Vikas Marg,<br />
+                        Delhi - 110092<br />
+                        (Near Laxmi Nagar metro station)
+                      </p>
+                    </div>
+
+                    <div>
+                      <strong className="text-sm text-charcoal-900 block mb-1">Patna Office</strong>
+                      <p className="text-charcoal-600 text-sm leading-relaxed">
+                        Adv. Sushil Kumar,<br />
+                        Flat No. 301, Mahil Prem Kunj,<br />
+                        Sri Krishna Puri, Boring Road,<br />
+                        Patna - 800001 (Bihar)
+                      </p>
+                    </div>
                   </div>
                 </li>
                 
@@ -199,9 +225,11 @@ export default function Contact() {
                   </div>
                   <div>
                     <h4 className="font-heading font-semibold text-charcoal-900 mb-1">Phone Number</h4>
-                    <p className="text-charcoal-600 text-sm">
-                      +91 22 2430 XXXX<br />
-                      +91 98XXX XXXXX (Secretary)
+                    <p className="text-charcoal-600 text-sm leading-relaxed">
+                      <strong>Mumbai:</strong> +91 9967028601<br />
+                      <strong>Mumbai:</strong> +91 8652414344<br />
+                      <strong>Mumbai:</strong> +91 8779435889<br />
+                      <strong>Delhi:</strong> +91 9811994284 / 9311994285
                     </p>
                   </div>
                 </li>

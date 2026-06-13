@@ -1,0 +1,188 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  directUrl = env("DIRECT_DATABASE_URL")
+}
+
+model Member {
+  id                String   @id @default(cuid())
+
+  memberId          String?  @unique
+
+  firstName         String
+  middleName        String?
+  lastName          String
+
+  gender            String?
+
+  email             String?  @unique
+
+  phoneNumber       String
+
+  whatsappNumber    String?
+
+  sameAsPhone       Boolean  @default(true)
+
+  dateOfBirth       DateTime?
+
+  profileImage      String?
+
+  occupation        String?
+
+  addressLine1      String?
+  addressLine2      String?
+
+  city              String?
+  district          String?
+  state             String?
+  pincode           String?
+
+  membershipTypeId  String?
+  membershipType    MembershipType? @relation(fields:[membershipTypeId], references:[id])
+
+  isFounderMember   Boolean @default(false)
+
+  joinedAt          DateTime?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  roles             MemberRole[]
+  familyMembers     FamilyMember[]
+  applications      MembershipApplication[]
+  advertisements    Advertisement[]
+}
+
+model Role {
+  id          String @id @default(cuid())
+
+  name        String @unique
+  description String?
+
+  members     MemberRole[]
+}
+
+model MemberRole {
+  id        String @id @default(cuid())
+
+  memberId  String
+  roleId    String
+
+  startDate DateTime?
+  endDate   DateTime?
+
+  isActive  Boolean @default(true)
+
+  member    Member @relation(fields:[memberId], references:[id])
+  role      Role   @relation(fields:[roleId], references:[id])
+}
+
+model FamilyMember {
+  id            String @id @default(cuid())
+
+  memberId      String
+
+  fullName      String
+
+  relation      String
+
+  phoneNumber   String?
+
+  dateOfBirth   DateTime?
+
+  member        Member @relation(fields:[memberId], references:[id])
+}
+
+model MembershipType {
+  id          String @id @default(cuid())
+
+  name        String
+
+  amount      Decimal
+
+  duration    Int?
+
+  members     Member[]
+}
+
+model MembershipApplication {
+  id              String @id @default(cuid())
+
+  memberId        String?
+
+  fullName        String
+
+  email           String?
+
+  phoneNumber     String
+
+  status          String // "PENDING", "APPROVED", "REJECTED"
+
+  paymentStatus   String // "UNPAID", "PAID"
+
+  razorpayOrderId String?
+
+  razorpayPaymentId String?
+
+  createdAt       DateTime @default(now())
+
+  member          Member? @relation(fields:[memberId], references:[id])
+}
+
+model Advertisement {
+  id             String @id @default(cuid())
+
+  businessName   String
+
+  contactPerson  String
+
+  phoneNumber    String
+
+  email          String?
+
+  bannerUrl      String?
+
+  websiteUrl     String?
+
+  startDate      DateTime
+  endDate        DateTime
+
+  isApproved     Boolean @default(false)
+
+  memberId       String?
+
+  member         Member? @relation(fields:[memberId], references:[id])
+}
+
+model Event {
+  id            String @id @default(cuid())
+
+  title         String
+  titleHindi    String?
+
+  description   String
+  descriptionHindi String?
+
+  location      String?
+
+  eventDate     DateTime
+
+  coverImage    String?
+
+  createdAt     DateTime @default(now())
+}
+
+model GalleryImage {
+  id            String @id @default(cuid())
+
+  imageUrl      String
+
+  title         String?
+
+  category      String?
+
+  uploadedAt    DateTime @default(now())
+}

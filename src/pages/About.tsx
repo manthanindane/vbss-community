@@ -1,42 +1,67 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Shield, AlertTriangle, Target, Eye, Heart, Scale, BookOpen, Users } from 'lucide-react';
+import { BookOpen, Users, Heart, Target, Flag, Shield, Eye, Scale, AlertTriangle } from 'lucide-react';
 import PageTransition from '@/components/shared/PageTransition';
 import PageHero from '@/components/layout/PageHero';
 import SectionHeading from '@/components/shared/SectionHeading';
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function About() {
+  const { t } = useLanguage();
   const timelineEvents = [
     { year: '2012', title: 'Foundation', desc: 'VBSS formally registered in Mumbai' },
     { year: '2013', title: 'First Annual Gathering', desc: 'Over 200 families united for the first event' },
-    { year: '2015', title: 'Women Wing Launched', desc: 'Focusing on empowerment and skill development' },
-    { year: '2017', title: 'Youth Wing Established', desc: 'Connecting the next generation with our roots' },
-    { year: '2019', title: 'Health Initiative', desc: 'First free mega medical camp organized' },
-    { year: '2021', title: 'Community Growth', desc: 'Crossed the 500 active member milestone' },
-    { year: '2024', title: 'Expansion', desc: 'Membership crossed 700 families across 4 states' },
-    { year: '2025', title: 'Education Focus', desc: 'Record 42 scholarships awarded in a single year' },
+    { year: '2015', title: 'Scholarship Launch', desc: 'First educational fund established for needy students' },
+    { year: '2018', title: 'Health Initiative', desc: 'Launch of free annual medical camps' },
+    { year: '2022', title: '10th Anniversary', desc: 'Milestone celebration with 1000+ attendees' },
+    { year: '2025', title: 'Digital Transformation', desc: 'Launch of national member directory & portal' }
   ];
 
   return (
     <PageTransition>
       <PageHero 
-        title="About Our Samaj" 
-        hindiTitle="हमारे बारे में"
-        subtitle="Learn about our history, mission, and the values that unite us"
+        title={t("About Our Samaj", "हमारे समाज के बारे में")}
+        hindiTitle="हमारा परिचय"
+        subtitle={t("Preserving heritage and building a stronger community for generations to come.", "आने वाली पीढ़ियों के लिए विरासत का संरक्षण और एक मजबूत समुदाय का निर्माण।")}
       />
 
       <div id="main-content">
-        {/* History Section */}
+        {/* Story Section */}
         <section className="section-padding">
           <div className="container-main">
-            <SectionHeading title="Our Story" hindiTitle="हमारी कहानी" />
-            
-            <div className="grid lg:grid-cols-2 gap-12 items-center mb-12">
+            <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center mb-12">
               <motion.div
-                initial={{ opacity: 0, x: -20 }}
+                initial={{ opacity: 0, x: -30 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
+              >
+                <SectionHeading 
+                  title={t("Who We Are", "हम कौन हैं")}
+                  hindiTitle="वैश्य भारतीय सूड़ी समाज" 
+                  align="left" 
+                />
+                <div className="prose prose-lg prose-headings:font-display prose-a:text-gold-600 max-w-none text-charcoal-600 mt-6 space-y-6">
+                  <p className="text-xl font-medium text-charcoal-800 leading-relaxed">
+                    {t(
+                      "Vaishya Bharatiya Suri Samaj is a national community organization dedicated to connecting, supporting, and empowering members of the Suri community across India.",
+                      "वैश्य भारतीय सूड़ी समाज भारत भर में सूड़ी समाज के लोगों को एकजुट करने, सहयोग देने और समाज के विकास के लिए कार्यरत एक राष्ट्रीय संगठन है।"
+                    )}
+                  </p>
+                  <p>
+                    {t(
+                      "The organization promotes social welfare, cultural preservation, education, community networking, and collective development.",
+                      "संस्था सामाजिक कल्याण, शिक्षा, सांस्कृतिक संरक्षण, सामुदायिक सहयोग और समाज के समग्र विकास के लिए कार्य करती है।"
+                    )}
+                  </p>
+                </div>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.2 }}
                 className="relative rounded-2xl overflow-hidden shadow-soft-xl"
               >
                 <img 
@@ -45,38 +70,26 @@ export default function About() {
                   className="w-full h-full object-cover"
                 />
               </motion.div>
-              
-              <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-              >
-                <div className="prose prose-lg prose-charcoal max-w-none">
-                  <p className="mb-4">
-                    The Vaishya Bhartiya Suri Samaj (VBSS) represents the vibrant and enterprising Suri Vaishya merchant community, with roots primarily in Bihar, Jharkhand, Odisha, and West Bengal.
-                  </p>
-                  <p className="mb-4">
-                    Founded in 2012 by a group of visionary community leaders, VBSS was established with a singular goal: to unite our scattered families under one umbrella, providing a platform for mutual support, cultural preservation, and collective progress.
-                  </p>
-                  <p className="mb-8">
-                    Historically known for our strong business acumen and ethical trading practices, our community now spans diverse professions. VBSS ensures that while we march forward, we remain deeply connected to the values of our ancestors.
-                  </p>
-                </div>
-                
-                <div className="card-surface p-6 flex flex-col sm:flex-row items-center sm:items-start gap-4 bg-cream-50/50">
-                  <div className="w-12 h-12 rounded-full bg-gold-100 flex items-center justify-center shrink-0">
-                    <Shield className="w-6 h-6 text-gold-600" />
-                  </div>
-                  <div>
-                    <h4 className="font-heading font-semibold text-charcoal-900 mb-2 text-center sm:text-left">Registered Organization</h4>
-                    <p className="text-sm text-charcoal-600 text-center sm:text-left">
-                      Officially registered under the Society Registration Act 1860 (GBBSD 2448/2012) and the Mumbai Public Trust Act 1950 (F-49747).
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
             </div>
+
+            {/* Registration Box */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="card-surface p-6 flex flex-col sm:flex-row items-center sm:items-start gap-4 bg-cream-50/50 mb-6"
+            >
+              <div className="w-12 h-12 rounded-full bg-gold-100 flex items-center justify-center shrink-0">
+                <Shield className="w-6 h-6 text-gold-600" />
+              </div>
+              <div>
+                <h4 className="font-heading font-semibold text-charcoal-900 mb-2 text-center sm:text-left">Registered Organization</h4>
+                <p className="text-sm text-charcoal-600 text-center sm:text-left">
+                  Officially registered under the Society Registration Act 1860 (GBBSD 2448/2012) and the Mumbai Public Trust Act 1950 (F-49747).
+                </p>
+              </div>
+            </motion.div>
 
             {/* EBC Advocacy */}
             <motion.div
@@ -84,7 +97,7 @@ export default function About() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
-              className="bg-gold-50 border-l-4 border-l-gold-500 p-6 rounded-r-2xl flex flex-col sm:flex-row gap-4 items-start"
+              className="bg-gold-50 border-l-4 border-l-gold-500 p-6 flex flex-col sm:flex-row gap-4 items-start"
             >
               <AlertTriangle className="w-6 h-6 text-gold-600 shrink-0 mt-1" />
               <div>
@@ -111,7 +124,7 @@ export default function About() {
                 <div className="w-16 h-16 rounded-2xl bg-maroon-50 flex items-center justify-center mb-6">
                   <Target className="w-8 h-8 text-maroon-700" />
                 </div>
-                <h3 className="font-display text-3xl font-bold text-charcoal-900 mb-4">Our Mission</h3>
+                <h3 className="font-display text-3xl font-bold text-charcoal-900 mb-4">{t('Our Mission', 'हमारा मिशन')}</h3>
                 <p className="text-lg text-charcoal-600 leading-relaxed">
                   To unite, empower, and uplift the Suri Vaishya community by providing educational support, facilitating healthcare access, promoting women's empowerment, and preserving our rich cultural heritage for future generations.
                 </p>
@@ -127,7 +140,7 @@ export default function About() {
                 <div className="w-16 h-16 rounded-2xl bg-gold-50 flex items-center justify-center mb-6">
                   <Eye className="w-8 h-8 text-gold-600" />
                 </div>
-                <h3 className="font-display text-3xl font-bold text-charcoal-900 mb-4">Our Vision</h3>
+                <h3 className="font-display text-3xl font-bold text-charcoal-900 mb-4">{t('Our Vision', 'हमारा दृष्टिकोण')}</h3>
                 <p className="text-lg text-charcoal-600 leading-relaxed">
                   To be recognized as a model community organization that successfully bridges traditional values with modern aspirations, ensuring every member of the samaj has the opportunity to thrive and succeed.
                 </p>
@@ -139,7 +152,7 @@ export default function About() {
         {/* Core Values */}
         <section className="section-padding">
           <div className="container-main">
-            <SectionHeading title="Core Values" hindiTitle="मूल्य" />
+            <SectionHeading title={t('Core Values', 'मूल मूल्य')} hindiTitle="मूल्य" />
             
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {[
@@ -173,7 +186,7 @@ export default function About() {
         {/* Timeline */}
         <section className="section-padding bg-cream-100/50">
           <div className="container-main">
-            <SectionHeading title="Our Journey" hindiTitle="हमारी यात्रा" />
+            <SectionHeading title={t('Our Journey', 'हमारी यात्रा')} hindiTitle="यात्रा" />
             
             <div className="relative max-w-4xl mx-auto mt-12">
               {/* Central Line */}
@@ -196,7 +209,7 @@ export default function About() {
                     
                     {/* Content Box */}
                     <div className={`ml-12 lg:ml-0 lg:w-1/2 ${i % 2 === 0 ? 'lg:pl-16' : 'lg:pr-16 lg:text-right'}`}>
-                      <div className="card-surface p-6 inline-block w-full">
+                      <div className="card-surface p-6 inline-block w-full text-left lg:text-inherit">
                         <span className="font-display text-3xl font-bold gradient-text block mb-2">{item.year}</span>
                         <h4 className="font-heading text-lg font-bold text-charcoal-900 mb-2">{item.title}</h4>
                         <p className="text-sm text-charcoal-600">{item.desc}</p>

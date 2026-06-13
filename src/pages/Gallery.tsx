@@ -7,12 +7,19 @@ import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
 import { galleryImages } from '@/data/gallery';
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function Gallery() {
+  const { t } = useLanguage();
   const [filter, setFilter] = useState('All');
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
 
-  const tabs = ['All', 'Events', 'Festivals', 'Gatherings'];
+  const tabs = [
+    { value: 'All', label: t('All', 'सभी') },
+    { value: 'Events', label: t('Events', 'कार्यक्रम') },
+    { value: 'Festivals', label: t('Festivals', 'त्यौहार') },
+    { value: 'Gatherings', label: t('Gatherings', 'समारोह') }
+  ];
 
   const filteredImages = galleryImages.filter((img) => {
     if (filter === 'All') return true;
@@ -46,9 +53,9 @@ export default function Gallery() {
   return (
     <PageTransition>
       <PageHero 
-        title="Community Gallery" 
+        title={t("Community Gallery", "सामुदायिक गैलरी")} 
         hindiTitle="गैलरी"
-        subtitle="Moments from our community gatherings and celebrations"
+        subtitle={t("Moments from our community gatherings and celebrations", "हमारे सामुदायिक समारोहों और उत्सवों की झलकियाँ")}
       />
 
       <div id="main-content" className="section-padding min-h-[60vh]">
@@ -58,8 +65,8 @@ export default function Gallery() {
             <Tabs defaultValue="All" onValueChange={setFilter} className="w-full sm:w-auto flex justify-center">
               <TabsList>
                 {tabs.map((tab) => (
-                  <TabsTrigger key={tab} value={tab}>
-                    {tab}
+                  <TabsTrigger key={tab.value} value={tab.value}>
+                    {tab.label}
                   </TabsTrigger>
                 ))}
               </TabsList>
@@ -144,11 +151,11 @@ export default function Gallery() {
                     {filteredImages[selectedImageIndex].alt}
                   </h3>
                   <p className="text-charcoal-400 text-sm">
-                    Image {selectedImageIndex + 1} of {filteredImages.length}
+                    {t('Image', 'छवि')} {selectedImageIndex + 1} {t('of', 'में से')} {filteredImages.length}
                   </p>
                 </div>
                 <Badge variant="secondary" className="bg-gold-500/20 text-gold-400 border-gold-500/30">
-                  {filteredImages[selectedImageIndex].category}
+                  {tabs.find(tObj => tObj.value === filteredImages[selectedImageIndex].category)?.label || filteredImages[selectedImageIndex].category}
                 </Badge>
               </div>
             </div>

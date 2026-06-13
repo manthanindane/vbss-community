@@ -6,11 +6,20 @@ import PageHero from '@/components/layout/PageHero';
 import EventCard from '@/components/shared/EventCard';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { events } from '@/data/events';
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function Events() {
+  const { t } = useLanguage();
   const [filter, setFilter] = useState('All');
 
-  const tabs = ['All', 'Upcoming', 'Past', 'Religious', 'Social', 'Cultural'];
+  const tabs = [
+    { value: 'All', label: t('All', 'सभी') }, 
+    { value: 'Upcoming', label: t('Upcoming', 'आगामी') }, 
+    { value: 'Past', label: t('Past', 'पिछले') }, 
+    { value: 'Religious', label: t('Religious', 'धार्मिक') }, 
+    { value: 'Social', label: t('Social', 'सामाजिक') }, 
+    { value: 'Cultural', label: t('Cultural', 'सांस्कृतिक') }
+  ];
 
   const filteredEvents = events.filter((event) => {
     if (filter === 'All') return true;
@@ -22,9 +31,9 @@ export default function Events() {
   return (
     <PageTransition>
       <PageHero 
-        title="Events & Celebrations" 
+        title={t("Events & Celebrations", "कार्यक्रम और समारोह")} 
         hindiTitle="कार्यक्रम"
-        subtitle="Cultural gatherings, festivals, and community welfare events"
+        subtitle={t("Cultural gatherings, festivals, and community welfare events", "सांस्कृतिक समारोह, त्योहार और सामुदायिक कल्याण कार्यक्रम")}
       />
 
       <div id="main-content" className="section-padding bg-cream-50 min-h-[60vh]">
@@ -34,8 +43,8 @@ export default function Events() {
             <Tabs defaultValue="All" onValueChange={setFilter} className="w-full sm:w-auto flex justify-center">
               <TabsList>
                 {tabs.map((tab) => (
-                  <TabsTrigger key={tab} value={tab}>
-                    {tab}
+                  <TabsTrigger key={tab.value} value={tab.value}>
+                    {tab.label}
                   </TabsTrigger>
                 ))}
               </TabsList>
@@ -70,8 +79,12 @@ export default function Events() {
                   <div className="w-20 h-20 bg-cream-200 rounded-full flex items-center justify-center mb-6">
                     <CalendarX2 className="w-10 h-10 text-charcoal-400" />
                   </div>
-                  <h3 className="font-heading text-xl font-semibold text-charcoal-900 mb-2">No events found</h3>
-                  <p className="text-charcoal-500">There are no {filter.toLowerCase()} events at the moment.</p>
+                  <h3 className="font-heading text-xl font-semibold text-charcoal-900 mb-2">
+                    {t("No events found", "कोई कार्यक्रम नहीं मिला")}
+                  </h3>
+                  <p className="text-charcoal-500">
+                    {t(`There are no ${filter.toLowerCase()} events at the moment.`, `इस समय कोई ${tabs.find(t => t.value === filter)?.label.toLowerCase()} कार्यक्रम नहीं हैं।`)}
+                  </p>
                 </motion.div>
               )}
             </AnimatePresence>

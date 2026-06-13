@@ -15,6 +15,16 @@ const Sandesh = lazy(() => import('./pages/Sandesh'));
 const Contact = lazy(() => import('./pages/Contact'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
+// New Pages
+const OfficeBearers = lazy(() => import('./pages/people/OfficeBearers'));
+const WomensCell = lazy(() => import('./pages/people/WomensCell'));
+const FounderMembers = lazy(() => import('./pages/people/FounderMembers'));
+const Directory = lazy(() => import('./pages/people/Directory'));
+const BecomeMember = lazy(() => import('./pages/BecomeMember'));
+const Advertise = lazy(() => import('./pages/Advertise'));
+
+import { LanguageProvider } from '@/context/LanguageContext';
+
 // Component to scroll to top on route change
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -62,6 +72,15 @@ function AnimatedRoutes() {
         <Route path="/committee" element={<Committee />} />
         <Route path="/sandesh" element={<Sandesh />} />
         <Route path="/contact" element={<Contact />} />
+        
+        {/* New Routes */}
+        <Route path="/people/office-bearers" element={<OfficeBearers />} />
+        <Route path="/people/womens-cell" element={<WomensCell />} />
+        <Route path="/people/founder-members" element={<FounderMembers />} />
+        <Route path="/directory" element={<Directory />} />
+        <Route path="/join" element={<BecomeMember />} />
+        <Route path="/advertise" element={<Advertise />} />
+        
         <Route path="*" element={<NotFound />} />
       </Routes>
     </AnimatePresence>
@@ -70,9 +89,10 @@ function AnimatedRoutes() {
 
 function App() {
   return (
-    <BrowserRouter>
-      <ScrollToTop />
-      <div className="min-h-screen flex flex-col font-sans text-charcoal-900 bg-cream-50 selection:bg-maroon-200 selection:text-maroon-900">
+    <LanguageProvider>
+      <BrowserRouter>
+        <ScrollToTop />
+        <div className="min-h-screen flex flex-col font-sans text-charcoal-900 bg-cream-50 selection:bg-maroon-200 selection:text-maroon-900">
         <Navbar />
         
         <main className="flex-grow flex flex-col">
@@ -84,7 +104,8 @@ function App() {
         <Footer />
         <BackToTop />
       </div>
-    </BrowserRouter>
+      </BrowserRouter>
+    </LanguageProvider>
   );
 }
 

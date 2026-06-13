@@ -3,8 +3,10 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowRight, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function HeroSection() {
+  const { t } = useLanguage();
   return (
     <section className="relative min-h-[100svh] flex items-center pt-24 pb-32 overflow-hidden bg-gradient-to-br from-maroon-900 via-maroon-800 to-charcoal-950 mandala-bg">
       <div className="container-main relative z-10 w-full">
@@ -19,7 +21,7 @@ export default function HeroSection() {
               className="mb-6"
             >
               <span className="label-tag-light border border-white/20 rounded-full px-4 py-1.5 bg-white/5 backdrop-blur-sm">
-                Since 2012 • 4 States • 700+ Families
+                {t("Since 2012 • 4 States • 700+ Families", "2012 से • 4 राज्य • 700+ परिवार")}
               </span>
             </motion.div>
 
@@ -29,8 +31,8 @@ export default function HeroSection() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="font-display text-5xl sm:text-6xl lg:text-7xl font-bold text-white leading-[1.1] mb-6"
             >
-              Preserving Heritage,<br />
-              Building <span className="gradient-text-light">Community.</span>
+              {t("Preserving Heritage,", "विरासत का संरक्षण,")}<br />
+              {t("Building", "समुदाय का निर्माण")} <span className="gradient-text-light">{t("Community.", "")}</span>
             </motion.h1>
 
             <motion.p
@@ -39,7 +41,10 @@ export default function HeroSection() {
               transition={{ duration: 0.6, delay: 0.3 }}
               className="text-lg lg:text-xl text-maroon-200 mb-10 font-medium leading-relaxed"
             >
-              Vaishya Bhartiya Suri Samaj — uniting families across Bihar, Jharkhand, Odisha and West Bengal in celebration of our rich cultural legacy and shared values.
+              {t(
+                "Vaishya Bhartiya Suri Samaj — uniting families across Bihar, Jharkhand, Odisha and West Bengal in celebration of our rich cultural legacy and shared values.",
+                "वैश्य भारतीय सूड़ी समाज — हमारी समृद्ध सांस्कृतिक विरासत और साझा मूल्यों के उत्सव में बिहार, झारखंड, ओडिशा और पश्चिम बंगाल में परिवारों को एकजुट करता है।"
+              )}
             </motion.p>
 
             <motion.div
@@ -50,13 +55,13 @@ export default function HeroSection() {
             >
               <Button size="lg" variant="secondary" className="w-full sm:w-auto" asChild>
                 <Link to="/about">
-                  Explore Our Community
+                  {t("Explore Our Community", "हमारे समुदाय के बारे में जानें")}
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Link>
               </Button>
               <Button size="lg" variant="outline" className="w-full sm:w-auto border-white/30 text-white hover:bg-white/10" asChild>
                 <Link to="/events">
-                  View Events
+                  {t("View Events", "कार्यक्रम देखें")}
                 </Link>
               </Button>
             </motion.div>
@@ -69,11 +74,11 @@ export default function HeroSection() {
             >
               <div className="glass-card-dark rounded-full px-5 py-2 flex items-center gap-3">
                 <span className="accent-dot"></span>
-                <span className="font-heading text-sm text-white font-medium">700+ Members</span>
+                <span className="font-heading text-sm text-white font-medium">{t("700+ Members", "700+ सदस्य")}</span>
               </div>
               <div className="glass-card-dark rounded-full px-5 py-2 flex items-center gap-3">
                 <span className="accent-dot"></span>
-                <span className="font-heading text-sm text-white font-medium">Est. 2012</span>
+                <span className="font-heading text-sm text-white font-medium">{t("Est. 2012", "स्थापना 2012")}</span>
               </div>
             </motion.div>
           </div>
@@ -102,7 +107,7 @@ export default function HeroSection() {
               className="row-span-1 col-span-1 rounded-2xl overflow-hidden shadow-soft-xl group relative"
             >
               <img 
-                src="https://images.unsplash.com/photo-1609766857041-ed402ea8069a?w=600&h=600&fit=crop" 
+                src="https://images.unsplash.com/photo-1553698716-17b5e1d4400e?w=800&h=400&fit=crop" 
                 alt="Cultural Ritual" 
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
